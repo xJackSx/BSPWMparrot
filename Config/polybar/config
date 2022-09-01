@@ -84,7 +84,7 @@ bspwm-focused-underline = #cc333333
 inherit = bar/top
 
 enable-ipc = true
-monitor = ${env:MONITOR:DP-2}
+monitor = ${env:MONITOR:HDMI1}
 bottom = true
 
 underline-size = ${bar/top.overline-size}
@@ -99,8 +99,8 @@ wm-restack = ${bar/top.wm-restack}
 tray-position = none
 
 # bar/module specific vars
-;bspwm-focused-overline = #cc333333
-;bspwm-focused-underline = ${colors.linecolor}
+bspwm-focused-overline = #cc333333
+bspwm-focused-underline = ${colors.linecolor}
 
 [module/github]
 type = internal/github

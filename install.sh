@@ -19,7 +19,7 @@ sudo apt update
 
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname
+sudo apt install -y kitty rofi feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname
 
 # Creando carpeta de Reposistorios
 
@@ -64,6 +64,10 @@ meson --buildtype=release . build
 ninja -C build
 sudo ninja -C build install
 
+# Eliminamos Repositorios
+
+rm -r ~/github
+
 # Instalando p10k
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
@@ -100,6 +104,7 @@ cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Desktop/Wallpaper/
 
 # Copiando mis Archivos de Configuración
 
+rm -r ~/.config/polybar
 cp -rv ~/autoBSPWMvmware/Config/* ~/.config/
 
 # Copia de configuracion de .p10k.zsh y .zshrc

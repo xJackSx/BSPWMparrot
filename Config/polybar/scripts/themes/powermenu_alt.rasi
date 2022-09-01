@@ -21,7 +21,7 @@ window {
     text-color:                     @foreground;
     border-radius:                  20px;
     height:                         27%;
-    width:                          15%;
+    width:                          12%;
     x-offset:                       -30;
     y-offset:                       70;
 }
