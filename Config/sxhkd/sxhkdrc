@@ -122,22 +122,22 @@ super + ctrl + {Left,Down,Up,Right}
 
 # Custom move/resize
 super + alt + {Left,Down,Up,Right}
-	/home/jack/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
 # Firefox
-ctrl + f
+super + shift + f
 	firejail /opt/firefox/firefox
 
 # BurpSuite
-ctrl + b
+super + shift + b
 	burpsuite
 
 # Telegram Desktop
-ctrl + t
+super + shift + t
 	telegram-desktop
 
 # Discord
-ctrl + d
+super + shift + d
 	discord
 
 #########

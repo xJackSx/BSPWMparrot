@@ -73,7 +73,7 @@ sudo dpkg -i lsd_0.22.0_amd64.deb
 
 rm lsd_0.22.0_amd64.deb
 
-cd ~/.autoBSPWMvmware
+cd ~/autoBSPWMvmware
 
 # Instalamos las HackNerdFonts
 
@@ -82,29 +82,13 @@ sudo cp -v ~/autoBSPWMvmware/fonts/HNF/* /usr/local/share/fonts/
 # Instalando Wallpaper de S4vitar
 
 mkdir ~/Desktop/Wallpaper
-cp -v /Wallpaper/* ~/Desktop/Wallpaper/
+cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Desktop/Wallpaper/
 
 # Copiando mis Archivos de Configuración
 
 cd ~/autoBSPWMvmware
 
-rm -rf ~/.config/bspwm
-cp -r bspwm/ ~/.config/
-
-rm -rf ~/.config/sxhkd
-cp -rv sxhkd/ ~/.config/
-
-rm -rf ~/.config/polybar
-cp -rv polybar/ ~/.config/
-
-rm -rf ~/.config/picom
-cp -rv picom/ ~/.config/
-
-rm -rf ~/.config/kitty
-cp -rv kittyl ~/.config/
-
-rm -rf ~/.config/bin
-cp -rv bin/ ~/.config/
+cp -rv ~/autoBSPWMvmware/Config/* ~/.config/
 
 # Script
 
@@ -114,7 +98,7 @@ sudo cp -v ~/autoBSPWMvmware/scripts/settarget /usr/local/bin/
 
 # Plugins ZSH
 
-sudo apt install -y zsh-syntax-highlighting zsh-autosuggestions
+sudo apt install -y zsh-syntax-highlighting zsh-autosuggestions 
 sudo mkdir /usr/share/zsh-sudo
 cd /usr/share/zsh-sudo
 sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
