@@ -19,7 +19,7 @@ sudo apt update
 
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty feh scrot telegram-desktop firejail zsh rofi xclip bat arandr bat locate testdisk wmname
+sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname
 
 # Creando carpeta de Reposistorios
 
@@ -64,6 +64,16 @@ meson --buildtype=release . build
 ninja -C build
 sudo ninja -C build install
 
+# Instalando p10k
+
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
+echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+
+# Instalando p10k root
+
+sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
+sudo echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+
 # Configuramos el tema Nord de Rofi:
 
 mkdir -p ~/.config/rofi/themes
@@ -77,9 +87,7 @@ wget https://github.com/Peltoche/lsd/releases/download/0.22.0/lsd_0.22.0_amd64.d
 
 sudo dpkg -i lsd_0.22.0_amd64.deb
 
-rm lsd_0.22.0_amd64.deb
-
-cd ~/autoBSPWMvmware
+rm -v lsd_0.22.0_amd64.deb
 
 # Instalamos las HackNerdFonts
 
@@ -92,8 +100,6 @@ cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Desktop/Wallpaper/
 
 # Copiando mis Archivos de Configuración
 
-cd ~/autoBSPWMvmware
-
 cp -rv ~/autoBSPWMvmware/Config/* ~/.config/
 
 # Script
@@ -104,21 +110,14 @@ sudo cp -v ~/autoBSPWMvmware/scripts/settarget /usr/local/bin/
 
 # Plugins ZSH
 
-sudo apt install -y zsh-syntax-highlighting zsh-autosuggestions 
+sudo apt install -y zsh-syntax-highlighting zsh-autosuggestions zsh-autocomplete
 sudo mkdir /usr/share/zsh-sudo
 cd /usr/share/zsh-sudo
 sudo wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/sudo/sudo.plugin.zsh
 
-# Instalacion de powerlevel10k
+# Cambiando de SHELL a zsh
 
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
-echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme'
 chsh -s /usr/bin/zsh
-
-# Instalacion de powerlevel10k para root
-
-sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/.powerlevel10k
-sudo echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme'
 sudo usermod --shell /usr/bin/zsh root
 
 # Asignamos Permisos a los Scritps
