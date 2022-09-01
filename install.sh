@@ -72,6 +72,7 @@ echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 # Instalando p10k root
 
 sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/.powerlevel10k
+echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>/root/.zshrc
 
 # Configuramos el tema Nord de Rofi:
 
@@ -106,12 +107,8 @@ cp -rv ~/autoBSPWMvmware/Config/* ~/.config/
 rm -rf ~/.zshrc
 cp -v ~/autoBSPWMvmware/.zshrc ~/.zshrc
 
-rm -rf ~/.p10k.zsh
 cp -v ~/autoBSPWMvmware/.p10k.zsh ~/.p10k.zsh
-
-sudo rm -rf /root/.p10k.zsh
-sudo cp -v ~/autoBSPWMvmware/.p10k.zsh /root/.p10k.zsh-root
-sudo mv -v /root/.p10k.zsh-root /root/.p10k.zsh
+sudo cp -v ~/autoBSPWMvmware/.p10k.zsh-root /root/.p10k.zsh
 
 # Script
 
