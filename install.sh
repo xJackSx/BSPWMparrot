@@ -1,13 +1,19 @@
 
 #Instalar Entrono BSPWM 2022
 
+sudo apt update
+
 sudo apt install -y build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev
 
 # Instalando Requerimientos para la polybar
 
 sudo apt install -y build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev
 
-#Actualizando Repositorios
+# Dependencias de Picom
+
+sudo apt install -y libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson
+
+# Actualizando Repositorios
 
 sudo apt update
 
@@ -25,7 +31,7 @@ cd ~/github
 git clone https://github.com/baskerville/bspwm.git
 git clone https://github.com/baskerville/sxhkd.git
 git clone --recursive https://github.com/polybar/polybar
-git clone https://github.com/ibhagwan/picom.git
+git clone https://github.com/yshui/picom.git
 
 # Instalando BSPWM
 
@@ -33,7 +39,7 @@ cd ~/github/bspwn
 make
 sudo make install
 
-sudo apt install bspwm
+sudo apt -y install bspwm
 
 # Instalando sxhkd
 
@@ -119,7 +125,7 @@ sudo usermod --shell /usr/bin/zsh root
 
 chmod +x ~/.config/bspwm/bspwmrc
 chmod +x ~/.config/bspwm/scripts/bspwm_resize
-chmod +x ~/.config/bin/ethernet_status.s
+chmod +x ~/.config/bin/ethernet_status.sh
 chmod +x ~/.config/bin/htb_status.sh
 chmod +x ~/.config/bin/htb_target.sh
 chmod +x ~/.config/polybar/launch.sh
