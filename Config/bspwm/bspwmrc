@@ -1,6 +1,7 @@
 #! /bin/sh
 
 wmname LG3D &
+
 pgrep -x sxhkd > /dev/null || sxhkd &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
@@ -31,8 +32,8 @@ feh --bg-fill ~/Desktop/Wallpaper/s4vitar.jpg
 bspc config focus_follows_pointer true
 
 # PICOM
-picom &
-#picom --experimental-backends &
+#picom &
+picom --experimental-backends &
 bspc config border_width 0
 
 xsetroot -cursor_name left_ptr &
