@@ -83,11 +83,7 @@ cp ~/autoBSPWMvmware/rofi/nord.rasi ~/.config/rofi/themes/
 
 # Instando lsd
 
-wget https://github.com/Peltoche/lsd/releases/download/0.22.0/lsd_0.22.0_amd64.deb
-
-sudo dpkg -i lsd_0.22.0_amd64.deb
-
-rm -v lsd_0.22.0_amd64.deb
+sudo dpkg -i ~/autoBSPWMvmware/lsd.deb
 
 # Instalamos las HackNerdFonts
 
@@ -102,7 +98,7 @@ sudo cp -v ~/autoBSPWMvmware/Config/polybar/fonts/* /usr/share/fonts/truetype/
 mkdir ~/Desktop/Wallpaper
 cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Desktop/Wallpaper/
 
-# Copiando mis Archivos de Configuración
+# Copiando Archivos de Configuración
 
 rm -r ~/.config/polybar
 cp -rv ~/autoBSPWMvmware/Config/* ~/.config/
