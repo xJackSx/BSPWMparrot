@@ -68,7 +68,7 @@ cd ~/autoBSPWMvmware
 
 # Eliminamos Repositorios
 
-rm -r ~/github -y
+rm -rv ~/github/
 
 # Instalando p10k
 
@@ -155,3 +155,7 @@ sudo chmod +x /usr/local/bin/wichSystem.py
 # Configuramos el Tema de Rofi
 
 rofi-theme-selector
+
+# Removiendo Repositorio
+
+rm -r -fv ~/autoBSPWMvmware
