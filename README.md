@@ -1,5 +1,12 @@
 # autoBSPWMvmware
 
+0.- Uso del Scrip
+
+git clone https://github.com/xJackSx/autoBSPWMvmware.git
+cd autoBSPWMvmware
+chmod +x install.sh
+./install.sh
+
 Esta probada tanto en ParrotOS como en Kali-Linux
 y esta pensada en correr en maquinas virtuales de VMware
 
@@ -15,6 +22,8 @@ Para los que lo instalaran en Kali es necesario modificar el scrip de ethernet_s
 el scrip esta alojado en la siguiente ruta:
 
 ~/.config/bin/ethernet_status.sh
+
+con el comando "ifconfig" puedes saber la interfaz de red que tienes asignada
 
 2.- PICOM
 
