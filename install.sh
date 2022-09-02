@@ -19,7 +19,7 @@ sudo apt update
 
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname acpi
+sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname acpi imagemagick
 
 # Creando carpeta de Reposistorios
 
@@ -117,7 +117,6 @@ sudo cp -v ~/autoBSPWMvmware/.p10k.zsh-root /root/.p10k.zsh
 
 # Script
 
-sudo cp -v ~/autoBSPWMvmware/scripts/screenshot /usr/local/bin/
 sudo cp -v ~/autoBSPWMvmware/scripts/cleartarget /usr/local/bin/
 sudo cp -v ~/autoBSPWMvmware/scripts/settarget /usr/local/bin/
 sudo cp -v ~/autoBSPWMvmware/scripts/wichSystem.py /usr/local/bin/
@@ -143,7 +142,6 @@ chmod +x ~/.config/bin/ethernet_status.sh
 chmod +x ~/.config/bin/htb_status.sh
 chmod +x ~/.config/bin/htb_target.sh
 chmod +x ~/.config/polybar/launch.sh
-sudo chmod +x /usr/local/bin/screenshot
 sudo chmod +x /usr/local/bin/cleartarget
 sudo chmod +x /usr/local/bin/settarge
 sudo chmod +x /usr/local/bin/wichSystem.py
