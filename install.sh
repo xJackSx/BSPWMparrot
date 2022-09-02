@@ -97,6 +97,10 @@ rm -v lsd_0.22.0_amd64.deb
 
 sudo cp -v ~/autoBSPWMvmware/fonts/HNF/* /usr/local/share/fonts/
 
+# Instalando Fuentes de Polybar
+
+sudo cp -rv ~/autoBSPWMvmware/Config/polybar/fonts/* /usr/share/fonts/truetype/
+
 # Instalando Wallpaper de S4vitar
 
 mkdir ~/Desktop/Wallpaper

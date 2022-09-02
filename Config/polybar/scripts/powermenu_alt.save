@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-rofi_command="rofi -theme $HOME/.config/polybar/bar1/scripts/themes/powermenu_alt.rasi"
+rofi_command="rofi -theme $HOME/.config/polybar/scripts/themes/powermenu_alt.rasi"
 
 uptime=$(uptime -p | sed -e 's/up //g')
 
@@ -24,7 +24,6 @@ case $chosen in
         systemctl reboot
         ;;
     $lock)
-        i3lock
         ;;
     $suspend)
         systemctl suspend
