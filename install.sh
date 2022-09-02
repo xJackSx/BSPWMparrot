@@ -19,7 +19,7 @@ sudo apt update
 
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty rofi feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname
+sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname
 
 # Creando carpeta de Reposistorios
 
@@ -66,7 +66,7 @@ sudo ninja -C build install
 
 # Eliminamos Repositorios
 
-rm -r ~/github
+rm -r ~/github -y
 
 # Instalando p10k
 
