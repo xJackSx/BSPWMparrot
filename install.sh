@@ -101,6 +101,18 @@ cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Desktop/Wallpaper/
 
 cp -rv ~/autoBSPWMvmware/Config/* ~/.config/
 
+# Copia de configuracion de .p10k.zsh y .zshrc
+
+rm -rf ~/.zshrc
+cp -v ~/autoBSPWMvmware/.zshrc ~/.zshrc
+
+rm -rf ~/.p10k.zsh
+cp -v ~/autoBSPWMvmware/.p10k.zsh ~/.p10k.zsh
+
+sudo rm -rf /root/.p10k.zsh
+sudo cp -v ~/autoBSPWMvmware/.p10k.zsh /root/.p10k.zsh-root
+sudo mv -v /root/.p10k.zsh-root /root/.p10k.zsh
+
 # Script
 
 sudo cp -v ~/autoBSPWMvmware/scripts/screenshot /usr/local/bin/
