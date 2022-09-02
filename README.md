@@ -37,7 +37,7 @@ El picom ya no funciona con la variable del
 
 como diria el buen s4vitar, ya quedo deprecated.
 
-Entonces corre por defecto con la variable
+los que dispongan de un buen equipo que pueda soportar las configuraciones de picom lo pueden activar en el archivo de configuración de bspwm.
 
 picom &
 
