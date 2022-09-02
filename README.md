@@ -3,8 +3,11 @@
 0.- Uso del Scrip
 
 git clone https://github.com/xJackSx/autoBSPWMvmware.git
+
 cd autoBSPWMvmware
+
 chmod +x install.sh
+
 ./install.sh
 
 Esta probada tanto en ParrotOS como en Kali-Linux
@@ -28,11 +31,15 @@ con el comando "ifconfig" puedes saber la interfaz de red que tienes asignada
 2.- PICOM
 
 El picom ya no funciona con la variable del
+
 --experimental-backends &
+
 como diria el buen s4vitar, ya quedo deprecated.
 
 Entonces corre por defecto con la variable
+
 picom &
+
 por defecto, si muestra lentitud tu equipo puedes desactivarlo desde el archivo de configuración del bspwmrc, que se encuentra en la siguiente ruta
 
 ~/.config/bspwm/bspwmrc
