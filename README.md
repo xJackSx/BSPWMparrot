@@ -1,6 +1,6 @@
 # autoBSPWMvmware
 
-0.- Uso del Scrip
+1.- Uso del Scrip
 
 git clone https://github.com/xJackSx/autoBSPWMvmware.git
 
@@ -12,6 +12,8 @@ chmod +x install.sh
 
 Esta probada tanto en ParrotOS como en Kali-Linux
 
+"FULL UPGRADEADOS"
+
 y esta pensada en correr en maquinas virtuales de VMware
 
 Buenas compañeros,
@@ -20,7 +22,7 @@ Espero les sirva este pequeño aporte
 
 Hare algunas sugerencias que ya dependeran del gusto de cada quien
 
-1 Scrip de ethernet
+2.- Scrip de ethernet
 
 Para los que lo instalaran en Kali es necesario modificar el scrip de ethernet_status, por la interfaz que tenga su equipo,
 el scrip esta alojado en la siguiente ruta:
@@ -29,7 +31,7 @@ el scrip esta alojado en la siguiente ruta:
 
 con el comando "ifconfig" puedes saber la interfaz de red que tienes asignada
 
-2.- PICOM
+3.- PICOM
 
 El picom ya no funciona con la variable del
 
@@ -51,13 +53,13 @@ kill -9 -1
 
 y ya no arrancara el picom. esto afectara a la transparencia de la kitty y a los bordeados de las mismas terminales.
 
-3.- Wallpaper
+4.- Wallpaper
 
 El wallpaper de nuestro queridisimo s4vitar esta alojado en una carpeta en el Desktop.
 
 La configuración del mismo es al gusto.
 
-4.- Nvim
+5.- Nvim
 
 Esta no esta incluida en el scripts
 
