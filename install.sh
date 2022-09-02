@@ -19,7 +19,7 @@ sudo apt update
 
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname
+sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname acpi
 
 # Creando carpeta de Reposistorios
 
@@ -99,7 +99,7 @@ sudo cp -v ~/autoBSPWMvmware/fonts/HNF/* /usr/local/share/fonts/
 
 # Instalando Fuentes de Polybar
 
-sudo cp -rv ~/autoBSPWMvmware/Config/polybar/fonts/* /usr/share/fonts/truetype/
+sudo cp -v ~/autoBSPWMvmware/Config/polybar/fonts/* /usr/share/fonts/truetype/
 
 # Instalando Wallpaper de S4vitar
 
