@@ -64,6 +64,8 @@ meson --buildtype=release . build
 ninja -C build
 sudo ninja -C build install
 
+cd ~/autoBSPWMvmware
+
 # Eliminamos Repositorios
 
 rm -r ~/github -y
@@ -84,8 +86,6 @@ mkdir -p ~/.config/rofi/themes
 cp ~/autoBSPWMvmware/rofi/nord.rasi ~/.config/rofi/themes/
 
 # Instando lsd
-
-cd ~/Descargas
 
 wget https://github.com/Peltoche/lsd/releases/download/0.22.0/lsd_0.22.0_amd64.deb
 
