@@ -1,5 +1,5 @@
 #! /bin/sh
-output='/home/jack/Imágenes/Screenshots/%Y-%m-%d-%T-screenshot.png'
+output='~/Imágenes/Screenshots/%Y-%m-%d-%T-screenshot.png'
 
 case "$1" in
 	"select") scrot "$output" --select --line mode=edge || exit ;;
