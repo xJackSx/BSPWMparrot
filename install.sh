@@ -94,8 +94,8 @@ sudo cp -v ~/autoBSPWMvmware/Config/polybar/fonts/* /usr/share/fonts/truetype/
 
 # Instalando Wallpaper de S4vitar
 
-mkdir ~/Desktop/Wallpaper
-cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Desktop/Wallpaper/
+mkdir ~/Wallpaper
+cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Wallpaper
 
 # Copiando Archivos de Configuración
 
