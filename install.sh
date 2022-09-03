@@ -149,7 +149,3 @@ rofi-theme-selector
 
 rm -rfv ~/github
 rm -rfv ~/autoBSPWMvmware
-
-# Retornamos a Nuestro Directorio Home
-
-cd
