@@ -47,7 +47,7 @@ si muestra lentitud tu equipo puedes desactivarlo desde el archivo de configurac
 
 ~/.config/bspwm/bspwmrc
 
-solo debes de comentar la linea y listo, reinicias la sesión con
+solo debes descomentar la linea y listo, reinicias la sesión con
 
 kill -9 -1
 
@@ -55,7 +55,7 @@ y ya no arrancara el picom. esto afectara a la transparencia de la kitty y a los
 
 4.- Wallpaper
 
-El wallpaper de nuestro queridisimo s4vitar esta alojado en una carpeta en el Desktop.
+El wallpaper de nuestro queridisimo s4vitar esta alojado en una carpeta Wallpaper que se crea en nuestro HOME.
 
 La configuración del mismo es al gusto.
 
