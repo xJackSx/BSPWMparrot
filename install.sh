@@ -74,7 +74,6 @@ echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 # Instalando p10k root
 
 sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/.powerlevel10k
-sudo echo 'source ~/.powerlevel10k/powerlevel10k.zsh-theme' >>/root/.zshrc
 
 # Configuramos el tema Nord de Rofi:
 
