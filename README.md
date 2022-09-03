@@ -1,6 +1,6 @@
-# autoBSPWMvmware
+# Script
 
-1.- Uso del Scrip
+1.- Uso del Script
 
 git clone https://github.com/xJackSx/autoBSPWMvmware.git
 
