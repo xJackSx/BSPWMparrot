@@ -32,7 +32,7 @@ feh --bg-fill ~/Wallpaper/s4vitar.jpg
 bspc config focus_follows_pointer true
 
 # PICOM
-#picom &
+picom &
 bspc config border_width 0
 
 xsetroot -cursor_name left_ptr &
