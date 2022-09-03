@@ -19,7 +19,7 @@ sudo apt update
 
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname acpi imagemagick
+sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname acpi
 
 # Creando carpeta de Reposistorios
 
@@ -149,3 +149,7 @@ rofi-theme-selector
 
 rm -rfv ~/github
 rm -rfv ~/autoBSPWMvmware
+
+# Retornamos a Nuestro Directorio Home
+
+cd
