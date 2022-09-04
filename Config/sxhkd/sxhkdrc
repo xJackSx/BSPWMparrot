@@ -124,6 +124,10 @@ super + ctrl + {Left,Down,Up,Right}
 super + alt + {Left,Down,Up,Right}
 	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
+########################
+# Custom Launchers App #
+########################
+
 # Firefox
 super + shift + f
 	firejail /opt/firefox/firefox
@@ -139,3 +143,16 @@ super + shift + t
 # Discord
 super + shift + d
 	discord
+
+###############
+# ScreenShots #
+###############
+
+@Print
+        screenshot select
+
+@Print + ctrl
+        screenshot
+
+@Print + alt
+        screenshot window

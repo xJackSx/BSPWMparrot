@@ -1,3 +1,4 @@
+#! /bin/sh
 
 #Instalar Entrono BSPWM 2022
 
@@ -76,6 +77,7 @@ sudo cp -v ~/autoBSPWMvmware/Config/polybar/fonts/* /usr/share/fonts/truetype/
 
 mkdir ~/Wallpaper
 cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Wallpaper
+mkdir ~/ScreenShots
 
 # Copiando Archivos de Configuración
 
@@ -95,6 +97,7 @@ sudo cp -v ~/autoBSPWMvmware/.p10k.zsh-root /root/.p10k.zsh
 sudo cp -v ~/autoBSPWMvmware/scripts/cleartarget /usr/local/bin/
 sudo cp -v ~/autoBSPWMvmware/scripts/settarget /usr/local/bin/
 sudo cp -v ~/autoBSPWMvmware/scripts/wichSystem.py /usr/local/bin/
+sudo cp -v ~/autoBSPWMvmware/scripts/screenshot /usr/local/bin/
 
 # Plugins ZSH
 
@@ -120,6 +123,7 @@ chmod +x ~/.config/polybar/launch.sh
 sudo chmod +x /usr/local/bin/cleartarget
 sudo chmod +x /usr/local/bin/settarge
 sudo chmod +x /usr/local/bin/wichSystem.py
+sudo chmod +x /usr/local/bin/screenshot
 
 # Configuramos el Tema de Rofi
 
@@ -129,3 +133,7 @@ rofi-theme-selector
 
 rm -rfv ~/github
 rm -rfv ~/autoBSPWMvmware
+
+# Mensaje de Instalado
+
+notify-send "BSPWM INSTALADO"
