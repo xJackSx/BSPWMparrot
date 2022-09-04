@@ -13,13 +13,9 @@ sudo apt install -y build-essential git cmake cmake-data pkg-config python3-sphi
 
 sudo apt install -y libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev meson
 
-# Actualizando Repositorios
-
-sudo apt update
-
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname acpi
+sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat arandr bat locate testdisk wmname acpi bspwm
 
 # Creando carpeta de Reposistorios
 
@@ -28,24 +24,8 @@ mkdir ~/github
 # Descargar Repositorios Necesarios
 
 cd ~/github
-git clone https://github.com/baskerville/bspwm.git
-git clone https://github.com/baskerville/sxhkd.git
 git clone --recursive https://github.com/polybar/polybar
 git clone https://github.com/yshui/picom.git
-
-# Instalando BSPWM
-
-cd ~/github/bspwn
-make
-sudo make install
-
-sudo apt -y install bspwm
-
-# Instalando sxhkd
-
-cd ~/github/sxhkd
-make
-sudo make install
 
 # Instalando Polybar
 
