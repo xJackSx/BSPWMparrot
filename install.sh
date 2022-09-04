@@ -16,7 +16,7 @@ sudo apt install -y libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-de
 
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat locate testdisk wmname acpi bspwm sxhkd
+sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat locate testdisk neofetch wmname acpi bspwm sxhkd
 
 # Creando carpeta de Reposistorios
 
