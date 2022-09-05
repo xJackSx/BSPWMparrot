@@ -8,7 +8,7 @@ sudo apt install -y build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev
 
 # Instalando Requerimientos para la polybar
 
-sudo apt install -y build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libnl-genl-3-dev
+sudo apt install -y build-essential git cmake cmake-data pkg-config python3-sphinx python3-packaging libuv1-dev libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libnl-genl-3-dev libxcb-xkb-dev libasound2-dev libpulse-dev
 
 # Dependencias de Picom
 
@@ -16,7 +16,7 @@ sudo apt install -y libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-de
 
 # Instalamos paquetes adionales
 
-sudo apt install -y kitty feh scrot firejail zsh rofi xclip bat locate testdisk neofetch wmname acpi bspwm sxhkd
+sudo apt install -y kitty feh scrot scrub firejail zsh rofi xclip bat locate testdisk neofetch wmname acpi bspwm sxhkd
 
 # Creando carpeta de Reposistorios
 
