@@ -39,4 +39,4 @@ if __name__ == '__main__':
     ttl = get_ttl(ip_address)
 
     os_name = get_os(ttl)
-    print("%s (ttl -> %s): %s" % (ip_address, ttl, os_name))
+    print("\n\t%s (ttl -> %s): %s" % (ip_address, ttl, os_name))
