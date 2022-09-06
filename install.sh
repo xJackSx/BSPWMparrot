@@ -59,45 +59,45 @@ sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/.pow
 # Configuramos el tema Nord de Rofi:
 
 mkdir -p ~/.config/rofi/themes
-cp ~/autoBSPWMvmware/rofi/nord.rasi ~/.config/rofi/themes/
+cp ~/BSPWMparrot/rofi/nord.rasi ~/.config/rofi/themes/
 
 # Instando lsd
 
-sudo dpkg -i ~/autoBSPWMvmware/lsd.deb
+sudo dpkg -i ~/BSPWMparrot/lsd.deb
 
 # Instalamos las HackNerdFonts
 
-sudo cp -v ~/autoBSPWMvmware/fonts/HNF/* /usr/local/share/fonts/
+sudo cp -v ~/BSPWMparrot/fonts/HNF/* /usr/local/share/fonts/
 
 # Instalando Fuentes de Polybar
 
-sudo cp -v ~/autoBSPWMvmware/Config/polybar/fonts/* /usr/share/fonts/truetype/
+sudo cp -v ~/BSPWMparrot/Config/polybar/fonts/* /usr/share/fonts/truetype/
 
 # Instalando Wallpaper de S4vitar
 
 mkdir ~/Wallpaper
-cp -v ~/autoBSPWMvmware/Wallpaper/* ~/Wallpaper
+cp -v ~/BSPWMparrot/Wallpaper/* ~/Wallpaper
 mkdir ~/ScreenShots
 
 # Copiando Archivos de Configuración
 
 rm -r ~/.config/polybar
-cp -rv ~/autoBSPWMvmware/Config/* ~/.config/
+cp -rv ~/BSPWMparrot/Config/* ~/.config/
 
 # Copia de configuracion de .p10k.zsh y .zshrc
 
 rm -rf ~/.zshrc
-cp -v ~/autoBSPWMvmware/.zshrc ~/.zshrc
+cp -v ~/BSPWMparrot/.zshrc ~/.zshrc
 
-cp -v ~/autoBSPWMvmware/.p10k.zsh ~/.p10k.zsh
-sudo cp -v ~/autoBSPWMvmware/.p10k.zsh-root /root/.p10k.zsh
+cp -v ~/BSPWMparrot/.p10k.zsh ~/.p10k.zsh
+sudo cp -v ~/BSPWMparrot/.p10k.zsh-root /root/.p10k.zsh
 
 # Script
 
-sudo cp -v ~/autoBSPWMvmware/scripts/cleartarget /usr/local/bin/
-sudo cp -v ~/autoBSPWMvmware/scripts/settarget /usr/local/bin/
-sudo cp -v ~/autoBSPWMvmware/scripts/wichSystem.py /usr/local/bin/
-sudo cp -v ~/autoBSPWMvmware/scripts/screenshot /usr/local/bin/
+sudo cp -v ~/BSPWMparrot/scripts/cleartarget /usr/local/bin/
+sudo cp -v ~/BSPWMparrot/scripts/settarget /usr/local/bin/
+sudo cp -v ~/BSPWMparrot/scripts/wichSystem.py /usr/local/bin/
+sudo cp -v ~/BSPWMparrot/scripts/screenshot /usr/local/bin/
 
 # Plugins ZSH
 
@@ -132,7 +132,7 @@ rofi-theme-selector
 # Removiendo Repositorio
 
 rm -rfv ~/github
-rm -rfv ~/autoBSPWMvmware
+rm -rfv ~/BSPWMparrot
 
 # Mensaje de Instalado
 
