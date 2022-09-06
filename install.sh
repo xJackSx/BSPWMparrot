@@ -96,7 +96,7 @@ sudo cp -v ~/BSPWMparrot/.p10k.zsh-root /root/.p10k.zsh
 
 sudo cp -v ~/BSPWMparrot/scripts/cleartarget /usr/local/bin/
 sudo cp -v ~/BSPWMparrot/scripts/settarget /usr/local/bin/
-sudo cp -v ~/BSPWMparrot/scripts/wichSystem.py /usr/local/bin/
+sudo cp -v ~/BSPWMparrot/scripts/whichSystem.py /usr/local/bin/
 sudo cp -v ~/BSPWMparrot/scripts/screenshot /usr/local/bin/
 
 # Plugins ZSH
@@ -122,7 +122,7 @@ chmod +x ~/.config/bin/htb_target.sh
 chmod +x ~/.config/polybar/launch.sh
 sudo chmod +x /usr/local/bin/cleartarget
 sudo chmod +x /usr/local/bin/settarge
-sudo chmod +x /usr/local/bin/wichSystem.py
+sudo chmod +x /usr/local/bin/whichSystem.py
 sudo chmod +x /usr/local/bin/screenshot
 
 # Configuramos el Tema de Rofi
