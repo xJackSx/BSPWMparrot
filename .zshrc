@@ -92,25 +92,12 @@ function extractPorts(){
 function settarget(){
 
 	if [ $# -eq 1 ]; then
-
-		echo $1 > ~/.config/bin/target
-
+	echo $1 > ~/.config/bin/target
 	elif [ $# -gt 2 ]; then
-
-		echo "settarget [IP] [NAME] | settarget [IP]"
-
+	echo "settarget [IP] [NAME] | settarget [IP]"
 	else
-		echo $1 $2 > ~/.config/bin/target
-
+	echo $1 $2 > ~/.config/bin/target
 	fi
-}
-
-
-# Cleartarget
-
-function cleartarget(){
-
-	echo "" > ~/.config/bin/target
 }
 
 # Set 'man' colors
