@@ -1,4 +1,6 @@
-#! /bin/bash
+#!/bin/bash
+
+ruta=$(pwd)
 
 #Instalar Entrono BSPWM 2022
 
@@ -45,8 +47,6 @@ meson --buildtype=release . build
 ninja -C build
 sudo ninja -C build install
 
-cd ~/autoBSPWMvmware
-
 # Instalando p10k
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.powerlevel10k
@@ -59,43 +59,43 @@ sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/.pow
 # Configuramos el tema Nord de Rofi:
 
 mkdir -p ~/.config/rofi/themes
-cp ~/BSPWMparrot/rofi/nord.rasi ~/.config/rofi/themes/
+cp $ruta/rofi/nord.rasi ~/.config/rofi/themes/
 
 # Instando lsd
 
-sudo dpkg -i ~/BSPWMparrot/lsd.deb
+sudo dpkg -i $ruta/lsd.deb
 
 # Instalamos las HackNerdFonts
 
-sudo cp -v ~/BSPWMparrot/fonts/HNF/* /usr/local/share/fonts/
+sudo cp -v $ruta/fonts/HNF/* /usr/local/share/fonts/
 
 # Instalando Fuentes de Polybar
 
-sudo cp -v ~/BSPWMparrot/Config/polybar/fonts/* /usr/share/fonts/truetype/
+sudo cp -v $ruta/Config/polybar/fonts/* /usr/share/fonts/truetype/
 
 # Instalando Wallpaper de S4vitar
 
 mkdir ~/Wallpaper
-cp -v ~/BSPWMparrot/Wallpaper/* ~/Wallpaper
+cp -v $ruta/Wallpaper/* ~/Wallpaper
 mkdir ~/ScreenShots
 
 # Copiando Archivos de Configuración
 
 rm -r ~/.config/polybar
-cp -rv ~/BSPWMparrot/Config/* ~/.config/
+cp -rv $ruta/Config/* ~/.config/
 
 # Copia de configuracion de .p10k.zsh y .zshrc
 
 rm -rf ~/.zshrc
-cp -v ~/BSPWMparrot/.zshrc ~/.zshrc
+cp -v $ruta/.zshrc ~/.zshrc
 
-cp -v ~/BSPWMparrot/.p10k.zsh ~/.p10k.zsh
-sudo cp -v ~/BSPWMparrot/.p10k.zsh-root /root/.p10k.zsh
+cp -v $ruta/.p10k.zsh ~/.p10k.zsh
+sudo cp -v $ruta/.p10k.zsh-root /root/.p10k.zsh
 
 # Script
 
-sudo cp -v ~/BSPWMparrot/scripts/whichSystem.py /usr/local/bin/
-sudo cp -v ~/BSPWMparrot/scripts/screenshot /usr/local/bin/
+sudo cp -v $ruta/scripts/whichSystem.py /usr/local/bin/
+sudo cp -v $ruta/scripts/screenshot /usr/local/bin/
 
 # Plugins ZSH
 
@@ -128,7 +128,7 @@ rofi-theme-selector
 # Removiendo Repositorio
 
 rm -rfv ~/github
-rm -rfv ~/BSPWMparrot
+rm -rfv $ruta
 
 # Mensaje de Instalado
 
