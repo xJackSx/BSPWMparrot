@@ -52,4 +52,6 @@ La configuración del mismo es al gusto.
 
 Esta no esta incluida en el scripts
 
+UNA MENCION HONORIFICA A Mr. Pr1ngl3s, por su gran colaboración.
+
 UN GRAN SALUDO A NUESTRO GRAN AMIGO S4VITAR.
