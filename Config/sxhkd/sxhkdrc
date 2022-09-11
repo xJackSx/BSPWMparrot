@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	kitty
+	/opt/kitty/bin/kitty
 
 # program launcher
 super + d
@@ -130,19 +130,11 @@ super + alt + {Left,Down,Up,Right}
 
 # Firefox
 super + shift + f
-	firejail /opt/firefox/firefox
+	firefox
 
 # BurpSuite
 super + shift + b
 	burpsuite
-
-# Telegram Desktop
-super + shift + t
-	telegram-desktop
-
-# Discord
-super + shift + d
-	discord
 
 ###############
 # ScreenShots #
