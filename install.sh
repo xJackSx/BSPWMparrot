@@ -14,7 +14,7 @@ sudo apt install -y cmake cmake-data pkg-config python3-sphinx libcairo2-dev lib
 
 # Dependencias de Picom
 
-sudo apt install -y libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-randr0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libxcb-glx0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libpcre3-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev
+sudo apt install -y meson libxext-dev libxcb1-dev libxcb-damage0-dev libxcb-xfixes0-dev libxcb-shape0-dev libxcb-render-util0-dev libxcb-render0-dev libxcb-composite0-dev libxcb-image0-dev libxcb-present-dev libxcb-xinerama0-dev libpixman-1-dev libdbus-1-dev libconfig-dev libgl1-mesa-dev libpcre2-dev libevdev-dev uthash-dev libev-dev libx11-xcb-dev libxcb-glx0-dev
 
 # Instalamos paquetes adionales
 
@@ -28,7 +28,7 @@ mkdir ~/github
 
 cd ~/github
 git clone --recursive https://github.com/polybar/polybar
-git clone https://github.com/yshui/picom.git
+git clone https://github.com/ibhagwan/picom.git
 
 # Instalando Polybar
 
