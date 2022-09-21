@@ -1,6 +1,7 @@
 #! /bin/sh
 
 wmname LG3D &
+vmware-user-suid-wrapper &
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
