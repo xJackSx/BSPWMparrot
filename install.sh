@@ -2,9 +2,13 @@
 
 ruta=$(pwd)
 
-#Instalar Entrono BSPWM 2022
+# Actualizando el sistema
 
 sudo apt update
+
+suso parrot-upgrade
+
+# Instalando dependencias de Entorno
 
 sudo apt install -y build-essential git vim xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev
 
