@@ -2,11 +2,6 @@
 
 ruta=$(pwd)
 
-# Actualización de Sources
-
-sudo echo 'deb-src https://deb.parrot.sh/parrot lts main contrib non-free' > /etc/apt/sources.list
-sudo echo 'deb https://deb.parrot.sh/parrot lts main contrib non-free' >> /etc/apt/souces.list
-
 # Actualizando el sistema
 
 sudo apt update
