@@ -30,7 +30,7 @@ case $chosen in
         systemctl suspend
         ;;
     $logout)
-        openbox --exit
+        kill -9 -1
         ;;
 esac
 
