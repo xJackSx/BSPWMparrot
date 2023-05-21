@@ -6,9 +6,6 @@ Fields are:
 :code:`match (default: None)`
   Which tab to close
 
-:code:`no_response (default: False)`
-  Boolean indicating whether to wait for a response
-
 :code:`self (default: False)`
   Boolean indicating whether to close the tab of the window the command is run in
 
@@ -25,9 +22,6 @@ Fields are:
 :code:`match (default: None)`
   Which window to close
 
-:code:`no_response (default: False)`
-  Boolean indicating whether to wait for a response
-
 :code:`self (default: False)`
   Boolean indicating whether to close the window the command is run in
 
@@ -38,7 +32,6 @@ Fields are:
 
 create-marker
 --------------------------------------------------------------------------------
-    marker_spec/list.str: A list or arguments that define the marker specification, for example: ['text', '1', 'ERROR']
 
 Fields are:
 
@@ -47,6 +40,9 @@ Fields are:
 
 :code:`self (default: False)`
   Boolean indicating whether to create marker in the window the command is run in
+
+:code:`marker_spec (optional)`
+  A list or arguments that define the marker specification, for example: ['text', '1', 'ERROR']
 
 
 
@@ -84,9 +80,11 @@ Fields are:
 
 disable-ligatures
 --------------------------------------------------------------------------------
-strategy+/choices.never.always.cursor: One of :code:`never`, :code:`always` or :code:`cursor`
 
 Fields are:
+
+:code:`strategy (required)`
+  One of :code:`never`, :code:`always` or :code:`cursor`
 
 :code:`match_window (optional)`
   Window to change opacity in
@@ -101,7 +99,12 @@ Fields are:
 
 env
 --------------------------------------------------------------------------------
-env+/dict.str: Dictionary of environment variables to values. Empty values cause the variable to be removed.
+
+Fields are:
+
+:code:`env (required)`
+  Dictionary of environment variables to values. When a env var ends with = it is removed from the environment.
+
 
 
 focus-tab
@@ -139,12 +142,14 @@ Fields are:
 
 get-text
 --------------------------------------------------------------------------------
-    extent/choices.screen.first_cmd_output_on_screen.last_cmd_output.last_visited_cmd_output.all.selection:         One of :code:`screen`, :code:`first_cmd_output_on_screen`, :code:`last_cmd_output`,         :code:`last_visited_cmd_output`, :code:`all`, or :code:`selection`
 
 Fields are:
 
 :code:`match (default: None)`
   The window to get text from
+
+:code:`extent (default: screen)`
+  One of :code:`screen`, :code:`first_cmd_output_on_screen`, :code:`last_cmd_output`,         :code:`last_visited_cmd_output`, :code:`all`, or :code:`selection`
 
 :code:`ansi (default: False)`
   Boolean, if True send ANSI formatting codes
@@ -155,7 +160,7 @@ Fields are:
 :code:`wrap_markers (optional)`
   Boolean, if True add wrap markers to output
 
-:code:`clear_selection (default: None)`
+:code:`clear_selection (default: False)`
   Boolean, if True clear the selection in the matched window
 
 :code:`self (default: False)`
@@ -178,12 +183,14 @@ Fields are:
 
 kitten
 --------------------------------------------------------------------------------
-    args/list.str: Arguments to pass to the kitten as a list
 
 Fields are:
 
 :code:`kitten (required)`
   The name of the kitten to run
+
+:code:`args (optional)`
+  Arguments to pass to the kitten as a list
 
 :code:`match (default: None)`
   The window to run the kitten over
@@ -205,14 +212,11 @@ Fields are:
 
 launch
 --------------------------------------------------------------------------------
-args+/list.str: The command line to run in the new window, as a list, use an empty list to run the default shell
-    env/list.str: List of environment variables of the form NAME=VALUE
-    type/choices.window.tab.os-window.overlay.background.clipboard.primary: The type of window to open
-    location/choices.first.after.before.neighbor.last.vsplit.hsplit.split.default: Where in the tab to open the new window
-    stdin_source/choices.none.@selection.@screen.@screen_scrollback.@alternate.@alternate_scrollback.        @first_cmd_output_on_screen.@last_cmd_output.@last_visited_cmd_output: Where to get stdin for the process from
-    spacing/list.str: A list of spacing specifications, see the docs for the set-spacing command
 
 Fields are:
+
+:code:`args (required)`
+  The command line to run in the new window, as a list, use an empty list to run the default shell
 
 :code:`match (default: None)`
   The tab to open the new window in
@@ -223,8 +227,14 @@ Fields are:
 :code:`cwd (default: None)`
   Working directory for the new window
 
+:code:`env (default: [])`
+  List of environment variables of the form NAME=VALUE
+
 :code:`tab_title (default: None)`
   Title for the new tab
+
+:code:`type (default: window)`
+  The type of window to open
 
 :code:`keep_focus (default: False)`
   Boolean indicating whether the current window should retain focus or not
@@ -241,11 +251,17 @@ Fields are:
 :code:`hold (default: False)`
   Boolean indicating whether to keep window open after cmd exits
 
+:code:`location (default: default)`
+  Where in the tab to open the new window
+
 :code:`allow_remote_control (default: False)`
   Boolean indicating whether to allow remote control from the new window
 
 :code:`remote_control_password (default: [])`
   A list of remote control passwords
+
+:code:`stdin_source (default: none)`
+  Where to get stdin for the process from
 
 :code:`stdin_add_formatting (default: False)`
   Boolean indicating whether to add formatting codes to stdin
@@ -253,8 +269,8 @@ Fields are:
 :code:`stdin_add_line_wrap_markers (default: False)`
   Boolean indicating whether to add line wrap markers to stdin
 
-:code:`no_response (default: False)`
-  Boolean indicating whether to send back the window id
+:code:`spacing (default: [])`
+  A list of spacing specifications, see the docs for the set-spacing command
 
 :code:`marker (default: None)`
   Specification for marker for new window, for example: "text 1 ERROR"
@@ -271,6 +287,24 @@ Fields are:
 :code:`self (default: False)`
   Boolean, if True use tab the command was run in
 
+:code:`os_window_title (default: None)`
+  Title for OS Window
+
+:code:`os_window_name (default: None)`
+  WM_NAME for OS Window
+
+:code:`os_window_class (default: None)`
+  WM_CLASS for OS Window
+
+:code:`os_window_state (default: normal)`
+  The initial state for OS Window
+
+:code:`color (default: [])`
+  list of color specifications such as foreground=red
+
+:code:`watcher (default: [])`
+  list of paths to watcher files
+
 
 
 ls
@@ -285,10 +319,11 @@ Fields are:
 
 new-window
 --------------------------------------------------------------------------------
-args+/list.str: The command line to run in the new window, as a list, use an empty list to run the default shell
-    window_type/choices.kitty.os: One of :code:`kitty` or :code:`os`
 
 Fields are:
+
+:code:`args (required)`
+  The command line to run in the new window, as a list, use an empty list to run the default shell
 
 :code:`match (default: None)`
   The tab to open the new window in
@@ -302,14 +337,14 @@ Fields are:
 :code:`keep_focus (default: False)`
   Boolean indicating whether the current window should retain focus or not
 
+:code:`window_type (default: kitty)`
+  One of :code:`kitty` or :code:`os`
+
 :code:`new_tab (default: False)`
   Boolean indicating whether to open a new tab
 
 :code:`tab_title (default: None)`
   Title for the new tab
-
-:code:`no_response (default: False)`
-  Boolean indicating whether to send back the window id
 
 
 
@@ -328,8 +363,6 @@ Fields are:
 
 resize-os-window
 --------------------------------------------------------------------------------
-    action/choices.resize.toggle-fullscreen.toggle-maximized: One of :code:`resize, toggle-fullscreen` or :code:`toggle-maximized`
-    unit/choices.cells.pixels: One of :code:`cells` or :code:`pixels`
 
 Fields are:
 
@@ -342,6 +375,12 @@ Fields are:
 :code:`incremental (default: False)`
   Boolean indicating whether to adjust the size incrementally
 
+:code:`action (default: resize)`
+  One of :code:`resize, toggle-fullscreen` or :code:`toggle-maximized`
+
+:code:`unit (default: cells)`
+  One of :code:`cells` or :code:`pixels`
+
 :code:`width (default: 0)`
   Integer indicating desired window width
 
@@ -352,7 +391,6 @@ Fields are:
 
 resize-window
 --------------------------------------------------------------------------------
-    axis/choices.horizontal.vertical.reset: One of :code:`horizontal, vertical` or :code:`reset`
 
 Fields are:
 
@@ -365,20 +403,22 @@ Fields are:
 :code:`increment (default: 2)`
   Integer specifying the resize increment
 
+:code:`axis (default: horizontal)`
+  One of :code:`horizontal, vertical` or :code:`reset`
+
 
 
 scroll-window
 --------------------------------------------------------------------------------
-amount+/list.scroll_amount: The amount to scroll, a two item list with the first item being              either a number or the keywords, start and end.              And the second item being either 'p' for pages or 'l' for lines or 'u'
              for unscrolling by lines.
 
 Fields are:
 
+:code:`amount (required)`
+  The amount to scroll, a two item list with the first item being              either a number or the keywords, start and end.              And the second item being either 'p' for pages or 'l' for lines or 'u'
+
 :code:`match (default: None)`
   The window to scroll
-
-:code:`no_response (default: False)`
-  Boolean indicating whether to wait for a response
 
 
 
@@ -429,6 +469,28 @@ Fields are:
 
 
 
+set-background-image
+--------------------------------------------------------------------------------
+
+Fields are:
+
+:code:`data (required)`
+  Chunk of at most 512 bytes of PNG data, base64 encoded. Must send an empty chunk to indicate end of image.     Or the special value - to indicate image must be removed.
+
+:code:`match (default: None)`
+  Window to change opacity in
+
+:code:`layout (default: configured)`
+  The image layout
+
+:code:`all (default: False)`
+  Boolean indicating operate on all windows
+
+:code:`configured (default: False)`
+  Boolean indicating if the configured value should be changed
+
+
+
 set-background-opacity
 --------------------------------------------------------------------------------
 
@@ -450,9 +512,11 @@ Fields are:
 
 set-colors
 --------------------------------------------------------------------------------
-colors+/dict.colors: An object mapping names to colors as 24-bit RGB integers or null for nullable colors
 
 Fields are:
+
+:code:`colors (required)`
+  An object mapping names to colors as 24-bit RGB integers or null for nullable colors
 
 :code:`match_window (optional)`
   Window to change colors in
@@ -473,9 +537,11 @@ Fields are:
 
 set-enabled-layouts
 --------------------------------------------------------------------------------
-layouts+/list.str: The list of layout names
 
 Fields are:
+
+:code:`layouts (required)`
+  The list of layout names
 
 :code:`match (default: None)`
   Which tab to change the layout of
@@ -487,23 +553,27 @@ Fields are:
 
 set-font-size
 --------------------------------------------------------------------------------
-    increment_op/choices.+.-: The string ``+`` or ``-`` to interpret size as an increment
 
 Fields are:
 
 :code:`size (required)`
-  The new font size in pts (a positive number)
+  The new font size in pts (a positive number). If absent is assumed to be zero which means reset to default.
 
 :code:`all (default: False)`
   Boolean whether to change font size in the current window or all windows
+
+:code:`increment_op (optional)`
+  The string ``+`` or ``-`` to interpret size as an increment
 
 
 
 set-spacing
 --------------------------------------------------------------------------------
-settings+/dict.spacing: An object mapping margins/paddings using canonical form {'margin-top': 50, 'padding-left': null} etc
 
 Fields are:
+
+:code:`settings (required)`
+  An object mapping margins/paddings using canonical form {'margin-top': 50, 'padding-left': null} etc
 
 :code:`match_window (optional)`
   Window to change paddings and margins in
@@ -521,9 +591,11 @@ Fields are:
 
 set-tab-color
 --------------------------------------------------------------------------------
-colors+/dict.colors: An object mapping names to colors as 24-bit RGB integers. A color value of null indicates it should be unset.
 
 Fields are:
+
+:code:`colors (required)`
+  An object mapping names to colors as 24-bit RGB integers. A color value of null indicates it should be unset.
 
 :code:`match (default: None)`
   Which tab to change the color of
@@ -552,7 +624,7 @@ set-window-logo
 Fields are:
 
 :code:`data (required)`
-  Chunk of at most 512 bytes of PNG data, base64 encoded. Must send an empty chunk to indicate end of image.     Or the special value :code:`-` to indicate image must be removed.
+  Chunk of PNG data, base64 encoded no more than 2048 bytes. Must send an empty chunk to indicate end of image.     Or the special value :code:`-` to indicate image must be removed.
 
 :code:`position (default: None)`
   The logo position as a string, empty string means default
@@ -586,15 +658,14 @@ Fields are:
 
 signal-child
 --------------------------------------------------------------------------------
-signals/list.str: The signals, a list of names, such as :code:`SIGTERM`, :code:`SIGKILL`, :code:`SIGUSR1`, etc.
 
 Fields are:
 
+:code:`signals (required)`
+  The signals, a list of names, such as :code:`SIGTERM`, :code:`SIGKILL`, :code:`SIGUSR1`, etc.
+
 :code:`match (default: None)`
   Which windows to send the signals to
-
-:code:`no_response (default: False)`
-  Boolean indicating whether to wait for a response
 
 
 

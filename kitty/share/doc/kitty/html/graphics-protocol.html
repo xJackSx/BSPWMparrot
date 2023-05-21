@@ -3,20 +3,20 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
 <meta property="og:title" content="Terminal graphics protocol" />
-  
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://sw.kovidgoyal.net/kitty/graphics-protocol.html" />
-  
+<meta property="og:site_name" content="kitty" />
 <meta property="og:description" content="The goal of this specification is to create a flexible and performant protocol that allows the program running in the terminal, hereafter called the client, to render arbitrary pixel (raster) graph..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Comprehensive keyboard handling in terminals" href="keyboard-protocol.html" /><link rel="prev" title="Colored and styled underlines" href="underlines.html" />
+<meta property="og:image" content="https://sw.kovidgoyal.net/kitty/None" />
+<meta property="og:image:alt" content="The goal of this specification is to create a flexible and performant protocol that allows the program running in the terminal, hereafter called the client,..." />
+<meta name="description" content="The goal of this specification is to create a flexible and performant protocol that allows the program running in the terminal, hereafter called the client, to render arbitrary pixel (raster) graph..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Comprehensive keyboard handling in terminals" href="keyboard-protocol.html" /><link rel="prev" title="Colored and styled underlines" href="underlines.html" />
 
-    <link rel="shortcut icon" href="_static/kitty.svg"/><meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="_static/kitty.svg"/><!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>Terminal graphics protocol - kitty</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -156,7 +156,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="_static/kitty.svg" alt="Logo"/>
@@ -164,7 +164,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -187,7 +187,6 @@
 <li class="toctree-l3"><a class="reference internal" href="build.html#build-and-run-from-source-with-nix">Build and run from source with Nix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="build.html#debug-builds">Debug builds</a></li>
 <li class="toctree-l3"><a class="reference internal" href="build.html#notes-for-linux-macos-packagers">Notes for Linux/macOS packagers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="build.html#building-docs">Building docs</a></li>
 </ul>
 </li>
 </ul>
@@ -340,9 +339,11 @@
 <li class="toctree-l6"><a class="reference internal" href="kittens/ssh.html#options">Options</a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="kittens/ssh.html#copying-terminfo-files-manually">Copying terminfo files manually</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="kittens/custom.html">Custom kittens</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="kittens/custom.html#kitty-api-to-use-with-kittens">kitty API to use with kittens</a></li>
 <li class="toctree-l5"><a class="reference internal" href="kittens/custom.html#passing-arguments-to-kittens">Passing arguments to kittens</a></li>
 <li class="toctree-l5"><a class="reference internal" href="kittens/custom.html#passing-the-contents-of-the-screen-to-the-kitten">Passing the contents of the screen to the kitten</a></li>
 <li class="toctree-l5"><a class="reference internal" href="kittens/custom.html#using-kittens-to-script-kitty-without-any-terminal-ui">Using kittens to script kitty, without any terminal UI</a></li>
@@ -404,6 +405,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="remote-control.html#matching-windows-and-tabs">Matching windows and tabs</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4 has-children"><a class="reference internal" href="rc_protocol.html">The kitty remote control protocol</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#encrypted-communication">Encrypted communication</a></li>
+<li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#async-and-streaming-requests">Async and streaming requests</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#close-tab">close-tab</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#close-window">close-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#create-marker">create-marker</a></li>
@@ -427,6 +429,7 @@
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#scroll-window">scroll-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#select-window">select-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#send-text">send-text</a></li>
+<li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-background-image">set-background-image</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-background-opacity">set-background-opacity</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-colors">set-colors</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-enabled-layouts">set-enabled-layouts</a></li>
@@ -634,8 +637,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><input class="toctree-checkbox" id="toctree-checkbox-82" name="toctree-checkbox-82" role="switch" type="checkbox"/><label for="toctree-checkbox-82"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#some-special-symbols-are-rendered-small-truncated-in-kitty">Some special symbols are rendered small/truncated in kitty?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim">Using a color theme with a background color does not work well in vim?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer">I get errors about the terminal being unknown or opening the terminal failing when SSHing into a different computer?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo">Keys such as arrow keys, backspace, delete, home/end, etc. do not work when using su or sudo?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-or-functional-keys-like-arrow-keys-don-t-work">I get errors about the terminal being unknown or opening the terminal failing or functional keys like arrow keys don't work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#i-cannot-use-the-key-combination-x-in-program-y">I cannot use the key combination X in program Y?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-change-the-colors-in-a-running-kitty-instance">How do I change the colors in a running kitty instance?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-specify-command-line-options-for-kitty-on-macos">How do I specify command line options for kitty on macOS?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#i-catted-a-binary-file-and-now-kitty-is-hung">I catted a binary file and now kitty is hung?</a></li>
@@ -659,79 +662,87 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="changelog.html#detailed-list-of-changes">Detailed list of changes</a><input class="toctree-checkbox" id="toctree-checkbox-85" name="toctree-checkbox-85" role="switch" type="checkbox"/><label for="toctree-checkbox-85"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#future">0.26.0 [future]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">0.25.2 [2022-06-07]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">0.25.1 [2022-05-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">0.25.0 [2022-04-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">0.24.4 [2022-03-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">0.24.3 [2022-02-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">0.24.2 [2022-02-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">0.24.1 [2022-01-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">0.24.0 [2022-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">0.23.1 [2021-08-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id10">0.23.0 [2021-08-16]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id11">0.22.2 [2021-08-02]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id12">0.22.1 [2021-07-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id13">0.22.0 [2021-07-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id14">0.21.2 [2021-06-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id15">0.21.1 [2021-06-14]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id16">0.21.0 [2021-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id17">0.20.3 [2021-05-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id18">0.20.2 [2021-04-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id19">0.20.1 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id20">0.20.0 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id21">0.19.3 [2020-12-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id22">0.19.2 [2020-11-13]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id23">0.19.1 [2020-10-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id24">0.19.0 [2020-10-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id25">0.18.3 [2020-08-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id26">0.18.2 [2020-07-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id27">0.18.1 [2020-06-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id28">0.18.0 [2020-06-20]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id29">0.17.4 [2020-05-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id30">0.17.3 [2020-04-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id31">0.17.2 [2020-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id32">0.17.1 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id33">0.17.0 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id34">0.16.0 [2020-01-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id35">0.15.1 [2019-12-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id36">0.15.0 [2019-11-27]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id37">0.14.6 [2019-09-25]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id38">0.14.5 [2019-09-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id39">0.14.4 [2019-08-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id40">0.14.3 [2019-07-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id41">0.14.2 [2019-06-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id42">0.14.1 [2019-05-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id43">0.14.0 [2019-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id44">0.13.3 [2019-01-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id45">0.13.2 [2019-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id46">0.13.1 [2018-12-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id47">0.13.0 [2018-12-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id48">0.12.3 [2018-09-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id49">0.12.2 [2018-09-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id50">0.12.1 [2018-09-08]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id51">0.12.0 [2018-09-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id52">0.11.3 [2018-07-10]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id53">0.11.2 [2018-07-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id54">0.11.1 [2018-06-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id55">0.11.0 [2018-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id56">0.10.1 [2018-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id57">0.10.0 [2018-05-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id58">0.9.1 [2018-05-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id59">0.9.0 [2018-04-15]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id60">0.8.4 [2018-03-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id61">0.8.3 [2018-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id62">0.8.2 [2018-03-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id63">0.8.1 [2018-03-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id64">0.8.0 [2018-02-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id65">0.7.1 [2018-01-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id66">0.7.0 [2018-01-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id67">0.6.1 [2017-12-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id68">0.6.0 [2017-12-18]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id69">0.5.1 [2017-12-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id70">0.5.0 [2017-11-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id71">0.4.2 [2017-10-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id72">0.4.0 [2017-10-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#future">0.28.0 [future]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">0.27.1 [2023-02-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">0.27.0 [2023-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">0.26.5 [2022-11-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">0.26.4 [2022-10-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">0.26.3 [2022-09-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">0.26.2 [2022-09-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">0.26.1 [2022-08-30]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">0.26.0 [2022-08-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">0.25.2 [2022-06-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id10">0.25.1 [2022-05-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id11">0.25.0 [2022-04-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id12">0.24.4 [2022-03-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id13">0.24.3 [2022-02-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id14">0.24.2 [2022-02-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id15">0.24.1 [2022-01-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id16">0.24.0 [2022-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id17">0.23.1 [2021-08-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id18">0.23.0 [2021-08-16]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id19">0.22.2 [2021-08-02]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id20">0.22.1 [2021-07-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id21">0.22.0 [2021-07-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id22">0.21.2 [2021-06-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id23">0.21.1 [2021-06-14]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id24">0.21.0 [2021-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id25">0.20.3 [2021-05-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id26">0.20.2 [2021-04-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id27">0.20.1 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id28">0.20.0 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id29">0.19.3 [2020-12-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id30">0.19.2 [2020-11-13]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id31">0.19.1 [2020-10-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id32">0.19.0 [2020-10-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id33">0.18.3 [2020-08-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id34">0.18.2 [2020-07-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id35">0.18.1 [2020-06-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id36">0.18.0 [2020-06-20]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id37">0.17.4 [2020-05-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id38">0.17.3 [2020-04-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id39">0.17.2 [2020-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id40">0.17.1 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id41">0.17.0 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id42">0.16.0 [2020-01-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id43">0.15.1 [2019-12-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id44">0.15.0 [2019-11-27]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id45">0.14.6 [2019-09-25]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id46">0.14.5 [2019-09-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id47">0.14.4 [2019-08-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id48">0.14.3 [2019-07-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id49">0.14.2 [2019-06-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id50">0.14.1 [2019-05-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id51">0.14.0 [2019-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id52">0.13.3 [2019-01-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id53">0.13.2 [2019-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id54">0.13.1 [2018-12-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id55">0.13.0 [2018-12-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id56">0.12.3 [2018-09-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id57">0.12.2 [2018-09-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id58">0.12.1 [2018-09-08]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id59">0.12.0 [2018-09-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id60">0.11.3 [2018-07-10]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id61">0.11.2 [2018-07-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id62">0.11.1 [2018-06-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id63">0.11.0 [2018-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id64">0.10.1 [2018-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id65">0.10.0 [2018-05-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id66">0.9.1 [2018-05-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id67">0.9.0 [2018-04-15]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id68">0.8.4 [2018-03-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id69">0.8.3 [2018-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id70">0.8.2 [2018-03-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id71">0.8.1 [2018-03-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id72">0.8.0 [2018-02-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id73">0.7.1 [2018-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id74">0.7.0 [2018-01-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id75">0.6.1 [2017-12-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id76">0.6.0 [2017-12-18]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id77">0.5.1 [2017-12-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id78">0.5.0 [2017-11-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id79">0.4.2 [2017-10-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id80">0.4.0 [2017-10-22]</a></li>
 </ul>
 </li>
 </ul>
@@ -764,6 +775,7 @@
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="#display-images-on-screen">Display images on screen</a><input class="toctree-checkbox" id="toctree-checkbox-91" name="toctree-checkbox-91" role="switch" type="checkbox"/><label for="toctree-checkbox-91"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="#controlling-displayed-image-layout">Controlling displayed image layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#unicode-placeholders">Unicode placeholders</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#deleting-images">Deleting images</a></li>
@@ -807,6 +819,7 @@
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#functional-key-definitions">Functional key definitions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#legacy-ctrl-mapping-of-ascii-keys">Legacy <kbd class="kbd docutils literal notranslate">ctrl</kbd> mapping of ASCII keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#bugs-in-fixterms">Bugs in fixterms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#why-xterm-s-modifyotherkeys-should-not-be-used">Why xterm's modifyOtherKeys should not be used</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="file-transfer-protocol.html">File transfer over the TTY</a><input class="toctree-checkbox" id="toctree-checkbox-97" name="toctree-checkbox-97" role="switch" type="checkbox"/><label for="toctree-checkbox-97"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -838,9 +851,15 @@
 <li class="toctree-l2"><a class="reference internal" href="unscroll.html">Unscrolling the screen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="color-stack.html">Saving and restoring colors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deccara.html">Setting text styles/colors in arbitrary regions of the screen</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="clipboard.html">Copying all data types to the clipboard</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#reading-data-from-the-system-clipboard">Reading data from the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#writing-data-to-the-system-clipboard">Writing data to the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#support-for-terminal-multiplexers">Support for terminal multiplexers</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-102" name="toctree-checkbox-102" role="switch" type="checkbox"/><label for="toctree-checkbox-102"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="press-mentions.html#video-reviews">Video reviews</a></li>
 </ul>
 </li>
@@ -863,7 +882,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -901,15 +921,14 @@ alpha-blending and text over graphics.</p>
 <p>Some programs and libraries that use the kitty graphics protocol:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/dsanson/termpdf.py">termpdf.py</a> - a terminal PDF/DJVU/CBR viewer</p></li>
-<li><p><a class="reference external" href="https://github.com/ranger/ranger">ranger</a> - a terminal file manager, with
-image previews, see this <a class="reference external" href="https://github.com/ranger/ranger/pull/1077">PR</a></p></li>
+<li><p><a class="reference external" href="https://github.com/ranger/ranger">ranger</a> - a terminal file manager, with image previews</p></li>
 <li><p><a class="reference internal" href="kittens/diff.html"><span class="doc">kitty-diff</span></a> - a side-by-side terminal diff program with support for images</p></li>
 <li><p><a class="reference external" href="https://github.com/jesvedberg/tpix">tpix</a> - a statically compiled binary that can be used to display images and easily installed on remote servers without root access</p></li>
+<li><p><a class="reference external" href="https://github.com/mpv-player/mpv/commit/874e28f4a41a916bb567a882063dd2589e9234e1">mpv</a> - A video player that can play videos in the terminal</p></li>
 <li><p><a class="reference external" href="https://github.com/mirukana/pixcat">pixcat</a> - a third party CLI and python library that wraps the graphics protocol</p></li>
 <li><p><a class="reference external" href="https://github.com/dylanaraps/neofetch">neofetch</a> - A command line system
 information tool</p></li>
 <li><p><a class="reference external" href="https://github.com/atanunq/viu">viu</a> - a terminal image viewer</p></li>
-<li><p><a class="reference external" href="https://github.com/michaeljclark/glkitty">glkitty</a> - C library to draw OpenGL shaders in the terminal with a glgears demo</p></li>
 <li><p><a class="reference external" href="https://ctx.graphics/">ctx.graphics</a> - Library for drawing graphics</p></li>
 <li><p><a class="reference external" href="https://github.com/hzeller/timg">timg</a> - a terminal image and video viewer</p></li>
 <li><p><a class="reference external" href="https://github.com/dankamongmen/notcurses">notcurses</a> - C library for terminal graphics with bindings for C++, Rust and Python</p></li>
@@ -917,6 +936,7 @@ information tool</p></li>
 <li><p><a class="reference external" href="https://github.com/hpjansson/chafa">chafa</a>  - a terminal image viewer</p></li>
 <li><p><a class="reference external" href="https://github.com/edluffy/hologram.nvim">hologram.nvim</a>  - view images inside nvim</p></li>
 <li><p><a class="reference external" href="https://github.com/AnonymouX47/term-image">term-image</a>  - A Python library, CLI and TUI to display and browse images in the terminal</p></li>
+<li><p><a class="reference external" href="https://github.com/michaeljclark/glkitty">glkitty</a> - C library to draw OpenGL shaders in the terminal with a glgears demo</p></li>
 </ul>
 <p>Other terminals that have implemented the graphics protocol:</p>
 <ul class="simple">
@@ -932,17 +952,17 @@ per row and column. This can be done by using the <code class="docutils literal 
 code to demonstrate its use</p>
 <div class="tab-set docutils container">
 <input checked="True" class="tab-input" id="tab-set--0-input--1" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--1">C</label><div class="tab-content docutils container">
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/ioctl.h&gt;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/ioctl.h&gt;</span>
 
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">winsize</span><span class="w"> </span><span class="n">sz</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="n">ioctl</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">TIOCGWINSZ</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sz</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="w"></span>
-<span class="w">        </span><span class="s">&quot;number of rows: %i, number of columns: %i, screen width: %i, screen height: %i</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="n">sz</span><span class="p">.</span><span class="n">ws_row</span><span class="p">,</span><span class="w"> </span><span class="n">sz</span><span class="p">.</span><span class="n">ws_col</span><span class="p">,</span><span class="w"> </span><span class="n">sz</span><span class="p">.</span><span class="n">ws_xpixel</span><span class="p">,</span><span class="w"> </span><span class="n">sz</span><span class="p">.</span><span class="n">ws_ypixel</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">winsize</span><span class="w"> </span><span class="n">sz</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ioctl</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">TIOCGWINSZ</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sz</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span>
+<span class="w">        </span><span class="s">&quot;number of rows: %i, number of columns: %i, screen width: %i, screen height: %i</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">sz</span><span class="p">.</span><span class="n">ws_row</span><span class="p">,</span><span class="w"> </span><span class="n">sz</span><span class="p">.</span><span class="n">ws_col</span><span class="p">,</span><span class="w"> </span><span class="n">sz</span><span class="p">.</span><span class="n">ws_xpixel</span><span class="p">,</span><span class="w"> </span><span class="n">sz</span><span class="p">.</span><span class="n">ws_ypixel</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -953,6 +973,14 @@ code to demonstrate its use</p>
 <span class="nb">print</span><span class="p">((</span>
     <span class="s1">&#39;number of rows: </span><span class="si">{}</span><span class="s1"> number of columns: </span><span class="si">{}</span><span class="s1">&#39;</span>
     <span class="s1">&#39;screen width: </span><span class="si">{}</span><span class="s1"> screen height: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">*</span><span class="n">buf</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<input class="tab-input" id="tab-set--0-input--3" name="tab-set--0" type="radio"><label class="tab-label" for="tab-set--0-input--3">Go</label><div class="tab-content docutils container">
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="s">&quot;golang.org/x/sys/unix&quot;</span>
+<span class="nx">fd</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">unix</span><span class="p">.</span><span class="nx">Open</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span><span class="w"> </span><span class="nx">unix</span><span class="p">.</span><span class="nx">O_NOCTTY</span><span class="o">|</span><span class="nx">unix</span><span class="p">.</span><span class="nx">O_CLOEXEC</span><span class="o">|</span><span class="nx">unix</span><span class="p">.</span><span class="nx">O_NDELAY</span><span class="o">|</span><span class="nx">unix</span><span class="p">.</span><span class="nx">O_RDWR</span><span class="p">,</span><span class="w"> </span><span class="mo">0666</span><span class="p">)</span>
+<span class="nx">sz</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">unix</span><span class="p">.</span><span class="nx">IoctlGetWinsize</span><span class="p">(</span><span class="nx">fd</span><span class="p">,</span><span class="w"> </span><span class="nx">unix</span><span class="p">.</span><span class="nx">TIOCGWINSZ</span><span class="p">)</span>
+<span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;rows: %v columns: %v width: %v height %v&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">sz</span><span class="p">.</span><span class="nx">Row</span><span class="p">,</span><span class="w"> </span><span class="nx">sz</span><span class="p">.</span><span class="nx">Col</span><span class="p">,</span><span class="w"> </span><span class="nx">sz</span><span class="p">.</span><span class="nx">Xpixel</span><span class="p">,</span><span class="w"> </span><span class="nx">sz</span><span class="p">.</span><span class="nx">Ypixel</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -968,11 +996,35 @@ kitty.</p>
 </section>
 <section id="a-minimal-example">
 <h2>A minimal example<a class="headerlink" href="#a-minimal-example" title="Permalink to this heading">#</a></h2>
-<p>Some minimal python code to display PNG images in kitty, using the most basic
+<p>Some minimal code to display PNG images in kitty, using the most basic
 features of the graphics protocol:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">standard_b64encode</span>
+<div class="tab-set docutils container">
+<input checked="True" class="tab-input" id="tab-set--1-input--1" name="tab-set--1" type="radio"><label class="tab-label" for="tab-set--1-input--1">Bash</label><div class="tab-content docutils container">
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+transmit_png<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nv">data</span><span class="o">=</span><span class="k">$(</span>base64<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="w">    </span><span class="nv">data</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">data</span><span class="p">//[[:</span><span class="nv">space</span><span class="p">:]]</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">builtin</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="nv">pos</span><span class="o">=</span><span class="m">0</span>
+<span class="w">    </span><span class="nb">builtin</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="nv">chunk_size</span><span class="o">=</span><span class="m">4096</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$pos</span><span class="w"> </span>-lt<span class="w"> </span><span class="si">${#</span><span class="nv">data</span><span class="si">}</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">        </span><span class="nb">builtin</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\e_G&quot;</span>
+<span class="w">        </span><span class="o">[</span><span class="w"> </span><span class="nv">$pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;a=T,f=100,&quot;</span>
+<span class="w">        </span><span class="nb">builtin</span><span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="nv">chunk</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">data</span><span class="p">:</span><span class="nv">$pos</span><span class="p">:</span><span class="nv">$chunk_size</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="nv">pos</span><span class="o">=</span><span class="k">$((</span><span class="nv">$pos</span><span class="o">+</span><span class="nv">$chunk_size</span><span class="k">))</span>
+<span class="w">        </span><span class="o">[</span><span class="w"> </span><span class="nv">$pos</span><span class="w"> </span>-lt<span class="w"> </span><span class="si">${#</span><span class="nv">data</span><span class="si">}</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">builtin</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;m=1&quot;</span>
+<span class="w">        </span><span class="o">[</span><span class="w"> </span><span class="si">${#</span><span class="nv">chunk</span><span class="si">}</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">builtin</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;;%s&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">chunk</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="nb">builtin</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\e\\&quot;</span>
+<span class="w">    </span><span class="k">done</span>
+<span class="o">}</span>
 
+transmit_png<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+<input class="tab-input" id="tab-set--1-input--2" name="tab-set--1" type="radio"><label class="tab-label" for="tab-set--1-input--2">Python</label><div class="tab-content docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">standard_b64encode</span>
 
 <span class="k">def</span> <span class="nf">serialize_gr_command</span><span class="p">(</span><span class="o">**</span><span class="n">cmd</span><span class="p">):</span>
     <span class="n">payload</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;payload&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -986,7 +1038,6 @@ features of the graphics protocol:</p>
     <span class="n">w</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\033\\</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ans</span><span class="p">)</span>
 
-
 <span class="k">def</span> <span class="nf">write_chunked</span><span class="p">(</span><span class="o">**</span><span class="n">cmd</span><span class="p">):</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">standard_b64encode</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">))</span>
     <span class="k">while</span> <span class="n">data</span><span class="p">:</span>
@@ -997,14 +1048,16 @@ features of the graphics protocol:</p>
         <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
-
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">write_chunked</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>Save this script as <code class="file docutils literal notranslate"><span class="pre">png.py</span></code>, then you can use it to display any PNG
+</div>
+</div>
+<p>Save this script as <code class="file docutils literal notranslate"><span class="pre">send-png</span></code>, then you can use it to display any PNG
 file in kitty as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">png</span><span class="o">.</span><span class="n">py</span> <span class="n">file</span><span class="o">.</span><span class="n">png</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">send</span><span class="o">-</span><span class="n">png</span>
+<span class="o">./</span><span class="n">send</span><span class="o">-</span><span class="n">png</span> <span class="n">file</span><span class="o">.</span><span class="n">png</span>
 </pre></div>
 </div>
 </section>
@@ -1153,12 +1206,13 @@ sequence of escape codes to the terminal emulator:</p>
 </pre></div>
 </div>
 <p>Note that only the first escape code needs to have the full set of control
-codes such as width, height, format etc. Subsequent chunks <strong>must</strong> have
-only the <code class="docutils literal notranslate"><span class="pre">m</span></code> key. The client <strong>must</strong> finish sending all chunks for a single image
-before sending any other graphics related escape codes. Note that the cursor
-position used to display the image <strong>must</strong> be the position when the final chunk is
-received. Finally, terminals must not display anything, until the entire sequence is
-received and validated.</p>
+codes such as width, height, format, etc. Subsequent chunks <strong>must</strong> have only
+the <code class="docutils literal notranslate"><span class="pre">m</span></code> and optionally <code class="docutils literal notranslate"><span class="pre">q</span></code> keys. When sending animation frame data, subsequent
+chunks <strong>must</strong> also specify the <code class="docutils literal notranslate"><span class="pre">a=f</span></code> key. The client <strong>must</strong> finish sending
+all chunks for a single image before sending any other graphics related escape
+codes. Note that the cursor position used to display the image <strong>must</strong> be the
+position when the final chunk is received. Finally, terminals must not display
+anything, until the entire sequence is received and validated.</p>
 </section>
 </section>
 <section id="querying-support-and-available-transmission-mediums">
@@ -1280,6 +1334,120 @@ to no movement for placing the current image.</p>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 0.20.0: </span>Support for the C=1 cursor movement policy</p>
 </div>
+</section>
+<section id="unicode-placeholders">
+<span id="graphics-unicode-placeholders"></span><h3>Unicode placeholders<a class="headerlink" href="#unicode-placeholders" title="Permalink to this heading">#</a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.28.0: </span>Support for image display via Unicode placeholders</p>
+</div>
+<p>You can also use a special Unicode character <code class="docutils literal notranslate"><span class="pre">U+10EEEE</span></code> as a placeholder for
+an image. This approach is less flexible, but it allows using images inside
+any host application that supports Unicode and foreground colors (tmux, vim, weechat, etc.)
+and has a way to pass escape codes through to the underlying terminal.</p>
+<p>The central idea is that we use a single <em>Private Use</em> Unicode character as a
+<em>placeholder</em> to indicate to the terminal that an image is supposed to be
+displayed at that cell. Since this character is just normal text, Unicode aware
+application will move it around as needed when they redraw their screens,
+thereby automatically moving the displayed image as well, even though they know
+nothing about the graphics protocol. So an image is first created using the
+normal graphics protocol escape codes (albeit in quiet mode (<code class="docutils literal notranslate"><span class="pre">q=2</span></code>) so that there are
+no responses from the terminal that could confuse the host application). Then,
+the actual image is displayed by getting the host application to emit normal
+text consisting of <code class="docutils literal notranslate"><span class="pre">U+10EEEE</span></code> and various diacritics (Unicode combining
+characters) and colors.</p>
+<p>To use it, first create an image as you would normally with the graphics
+protocol with (<code class="docutils literal notranslate"><span class="pre">q=2</span></code>), but do not create a placement for it, that is, do not
+display it. Then, create a <em>virtual image placement</em> by specifying <code class="docutils literal notranslate"><span class="pre">U=1</span></code> and
+the desired number of lines and columns:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ESC</span><span class="o">&gt;</span><span class="n">_Ga</span><span class="o">=</span><span class="n">p</span><span class="p">,</span><span class="n">U</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">=&lt;</span><span class="n">image_id</span><span class="o">&gt;</span><span class="p">,</span><span class="n">c</span><span class="o">=&lt;</span><span class="n">columns</span><span class="o">&gt;</span><span class="p">,</span><span class="n">r</span><span class="o">=&lt;</span><span class="n">rows</span><span class="o">&gt;&lt;</span><span class="n">ESC</span><span class="o">&gt;</span>\
+</pre></div>
+</div>
+<p>The creation of the placement need not be a separate escape code, it can be
+combined with <code class="docutils literal notranslate"><span class="pre">a=T</span></code> to both transmit and create the virtual placement with a
+single code.</p>
+<p>The image will eventually be fit to the specified rectangle, its aspect ratio
+preserved. Finally, the image can be actually displayed by using the
+placeholder character, encoding the image ID in its foreground color. The row
+and column values are specified with diacritics listed in
+<a class="reference download internal" download="" href="_downloads/1792bad15b12979994cd6ecc54c967a6/rowcolumn-diacritics.txt"><code class="xref download docutils literal notranslate"><span class="pre">rowcolumn-diacritics.txt</span></code></a>.  For
+example, here is how you can print a <code class="docutils literal notranslate"><span class="pre">2x2</span></code> placeholder for image ID <code class="docutils literal notranslate"><span class="pre">42</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\e[38;5;42m\U10EEEE\U0305\U0305\U10EEEE\U0305\U030D\e[39m\n&quot;</span>
+<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\e[38;5;42m\U10EEEE\U030D\U0305\U10EEEE\U030D\U030D\e[39m\n&quot;</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">U+305</span></code> is the diacritic corresponding to the number <code class="docutils literal notranslate"><span class="pre">0</span></code>
+and <code class="docutils literal notranslate"><span class="pre">U+30D</span></code> corresponds to <code class="docutils literal notranslate"><span class="pre">1</span></code>. So these two commands create the following
+<code class="docutils literal notranslate"><span class="pre">2x2</span></code> placeholder:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>(0, 0)</p></td>
+<td><p>(1, 0)</p></td>
+</tr>
+<tr class="row-even"><td><p>(1, 0)</p></td>
+<td><p>(1, 1)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This will cause the image with ID <code class="docutils literal notranslate"><span class="pre">42</span></code> to be displayed in a <code class="docutils literal notranslate"><span class="pre">2x2</span></code> grid.
+Ideally, you would print out as many cells as the number of rows and columns
+specified when creating the virtual placement, but in case of a mismatch only
+part of the image will be displayed.</p>
+<p>By using only the foreground color for image ID you are limited to either 8-bit IDs in 256 color
+mode or 24-bit IDs in true color mode. Since IDs are in a global namespace
+there can easily be collisions. If you need more bits for the image
+ID, you can specify the most significant byte via a third diacritic. For
+example, this is the placeholder for the image ID <code class="docutils literal notranslate"><span class="pre">33554474</span> <span class="pre">=</span> <span class="pre">42</span> <span class="pre">+</span> <span class="pre">(2</span> <span class="pre">&lt;&lt;</span> <span class="pre">24)</span></code>:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\e[38;5;42m\U10EEEE\U0305\U0305\U030E\U10EEEE\U0305\U030D\U030E\n&quot;</span>
+<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\e[38;5;42m\U10EEEE\U030D\U0305\U030E\U10EEEE\U030D\U030D\U030E\n&quot;</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">U+30E</span></code> is the diacritic corresponding to the number <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p>
+<p>You can also specify a placement ID using the underline color (if it's omitted
+or zero, the terminal may choose any virtual placement of the given image). The
+background color is interpreted as the background color, visible if the image is
+transparent. Other text attributes are reserved for future use.</p>
+<p>Row, column and most significant byte diacritics may also be omitted, in which
+case the placeholder cell will inherit the missing values from the placeholder
+cell to the left, following the algorithm:</p>
+<ul class="simple">
+<li><p>If no diacritics are present, and the previous placeholder cell has the same
+foreground and underline colors, then the row of the current cell will be the
+row of the cell to the left, the column will be the column of the cell to the
+left plus one, and the most significant image ID byte will be the most
+significant image ID byte of the cell to the left.</p></li>
+<li><p>If only the row diacritic is present, and the previous placeholder cell has
+the same row and the same foreground and underline colors, then the column of
+the current cell will be the column of the cell to the left plus one, and the
+most significant image ID byte will be the most significant image ID byte of
+the cell to the left.</p></li>
+<li><p>If only the row and column diacritics are present, and the previous
+placeholder cell has the same row, the same foreground and underline colors,
+and its column is one less than the current column, then the most significant
+image ID byte of the current cell will be the most significant image ID byte
+of the cell to the left.</p></li>
+</ul>
+<p>These rules are applied left-to-right, which allows specifying only row
+diacritics of the first column, i.e. here is a 2 rows by 3 columns placeholder:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\e[38;5;42m\U10EEEE\U0305\U10EEEE\U10EEEE\n&quot;</span>
+<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\e[38;5;42m\U10EEEE\U030D\U10EEEE\U10EEEE\n&quot;</span>
+</pre></div>
+</div>
+<p>This will not work for horizontal scrolling and overlapping images since the two
+given rules will fail to guess the missing information. In such cases, the
+terminal may apply other heuristics (but it doesn't have to).</p>
+<p>It is important to distinguish between virtual image placements and real images
+displayed on top of Unicode placeholders. Virtual placements are invisible and only play
+the role of prototypes for real images. Virtual placements can be deleted by a
+deletion command only when the <cite>d</cite> key is equal to <code class="docutils literal notranslate"><span class="pre">i</span></code>, <code class="docutils literal notranslate"><span class="pre">I</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code> or <code class="docutils literal notranslate"><span class="pre">N</span></code>.
+The key values <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">c</span></code>, <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">q</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">y</span></code>, <code class="docutils literal notranslate"><span class="pre">z</span></code> and their capital
+variants never affect virtual placements because they do not have a physical
+location on the screen.</p>
+<p>Real images displayed on top of Unicode placeholders are not considered
+placements from the protocol perspective. They cannot be manipulated using
+graphics commands, instead they should be moved, deleted, or modified by
+manipulating the underlying Unicode placeholder as normal text.</p>
 </section>
 </section>
 <section id="deleting-images">
@@ -1686,135 +1854,141 @@ take, and the default value they take when missing. All integers are 32-bit.</p>
 <td><p>Cursor movement policy. <code class="docutils literal notranslate"><span class="pre">0</span></code> is the default, to move the cursor to after the image.
 <code class="docutils literal notranslate"><span class="pre">1</span></code> is to not move the cursor at all when placing the image.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">U</span></code></p></td>
+<td><p>Positive integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Set to <code class="docutils literal notranslate"><span class="pre">1</span></code> to create a virtual placement for a Unicode placeholder.
+<code class="docutils literal notranslate"><span class="pre">1</span></code> is to not move the cursor at all when placing the image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
 <td><p>32-bit integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The <em>z-index</em> vertical stacking order of the image</p></td>
 </tr>
-<tr class="row-odd"><td colspan="4"><p><strong>Keys for animation frame loading</strong></p></td>
+<tr class="row-even"><td colspan="4"><p><strong>Keys for animation frame loading</strong></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The left edge (in pixels) of where the frame data should be updated</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The top edge (in pixels) of where the frame data should be updated</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The 1-based frame number of the frame whose image data serves as the base data
 when creating a new frame, by default the base data is black, fully transparent pixels</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The 1-based frame number of the frame that is being edited. By default, a new frame is created</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
 <td><p>32-bit integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The gap (in milliseconds) of this frame from the next one. A value of
 zero is ignored. Negative values create a <em>gapless</em> frame. If not specified,
 frames have a default gap of <code class="docutils literal notranslate"><span class="pre">40ms</span></code>. The root frame defaults to zero gap.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">X</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">X</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The composition mode for blending pixels when creating a new frame or
 editing a frame's data. The default is full alpha blending. <code class="docutils literal notranslate"><span class="pre">1</span></code> means a
 simple overwrite.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The background color for pixels not
 specified in the frame data. Must be in 32-bit RGBA format</p></td>
 </tr>
-<tr class="row-odd"><td colspan="4"><p><strong>Keys for animation frame composition</strong></p></td>
+<tr class="row-even"><td colspan="4"><p><strong>Keys for animation frame composition</strong></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The 1-based frame number of the frame whose image data serves as the overlaid data</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The 1-based frame number of the frame that is being edited.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">x</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The left edge (in pixels) of the destination rectangle</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">y</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The top edge (in pixels) of the destination rectangle</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">w</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">w</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The width (in pixels) of the source and destination rectangles. By default, the entire width is used</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">h</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">h</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The height (in pixels) of the source and destination rectangles. By default, the entire height is used</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">X</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">X</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The left edge (in pixels) of the source rectangle</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Y</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The top edge (in pixels) of the source rectangle</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">C</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The composition mode for blending
 pixels. Default is full alpha blending. <code class="docutils literal notranslate"><span class="pre">1</span></code> means a simple overwrite.</p></td>
 </tr>
-<tr class="row-odd"><td colspan="4"><p><strong>Keys for animation control</strong></p></td>
+<tr class="row-even"><td colspan="4"><p><strong>Keys for animation control</strong></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">s</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">1</span></code> - stop animation, <code class="docutils literal notranslate"><span class="pre">2</span></code> - run animation, but wait for new frames, <code class="docutils literal notranslate"><span class="pre">3</span></code> - run animation</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">r</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The 1-based frame number of the frame that is being affected</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">z</span></code></p></td>
 <td><p>32-bit integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The gap (in milliseconds) of this frame from the next one. A value of
 zero is ignored. Negative values create a <em>gapless</em> frame.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">c</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The 1-based frame number of the frame that should be made the current frame</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">v</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">v</span></code></p></td>
 <td><p>Positive integer</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
 <td><p>The number of loops to play. <code class="docutils literal notranslate"><span class="pre">0</span></code> is
 ignored, <code class="docutils literal notranslate"><span class="pre">1</span></code> is play infinite and is the default and larger number
 means play that number <code class="docutils literal notranslate"><span class="pre">-1</span></code> loops</p></td>
 </tr>
-<tr class="row-odd"><td colspan="4"><p><strong>Keys for deleting images</strong></p></td>
+<tr class="row-even"><td colspan="4"><p><strong>Keys for deleting images</strong></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">d</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">d</span></code></p></td>
 <td><p>Single character.
 <code class="docutils literal notranslate"><span class="pre">(a,</span> <span class="pre">A,</span> <span class="pre">c,</span> <span class="pre">C,</span> <span class="pre">n,</span> <span class="pre">N,</span>
 <span class="pre">i,</span> <span class="pre">I,</span> <span class="pre">p,</span> <span class="pre">P,</span> <span class="pre">q,</span> <span class="pre">Q,</span> <span class="pre">x,</span>
@@ -1856,10 +2030,10 @@ they must be clipped.</p>
                 </div>
                 <div class="title">Comprehensive keyboard handling in terminals</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="underlines.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -1873,7 +2047,7 @@ they must be clipped.</p>
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Kovid Goyal
+                Copyright &#169; 2023, Kovid Goyal
             </div>
             Made with 
             <a href="https://github.com/pradyunsg/furo">Furo</a>
@@ -1899,7 +2073,7 @@ they must be clipped.</p>
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -1923,6 +2097,7 @@ they must be clipped.</p>
 </li>
 <li><a class="reference internal" href="#display-images-on-screen">Display images on screen</a><ul>
 <li><a class="reference internal" href="#controlling-displayed-image-layout">Controlling displayed image layout</a></li>
+<li><a class="reference internal" href="#unicode-placeholders">Unicode placeholders</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#deleting-images">Deleting images</a></li>
@@ -1949,10 +2124,8 @@ they must be clipped.</p>
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>

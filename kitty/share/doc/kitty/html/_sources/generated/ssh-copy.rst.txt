@@ -12,7 +12,7 @@ Options
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. option:: --glob
 
-    Interpret file arguments as glob patterns.
+    Interpret file arguments as glob patterns. Globbing is based on Based on standard wildcards with the addition that ``/**/`` matches any number of directories. See the :link:`detailed syntax <https://github.com/bmatcuk/doublestar#patterns>`.
 
 .. option:: --dest <DEST>
 
@@ -20,10 +20,10 @@ Options
 
 .. option:: --exclude <EXCLUDE>
 
-    A glob pattern. Files with names matching this pattern are excluded from being transferred. Useful when adding directories. Can be specified multiple times, if any of the patterns match the file will be excluded. To exclude a directory use a pattern like */directory_name/*.
+    A glob pattern. Files with names matching this pattern are excluded from being transferred. Useful when adding directories. Can be specified multiple times, if any of the patterns match the file will be excluded. If the pattern includes a :code:`/` then it will match against the full path, not just the filename. In such patterns you can use :code:`/**/` to match zero or more directories. For example, to exclude a directory and everything under it use :code:`**/directory_name`. See the :link:`detailed syntax <https://github.com/bmatcuk/doublestar#patterns>` for how wildcards match.
 
 .. option:: --symlink-strategy <SYMLINK_STRATEGY>
 
-    Control what happens if the specified path is a symlink. The default is to preserve the symlink, re-creating it on the remote machine. Setting this to :code:`resolve` will cause the symlink to be followed and its target used as the file/directory to copy. The value of :code:`keep-path` is the same as :code:`resolve` except that the remote file path is derived from the symlink's path instead of the path of the symlink's target. Note that this option does not apply to symlinks encountered while recursively copying directories.
+    Control what happens if the specified path is a symlink. The default is to preserve the symlink, re-creating it on the remote machine. Setting this to :code:`resolve` will cause the symlink to be followed and its target used as the file/directory to copy. The value of :code:`keep-path` is the same as :code:`resolve` except that the remote file path is derived from the symlink's path instead of the path of the symlink's target. Note that this option does not apply to symlinks encountered while recursively copying directories, those are always preserved.
     Default: :code:`preserve`
     Choices: :code:`keep-path`, :code:`preserve`, :code:`resolve`

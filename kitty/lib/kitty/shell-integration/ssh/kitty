@@ -22,6 +22,21 @@ exec_kitty() {
     die "Failed to execute kitty"
 }
 
+
+is_wrapped_kitten() {
+    wrapped_kittens="clipboard icat hyperlinked_grep ask hints unicode_input ssh themes diff"
+    [ -n "$1" ] && {
+        case " $wrapped_kittens " in
+            *" $1 "*) printf "%s" "$1" ;;
+        esac
+    }
+}
+
+test "(" "$1" = "+kitten" -a -n "$(is_wrapped_kitten "$2")" ")" -o "(" "$1" = "+" -a "$2" = "kitten" -a "$(is_wrapped_kitten "$3")" ")" && {
+    if [ "$1" = "+kitten" ]; then shift "1"; else shift "2"; fi
+    exec kitten "$@"
+}
+
 lock_dir=""
 script_path="$(command readlink -f "$0" 2> /dev/null)"
 [ $? = 0 ] || script_path="$0"
@@ -60,7 +75,7 @@ fi
 
 if [ "$OS" = "linux" ]; then
     case "$(command uname -m)" in
-        x86_64) arch="x86_64";;
+        amd64|x86_64) arch="x86_64";;
         aarch64*) arch="arm64";;
         armv8*) arch="arm64";;
         i386) arch="i686";;

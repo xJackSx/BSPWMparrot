@@ -20,7 +20,11 @@ echo_on = int('ECHO_ON')
 data_dir = shell_integration_dir = ''
 request_data = int('REQUEST_DATA')
 leading_data = b''
-login_shell = pwd.getpwuid(os.geteuid()).pw_shell or os.environ.get('SHELL') or 'sh'
+login_shell = os.environ.get('SHELL') or '/bin/sh'
+try:
+    login_shell = pwd.getpwuid(os.geteuid()).pw_shell
+except KeyError:
+    pass
 export_home_cmd = b'EXPORT_HOME_CMD'
 if export_home_cmd:
     HOME = base64.standard_b64decode(export_home_cmd).decode('utf-8')
@@ -205,7 +209,10 @@ def get_data():
         with open(tdir + '/data.sh') as f:
             env_vars = f.read()
             apply_env_vars(env_vars)
-            data_dir = os.path.join(HOME, os.environ.pop('KITTY_SSH_KITTEN_DATA_DIR'))
+            data_dir = os.environ.pop('KITTY_SSH_KITTEN_DATA_DIR')
+            if not os.path.isabs(data_dir):
+                data_dir = os.path.join(HOME, data_dir)
+            data_dir = os.path.abspath(data_dir)
             shell_integration_dir = os.path.join(data_dir, 'shell-integration')
             compile_terminfo(tdir + '/home')
             move(tdir + '/home', HOME)
@@ -258,8 +265,6 @@ def exec_with_shell_integration():
 
 def install_kitty_bootstrap():
     kitty_remote = os.environ.pop('KITTY_REMOTE', '')
-    if os.uname().sysname not in ('Linux', 'Darwin'):
-        return
     kitty_exists = shutil.which('kitty')
     if kitty_remote == 'yes' or (kitty_remote == 'if-needed' and not kitty_exists):
         kitty_dir = os.path.join(data_dir, 'kitty', 'bin')

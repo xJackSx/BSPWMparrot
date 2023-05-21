@@ -68,6 +68,13 @@ some special variables, documented below:
     The path, query and fragment portions of the URL, without any
     unquoting.
 
+``EDITOR``
+    The terminal based text editor. The configured :opt:`editor` in
+    :file:`kitty.conf` is preferred.
+
+``SHELL``
+    The path to the shell. The configured :opt:`shell` in :file:`kitty.conf` is
+    preferred, without arguments.
 
 .. note::
    You can use the :opt:`action_alias` option just as in :file:`kitty.conf` to
@@ -103,7 +110,8 @@ lines. The various available criteria are:
     Useful if your system MIME database does not have definitions you need. This
     file is in the standard format of one definition per line, like:
     ``text/plain rst md``. Note that the MIME type for directories is
-    ``inode/directory``.
+    ``inode/directory``. MIME types are detected based on file extension, not
+    file contents.
 
 ``ext``
     A comma separated list of file extensions, for example: ``jpeg, tar.gz``

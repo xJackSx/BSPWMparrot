@@ -45,6 +45,9 @@ detect_perl() {
 if command -v base64 > /dev/null 2> /dev/null; then
     base64_encode() { command base64 | command tr -d \\n\\r; }
     base64_decode() { command base64 -d; }
+elif command -v openssl > /dev/null 2> /dev/null; then
+    base64_encode() { command openssl enc -A -base64; }
+    base64_decode() { command openssl enc -A -d -base64; }
 elif command -v b64encode > /dev/null 2> /dev/null; then
     base64_encode() { command b64encode - | command sed '1d;$d' | command tr -d \\n\\r; }
     base64_decode() { command fold -w 76 | command b64decode -r; }
@@ -92,6 +95,7 @@ read_base64_from_tty() {
 untar_and_read_env() {
     # extract the tar file atomically, in the sense that any file from the
     # tarfile is only put into place after it has been fully written to disk
+    command -v tar > /dev/null 2> /dev/null || die "tar is not availiable on this server. The ssh kitten requires tar."
     tdir=$(command mktemp -d "$HOME/.kitty-ssh-kitten-untar-XXXXXXXXXXXX")
     [ $? = 0 ] || die "Creating temp directory failed"
     # suppress STDERR for tar as tar prints various warnings if for instance, timestamps are in the future
@@ -102,7 +106,10 @@ untar_and_read_env() {
     . "$tdir/bootstrap-utils.sh"
     . "$tdir/data.sh"
     [ -z "$KITTY_SSH_KITTEN_DATA_DIR" ] && die "Failed to read SSH data from tty"
-    data_dir="$HOME/$KITTY_SSH_KITTEN_DATA_DIR"
+    case "$KITTY_SSH_KITTEN_DATA_DIR" in
+        /*) data_dir="$KITTY_SSH_KITTEN_DATA_DIR" ;;
+        *) data_dir="$HOME/$KITTY_SSH_KITTEN_DATA_DIR"
+    esac
     shell_integration_dir="$data_dir/shell-integration"
     unset KITTY_SSH_KITTEN_DATA_DIR
     login_shell="$KITTY_LOGIN_SHELL"

@@ -3,20 +3,20 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
 <meta property="og:title" content="Mappable actions" />
-  
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://sw.kovidgoyal.net/kitty/actions.html" />
-  
+<meta property="og:site_name" content="kitty" />
 <meta property="og:description" content="The actions described below can be mapped to any key press or mouse action using the map and mouse_map directives in kitty.conf. For configuration examples, see the default shortcut links for each ..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Arrange windows" href="layouts.html" /><link rel="prev" title="kitty.conf" href="conf.html" />
+<meta property="og:image" content="https://sw.kovidgoyal.net/kitty/None" />
+<meta property="og:image:alt" content="The actions described below can be mapped to any key press or mouse action using the map and mouse_map directives in kitty.conf. For configuration examples,..." />
+<meta name="description" content="The actions described below can be mapped to any key press or mouse action using the map and mouse_map directives in kitty.conf. For configuration examples, see the default shortcut links for each ..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Arrange windows" href="layouts.html" /><link rel="prev" title="kitty.conf" href="conf.html" />
 
-    <link rel="shortcut icon" href="_static/kitty.svg"/><meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="_static/kitty.svg"/><!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>Mappable actions - kitty</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -156,7 +156,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="_static/kitty.svg" alt="Logo"/>
@@ -164,7 +164,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -339,6 +339,7 @@
 <li class="toctree-l6"><a class="reference internal" href="kittens/ssh.html#options">Options</a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="kittens/ssh.html#copying-terminfo-files-manually">Copying terminfo files manually</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="kittens/custom.html">Custom kittens</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -404,6 +405,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="remote-control.html#matching-windows-and-tabs">Matching windows and tabs</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4 has-children"><a class="reference internal" href="rc_protocol.html">The kitty remote control protocol</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#encrypted-communication">Encrypted communication</a></li>
+<li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#async-and-streaming-requests">Async and streaming requests</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#close-tab">close-tab</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#close-window">close-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#create-marker">create-marker</a></li>
@@ -427,6 +429,7 @@
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#scroll-window">scroll-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#select-window">select-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#send-text">send-text</a></li>
+<li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-background-image">set-background-image</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-background-opacity">set-background-opacity</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-colors">set-colors</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-enabled-layouts">set-enabled-layouts</a></li>
@@ -634,8 +637,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><input class="toctree-checkbox" id="toctree-checkbox-82" name="toctree-checkbox-82" role="switch" type="checkbox"/><label for="toctree-checkbox-82"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#some-special-symbols-are-rendered-small-truncated-in-kitty">Some special symbols are rendered small/truncated in kitty?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim">Using a color theme with a background color does not work well in vim?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer">I get errors about the terminal being unknown or opening the terminal failing when SSHing into a different computer?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo">Keys such as arrow keys, backspace, delete, home/end, etc. do not work when using su or sudo?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-or-functional-keys-like-arrow-keys-don-t-work">I get errors about the terminal being unknown or opening the terminal failing or functional keys like arrow keys don't work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#i-cannot-use-the-key-combination-x-in-program-y">I cannot use the key combination X in program Y?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-change-the-colors-in-a-running-kitty-instance">How do I change the colors in a running kitty instance?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-specify-command-line-options-for-kitty-on-macos">How do I specify command line options for kitty on macOS?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#i-catted-a-binary-file-and-now-kitty-is-hung">I catted a binary file and now kitty is hung?</a></li>
@@ -659,81 +662,87 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="changelog.html#detailed-list-of-changes">Detailed list of changes</a><input class="toctree-checkbox" id="toctree-checkbox-85" name="toctree-checkbox-85" role="switch" type="checkbox"/><label for="toctree-checkbox-85"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#future">0.26.2 [future]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">0.26.1 [2022-08-30]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">0.26.0 [2022-08-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">0.25.2 [2022-06-07]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">0.25.1 [2022-05-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">0.25.0 [2022-04-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">0.24.4 [2022-03-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">0.24.3 [2022-02-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">0.24.2 [2022-02-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">0.24.1 [2022-01-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id10">0.24.0 [2022-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id11">0.23.1 [2021-08-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id12">0.23.0 [2021-08-16]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id13">0.22.2 [2021-08-02]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id14">0.22.1 [2021-07-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id15">0.22.0 [2021-07-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id16">0.21.2 [2021-06-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id17">0.21.1 [2021-06-14]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id18">0.21.0 [2021-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id19">0.20.3 [2021-05-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id20">0.20.2 [2021-04-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id21">0.20.1 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id22">0.20.0 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id23">0.19.3 [2020-12-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id24">0.19.2 [2020-11-13]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id25">0.19.1 [2020-10-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id26">0.19.0 [2020-10-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id27">0.18.3 [2020-08-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id28">0.18.2 [2020-07-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id29">0.18.1 [2020-06-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id30">0.18.0 [2020-06-20]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id31">0.17.4 [2020-05-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id32">0.17.3 [2020-04-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id33">0.17.2 [2020-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id34">0.17.1 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id35">0.17.0 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id36">0.16.0 [2020-01-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id37">0.15.1 [2019-12-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id38">0.15.0 [2019-11-27]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id39">0.14.6 [2019-09-25]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id40">0.14.5 [2019-09-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id41">0.14.4 [2019-08-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id42">0.14.3 [2019-07-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id43">0.14.2 [2019-06-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id44">0.14.1 [2019-05-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id45">0.14.0 [2019-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id46">0.13.3 [2019-01-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id47">0.13.2 [2019-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id48">0.13.1 [2018-12-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id49">0.13.0 [2018-12-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id50">0.12.3 [2018-09-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id51">0.12.2 [2018-09-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id52">0.12.1 [2018-09-08]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id53">0.12.0 [2018-09-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id54">0.11.3 [2018-07-10]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id55">0.11.2 [2018-07-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id56">0.11.1 [2018-06-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id57">0.11.0 [2018-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id58">0.10.1 [2018-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id59">0.10.0 [2018-05-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id60">0.9.1 [2018-05-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id61">0.9.0 [2018-04-15]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id62">0.8.4 [2018-03-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id63">0.8.3 [2018-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id64">0.8.2 [2018-03-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id65">0.8.1 [2018-03-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id66">0.8.0 [2018-02-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id67">0.7.1 [2018-01-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id68">0.7.0 [2018-01-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id69">0.6.1 [2017-12-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id70">0.6.0 [2017-12-18]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id71">0.5.1 [2017-12-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id72">0.5.0 [2017-11-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id73">0.4.2 [2017-10-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id74">0.4.0 [2017-10-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#future">0.28.0 [future]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">0.27.1 [2023-02-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">0.27.0 [2023-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">0.26.5 [2022-11-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">0.26.4 [2022-10-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">0.26.3 [2022-09-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">0.26.2 [2022-09-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">0.26.1 [2022-08-30]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">0.26.0 [2022-08-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">0.25.2 [2022-06-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id10">0.25.1 [2022-05-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id11">0.25.0 [2022-04-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id12">0.24.4 [2022-03-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id13">0.24.3 [2022-02-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id14">0.24.2 [2022-02-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id15">0.24.1 [2022-01-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id16">0.24.0 [2022-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id17">0.23.1 [2021-08-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id18">0.23.0 [2021-08-16]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id19">0.22.2 [2021-08-02]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id20">0.22.1 [2021-07-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id21">0.22.0 [2021-07-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id22">0.21.2 [2021-06-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id23">0.21.1 [2021-06-14]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id24">0.21.0 [2021-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id25">0.20.3 [2021-05-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id26">0.20.2 [2021-04-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id27">0.20.1 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id28">0.20.0 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id29">0.19.3 [2020-12-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id30">0.19.2 [2020-11-13]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id31">0.19.1 [2020-10-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id32">0.19.0 [2020-10-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id33">0.18.3 [2020-08-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id34">0.18.2 [2020-07-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id35">0.18.1 [2020-06-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id36">0.18.0 [2020-06-20]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id37">0.17.4 [2020-05-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id38">0.17.3 [2020-04-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id39">0.17.2 [2020-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id40">0.17.1 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id41">0.17.0 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id42">0.16.0 [2020-01-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id43">0.15.1 [2019-12-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id44">0.15.0 [2019-11-27]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id45">0.14.6 [2019-09-25]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id46">0.14.5 [2019-09-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id47">0.14.4 [2019-08-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id48">0.14.3 [2019-07-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id49">0.14.2 [2019-06-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id50">0.14.1 [2019-05-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id51">0.14.0 [2019-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id52">0.13.3 [2019-01-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id53">0.13.2 [2019-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id54">0.13.1 [2018-12-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id55">0.13.0 [2018-12-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id56">0.12.3 [2018-09-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id57">0.12.2 [2018-09-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id58">0.12.1 [2018-09-08]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id59">0.12.0 [2018-09-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id60">0.11.3 [2018-07-10]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id61">0.11.2 [2018-07-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id62">0.11.1 [2018-06-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id63">0.11.0 [2018-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id64">0.10.1 [2018-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id65">0.10.0 [2018-05-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id66">0.9.1 [2018-05-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id67">0.9.0 [2018-04-15]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id68">0.8.4 [2018-03-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id69">0.8.3 [2018-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id70">0.8.2 [2018-03-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id71">0.8.1 [2018-03-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id72">0.8.0 [2018-02-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id73">0.7.1 [2018-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id74">0.7.0 [2018-01-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id75">0.6.1 [2017-12-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id76">0.6.0 [2017-12-18]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id77">0.5.1 [2017-12-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id78">0.5.0 [2017-11-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id79">0.4.2 [2017-10-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id80">0.4.0 [2017-10-22]</a></li>
 </ul>
 </li>
 </ul>
@@ -766,6 +775,7 @@
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="graphics-protocol.html#display-images-on-screen">Display images on screen</a><input class="toctree-checkbox" id="toctree-checkbox-91" name="toctree-checkbox-91" role="switch" type="checkbox"/><label for="toctree-checkbox-91"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="graphics-protocol.html#controlling-displayed-image-layout">Controlling displayed image layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="graphics-protocol.html#unicode-placeholders">Unicode placeholders</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="graphics-protocol.html#deleting-images">Deleting images</a></li>
@@ -809,6 +819,7 @@
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#functional-key-definitions">Functional key definitions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#legacy-ctrl-mapping-of-ascii-keys">Legacy <kbd class="kbd docutils literal notranslate">ctrl</kbd> mapping of ASCII keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#bugs-in-fixterms">Bugs in fixterms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#why-xterm-s-modifyotherkeys-should-not-be-used">Why xterm's modifyOtherKeys should not be used</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="file-transfer-protocol.html">File transfer over the TTY</a><input class="toctree-checkbox" id="toctree-checkbox-97" name="toctree-checkbox-97" role="switch" type="checkbox"/><label for="toctree-checkbox-97"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -840,9 +851,15 @@
 <li class="toctree-l2"><a class="reference internal" href="unscroll.html">Unscrolling the screen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="color-stack.html">Saving and restoring colors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deccara.html">Setting text styles/colors in arbitrary regions of the screen</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="clipboard.html">Copying all data types to the clipboard</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#reading-data-from-the-system-clipboard">Reading data from the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#writing-data-to-the-system-clipboard">Writing data to the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#support-for-terminal-multiplexers">Support for terminal multiplexers</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-102" name="toctree-checkbox-102" role="switch" type="checkbox"/><label for="toctree-checkbox-102"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="press-mentions.html#video-reviews">Video reviews</a></li>
 </ul>
 </li>
@@ -865,7 +882,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -932,7 +950,7 @@ configuration examples, see the default shortcut links for each action.</p>
 <span class="sig-name descname"><span class="pre">paste</span></span><a class="headerlink" href="#action-paste" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Paste the specified text into the current window</p>
+<p>Paste the specified text into the current window. ANSI C escapes are decoded.</p>
 <dl class="std action">
 <dt class="sig sig-object std" id="action-show_first_command_output_on_screen">
 <span class="sig-name descname"><span class="pre">show_first_command_output_on_screen</span></span><a class="headerlink" href="#action-show_first_command_output_on_screen" title="Permalink to this definition">#</a></dt>
@@ -1042,7 +1060,7 @@ configuration examples, see the default shortcut links for each action.</p>
 
 <p>Switch to the named layout</p>
 <p>For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">goto_layout</span><span class="w"> </span><span class="s">tall</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">goto_layout</span><span class="w"> </span><span class="s">tall</span>
 </pre></div>
 </div>
 <dl class="std action">
@@ -1062,7 +1080,7 @@ configuration examples, see the default shortcut links for each action.</p>
 <span class="sig-name descname"><span class="pre">next_layout</span></span><a class="headerlink" href="#action-next_layout" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Go to the next enabled layout</p>
+<p>Go to the next enabled layout. Can optionally supply an integer to jump by the specified number.</p>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Next-layout"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+l</span></code></a></p>
 <dl class="std action">
@@ -1074,7 +1092,7 @@ configuration examples, see the default shortcut links for each action.</p>
 <p>Switches to the named layout if another layout is current, otherwise
 switches to the last used layout. Useful to “zoom” a window temporarily
 by switching to the stack layout. For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">toggle_layout</span><span class="w"> </span><span class="s">stack</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">toggle_layout</span><span class="w"> </span><span class="s">stack</span>
 </pre></div>
 </div>
 </section>
@@ -1123,10 +1141,10 @@ by switching to the stack layout. For example:</p>
 
 <p>Display the specified kitty documentation, preferring a local copy, if found.</p>
 <p>For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># show the config docs</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">show_kitty_doc</span><span class="w"> </span><span class="s">conf</span><span class="w"></span>
-<span class="c1"># show the ssh kitten docs</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">show_kitty_doc</span><span class="w"> </span><span class="s">kittens/ssh</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># show the config docs</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">show_kitty_doc</span><span class="w"> </span><span class="s">conf</span>
+<span class="c1"># show the ssh kitten docs</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">show_kitty_doc</span><span class="w"> </span><span class="s">kittens/ssh</span>
 </pre></div>
 </div>
 <p>Default shortcuts using this action:
@@ -1138,7 +1156,7 @@ by switching to the stack layout. For example:</p>
 
 <p>Send the specified SIGNAL to the foreground process in the active window</p>
 <p>For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">signal_child</span><span class="w"> </span><span class="s">SIGTERM</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">signal_child</span><span class="w"> </span><span class="s">SIGTERM</span>
 </pre></div>
 </div>
 <dl class="std action">
@@ -1148,16 +1166,16 @@ by switching to the stack layout. For example:</p>
 
 <p>Clear the terminal</p>
 <p>See <a class="reference internal" href="conf.html#shortcut-kitty.Reset-the-terminal"><code class="xref std std-sc docutils literal notranslate"><span class="pre">reset_terminal</span></code></a> for details. For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reset the terminal</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">reset active</span><span class="w"></span>
-<span class="c1"># Clear the terminal screen by erasing all contents</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">clear active</span><span class="w"></span>
-<span class="c1"># Clear the terminal scrollback by erasing it</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">scrollback active</span><span class="w"></span>
-<span class="c1"># Scroll the contents of the screen into the scrollback</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">scroll active</span><span class="w"></span>
-<span class="c1"># Clear everything up to the line with the cursor</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">to_cursor active</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reset the terminal</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">reset active</span>
+<span class="c1"># Clear the terminal screen by erasing all contents</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">clear active</span>
+<span class="c1"># Clear the terminal scrollback by erasing it</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">scrollback active</span>
+<span class="c1"># Scroll the contents of the screen into the scrollback</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">scroll active</span>
+<span class="c1"># Clear everything up to the line with the cursor</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">clear_terminal</span><span class="w"> </span><span class="s">to_cursor active</span>
 </pre></div>
 </div>
 <p>Default shortcuts using this action:
@@ -1169,11 +1187,11 @@ by switching to the stack layout. For example:</p>
 
 <p>Combine multiple actions and map to a single keypress</p>
 <p>The syntax is:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">key</span><span class="w"> </span><span class="nf">combine</span><span class="w"> </span><span class="s">&lt;separator&gt; action1 &lt;separator&gt; action2 &lt;separator&gt; action3 ...</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">key</span><span class="w"> </span><span class="nf">combine</span><span class="w"> </span><span class="s">&lt;separator&gt; action1 &lt;separator&gt; action2 &lt;separator&gt; action3 ...</span>
 </pre></div>
 </div>
 <p>For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">kitty_mod+e</span><span class="w"> </span><span class="nf">combine</span><span class="w"> </span><span class="s">: new_window : next_layout</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">kitty_mod+e</span><span class="w"> </span><span class="nf">combine</span><span class="w"> </span><span class="s">: new_window : next_layout</span>
 </pre></div>
 </div>
 <dl class="std action">
@@ -1197,6 +1215,22 @@ by switching to the stack layout. For example:</p>
 <p>Edit the kitty.conf config file in your favorite text editor</p>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Edit-config-file"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+f2</span></code></a></p>
+<dl class="std action">
+<dt class="sig sig-object std" id="action-hide_macos_app">
+<span class="sig-name descname"><span class="pre">hide_macos_app</span></span><a class="headerlink" href="#action-hide_macos_app" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<p>Hide macOS kitty application</p>
+<p>Default shortcuts using this action:
+<a class="reference internal" href="conf.html#shortcut-kitty.Hide-macOS-kitty-application"><code class="xref std std-sc docutils literal notranslate"><span class="pre">cmd+h</span></code></a></p>
+<dl class="std action">
+<dt class="sig sig-object std" id="action-hide_macos_other_apps">
+<span class="sig-name descname"><span class="pre">hide_macos_other_apps</span></span><a class="headerlink" href="#action-hide_macos_other_apps" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<p>Hide macOS other applications</p>
+<p>Default shortcuts using this action:
+<a class="reference internal" href="conf.html#shortcut-kitty.Hide-macOS-other-applications"><code class="xref std std-sc docutils literal notranslate"><span class="pre">opt+cmd+h</span></code></a></p>
 <dl class="std action">
 <dt class="sig sig-object std" id="action-input_unicode_character">
 <span class="sig-name descname"><span class="pre">input_unicode_character</span></span><a class="headerlink" href="#action-input_unicode_character" title="Permalink to this definition">#</a></dt>
@@ -1244,11 +1278,19 @@ by switching to the stack layout. For example:</p>
 <p>If mapped without arguments reloads the default config file, otherwise loads
 the specified config files, in order. Loading a config file <em>replaces</em> all
 config options. For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f5</span><span class="w"> </span><span class="nf">load_config_file</span><span class="w"> </span><span class="s">/path/to/some/kitty.conf</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f5</span><span class="w"> </span><span class="nf">load_config_file</span><span class="w"> </span><span class="s">/path/to/some/kitty.conf</span>
 </pre></div>
 </div>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Reload-kitty.conf"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+f5</span></code></a></p>
+<dl class="std action">
+<dt class="sig sig-object std" id="action-minimize_macos_window">
+<span class="sig-name descname"><span class="pre">minimize_macos_window</span></span><a class="headerlink" href="#action-minimize_macos_window" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<p>Minimize macOS window</p>
+<p>Default shortcuts using this action:
+<a class="reference internal" href="conf.html#shortcut-kitty.Minimize-macOS-window"><code class="xref std std-sc docutils literal notranslate"><span class="pre">cmd+m</span></code></a></p>
 <dl class="std action">
 <dt class="sig sig-object std" id="action-open_url">
 <span class="sig-name descname"><span class="pre">open_url</span></span><a class="headerlink" href="#action-open_url" title="Permalink to this definition">#</a></dt>
@@ -1272,7 +1314,7 @@ config options. For example:</p>
 
 <p>Run a remote control command</p>
 <p>For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">remote_control</span><span class="w"> </span><span class="s">set-spacing margin=30</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">remote_control</span><span class="w"> </span><span class="s">set-spacing margin=30</span>
 </pre></div>
 </div>
 <p>See <a class="reference internal" href="remote-control.html#rc-mapping"><span class="std std-ref">Mapping key presses to remote control commands</span></a> for details.</p>
@@ -1283,9 +1325,15 @@ config options. For example:</p>
 
 <p>Change colors in the specified windows</p>
 <p>For details, see <a class="reference internal" href="remote-control.html#at-set-colors"><span class="std std-ref">kitty &#64; set-colors</span></a>. For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f5</span><span class="w"> </span><span class="nf">set_colors</span><span class="w"> </span><span class="s">--configured /path/to/some/config/file/colors.conf</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f5</span><span class="w"> </span><span class="nf">set_colors</span><span class="w"> </span><span class="s">--configured /path/to/some/config/file/colors.conf</span>
 </pre></div>
 </div>
+<dl class="std action">
+<dt class="sig sig-object std" id="action-sleep">
+<span class="sig-name descname"><span class="pre">sleep</span></span><a class="headerlink" href="#action-sleep" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<p>Sleep for the specified time period. Suffix can be s for seconds, m, for minutes, h for hours and d for days. The time can be fractional.</p>
 <dl class="std action">
 <dt class="sig sig-object std" id="action-toggle_macos_secure_keyboard_entry">
 <span class="sig-name descname"><span class="pre">toggle_macos_secure_keyboard_entry</span></span><a class="headerlink" href="#action-toggle_macos_secure_keyboard_entry" title="Permalink to this definition">#</a></dt>
@@ -1324,9 +1372,9 @@ config options. For example:</p>
 <p>Handle a mouse click</p>
 <p>Try to perform the specified actions one after the other till one of them is successful.
 Supported actions are:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">selection</span><span class="w"> </span><span class="s">- check for a selection and if one exists abort processing</span><span class="w"></span>
-<span class="nv">link</span><span class="w"> </span><span class="s">- if a link exists under the mouse, click it</span><span class="w"></span>
-<span class="nv">prompt</span><span class="w"> </span><span class="s">- if the mouse click happens at a shell prompt move the cursor to the mouse location</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">selection</span><span class="w"> </span><span class="s">- check for a selection and if one exists abort processing</span>
+<span class="nv">link</span><span class="w"> </span><span class="s">- if a link exists under the mouse, click it</span>
+<span class="nv">prompt</span><span class="w"> </span><span class="s">- if the mouse click happens at a shell prompt move the cursor to the mouse location</span>
 </pre></div>
 </div>
 <p>For examples, see <a class="reference internal" href="conf.html#conf-kitty-mouse-mousemap"><span class="std std-ref">Mouse actions</span></a></p>
@@ -1371,7 +1419,7 @@ Supported actions are:</p>
 <span class="sig-name descname"><span class="pre">scroll_end</span></span><a class="headerlink" href="#action-scroll_end" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Scroll to the bottom of the scrollback buffer</p>
+<p>Scroll to the bottom of the scrollback buffer when in main screen</p>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Scroll-to-bottom"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+end</span></code></a></p>
 <dl class="std action">
@@ -1379,7 +1427,7 @@ Supported actions are:</p>
 <span class="sig-name descname"><span class="pre">scroll_home</span></span><a class="headerlink" href="#action-scroll_home" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Scroll to the top of the scrollback buffer</p>
+<p>Scroll to the top of the scrollback buffer when in main screen</p>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Scroll-to-top"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+home</span></code></a></p>
 <dl class="std action">
@@ -1387,7 +1435,7 @@ Supported actions are:</p>
 <span class="sig-name descname"><span class="pre">scroll_line_down</span></span><a class="headerlink" href="#action-scroll_line_down" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Scroll down by one line</p>
+<p>Scroll down by one line when in main screen</p>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Scroll-line-down"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+down</span></code></a></p>
 <dl class="std action">
@@ -1395,7 +1443,7 @@ Supported actions are:</p>
 <span class="sig-name descname"><span class="pre">scroll_line_up</span></span><a class="headerlink" href="#action-scroll_line_up" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Scroll up by one line</p>
+<p>Scroll up by one line when in main screen</p>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Scroll-line-up"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+up</span></code></a></p>
 <dl class="std action">
@@ -1403,7 +1451,7 @@ Supported actions are:</p>
 <span class="sig-name descname"><span class="pre">scroll_page_down</span></span><a class="headerlink" href="#action-scroll_page_down" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Scroll down by one page</p>
+<p>Scroll down by one page when in main screen</p>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Scroll-page-down"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+page_down</span></code></a></p>
 <dl class="std action">
@@ -1411,7 +1459,7 @@ Supported actions are:</p>
 <span class="sig-name descname"><span class="pre">scroll_page_up</span></span><a class="headerlink" href="#action-scroll_page_up" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Scroll up by one page</p>
+<p>Scroll up by one page when in main screen</p>
 <p>Default shortcuts using this action:
 <a class="reference internal" href="conf.html#shortcut-kitty.Scroll-page-up"><code class="xref std std-sc docutils literal notranslate"><span class="pre">ctrl+shift+page_up</span></code></a></p>
 <dl class="std action">
@@ -1419,13 +1467,13 @@ Supported actions are:</p>
 <span class="sig-name descname"><span class="pre">scroll_prompt_to_bottom</span></span><a class="headerlink" href="#action-scroll_prompt_to_bottom" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Scroll prompt to the bottom of the screen, filling in extra lines from the scrollback buffer</p>
+<p>Scroll prompt to the bottom of the screen, filling in extra lines from the scrollback buffer, when in main screen</p>
 <dl class="std action">
 <dt class="sig sig-object std" id="action-scroll_prompt_to_top">
 <span class="sig-name descname"><span class="pre">scroll_prompt_to_top</span></span><a class="headerlink" href="#action-scroll_prompt_to_top" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<p>Scroll prompt to the top of the screen, filling screen with empty lines</p>
+<p>Scroll prompt to the top of the screen, filling screen with empty lines, when in main screen</p>
 <dl class="std action">
 <dt class="sig sig-object std" id="action-scroll_to_prompt">
 <span class="sig-name descname"><span class="pre">scroll_to_prompt</span></span><a class="headerlink" href="#action-scroll_to_prompt" title="Permalink to this definition">#</a></dt>
@@ -1437,9 +1485,9 @@ Supported actions are:</p>
 the number of prompts to jump, negative values jump up and positive values jump down.
 A value of zero will jump to the last prompt visited by this action.
 For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">ctrl+p</span><span class="w"> </span><span class="nf">scroll_to_prompt</span><span class="w"> </span><span class="mi">-1</span><span class="w">  </span><span class="s"># jump to previous</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+n</span><span class="w"> </span><span class="nf">scroll_to_prompt</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="s"># jump to next</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+o</span><span class="w"> </span><span class="nf">scroll_to_prompt</span><span class="w"> </span><span class="mi">0</span><span class="w">   </span><span class="s"># jump to last visited</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">ctrl+p</span><span class="w"> </span><span class="nf">scroll_to_prompt</span><span class="w"> </span><span class="mi">-1</span><span class="w">  </span><span class="s"># jump to previous</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+n</span><span class="w"> </span><span class="nf">scroll_to_prompt</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="s"># jump to next</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+o</span><span class="w"> </span><span class="nf">scroll_to_prompt</span><span class="w"> </span><span class="mi">0</span><span class="w">   </span><span class="s"># jump to last visited</span>
 </pre></div>
 </div>
 <p>Default shortcuts using this action:
@@ -1535,12 +1583,12 @@ For example:</p>
 <p>Change the title of the active tab interactively, by typing in the new title.</p>
 <p>If you specify an argument to this action then that is used as the title instead of asking for it.
 Use the empty string (“”) to reset the title to default. For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># interactive usage</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">set_tab_title</span><span class="w"></span>
-<span class="c1"># set a specific title</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f2</span><span class="w"> </span><span class="nf">set_tab_title</span><span class="w"> </span><span class="s">some title</span><span class="w"></span>
-<span class="c1"># reset to default</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f3</span><span class="w"> </span><span class="nf">set_tab_title</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># interactive usage</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">set_tab_title</span>
+<span class="c1"># set a specific title</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f2</span><span class="w"> </span><span class="nf">set_tab_title</span><span class="w"> </span><span class="s">some title</span>
+<span class="c1"># reset to default</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f3</span><span class="w"> </span><span class="nf">set_tab_title</span><span class="w"> </span><span class="s">&quot;&quot;</span>
 </pre></div>
 </div>
 <p>Default shortcuts using this action:
@@ -1602,8 +1650,8 @@ Use the empty string (“”) to reset the title to default. For example:</p>
 
 <p>Move the window in the specified direction</p>
 <p>For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">ctrl+left</span><span class="w"> </span><span class="nf">move_window</span><span class="w"> </span><span class="s">left</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+down</span><span class="w"> </span><span class="nf">move_window</span><span class="w"> </span><span class="s">bottom</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">ctrl+left</span><span class="w"> </span><span class="nf">move_window</span><span class="w"> </span><span class="s">left</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+down</span><span class="w"> </span><span class="nf">move_window</span><span class="w"> </span><span class="s">bottom</span>
 </pre></div>
 </div>
 <dl class="std action">
@@ -1637,8 +1685,8 @@ Use the empty string (“”) to reset the title to default. For example:</p>
 
 <p>Focus the neighboring window in the current tab</p>
 <p>For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">ctrl+left</span><span class="w"> </span><span class="nf">neighboring_window</span><span class="w"> </span><span class="s">left</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+down</span><span class="w"> </span><span class="nf">neighboring_window</span><span class="w"> </span><span class="s">bottom</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">ctrl+left</span><span class="w"> </span><span class="nf">neighboring_window</span><span class="w"> </span><span class="s">left</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+down</span><span class="w"> </span><span class="nf">neighboring_window</span><span class="w"> </span><span class="s">bottom</span>
 </pre></div>
 </div>
 <dl class="std action">
@@ -1664,9 +1712,9 @@ Use the empty string (“”) to reset the title to default. For example:</p>
 
 <p>Focus the nth window if positive or the previously active windows if negative. When the number is larger</p>
 <p>than the number of windows focus the last window. For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># focus the previously active window</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+p</span><span class="w"> </span><span class="nf">nth_window</span><span class="w"> </span><span class="mi">-1</span><span class="w"></span>
-<span class="c1"># focus the first window</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="c1"># focus the previously active window</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">ctrl+p</span><span class="w"> </span><span class="nf">nth_window</span><span class="w"> </span><span class="mi">-1</span>
+<span class="c1"># focus the first window</span>
 <span class="kd">map</span><span class="w"> </span><span class="s">ctrl+1</span><span class="w"> </span><span class="nf">nth_window</span><span class="w"> </span><span class="mi">0</span>
 </pre></div>
 </div>
@@ -1773,7 +1821,7 @@ Use the empty string (“”) to reset the title to default. For example:</p>
 <p>Asks for confirmation before closing the window. If you don’t want the
 confirmation when the window is sitting at a shell prompt
 (requires <a class="reference internal" href="shell-integration.html#shell-integration"><span class="std std-ref">Shell integration</span></a>), use:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">close_window_with_confirmation</span><span class="w"> </span><span class="s">ignore-shell</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">close_window_with_confirmation</span><span class="w"> </span><span class="s">ignore-shell</span>
 </pre></div>
 </div>
 <dl class="std action">
@@ -1823,6 +1871,8 @@ confirmation when the window is sitting at a shell prompt
 <dd></dd></dl>
 
 <p>Quit, closing all windows</p>
+<p>Default shortcuts using this action:
+<a class="reference internal" href="conf.html#shortcut-kitty.Quit-kitty"><code class="xref std std-sc docutils literal notranslate"><span class="pre">cmd+q</span></code></a></p>
 <dl class="std action">
 <dt class="sig sig-object std" id="action-set_background_opacity">
 <span class="sig-name descname"><span class="pre">set_background_opacity</span></span><a class="headerlink" href="#action-set_background_opacity" title="Permalink to this definition">#</a></dt>
@@ -1830,8 +1880,8 @@ confirmation when the window is sitting at a shell prompt
 
 <p>Set the background opacity for the active OS Window</p>
 <p>For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">set_background_opacity</span><span class="w"> </span><span class="mf">+0.1</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">f2</span><span class="w"> </span><span class="nf">set_background_opacity</span><span class="w"> </span><span class="mf">-0.1</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f1</span><span class="w"> </span><span class="nf">set_background_opacity</span><span class="w"> </span><span class="mf">+0.1</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">f2</span><span class="w"> </span><span class="nf">set_background_opacity</span><span class="w"> </span><span class="mf">-0.1</span>
 <span class="kd">map</span><span class="w"> </span><span class="s">f3</span><span class="w"> </span><span class="nf">set_background_opacity</span><span class="w"> </span><span class="mf">0.5</span>
 </pre></div>
 </div>
@@ -1876,10 +1926,10 @@ confirmation when the window is sitting at a shell prompt
                 </div>
                 <div class="title">Arrange windows</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="conf.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -1893,7 +1943,7 @@ confirmation when the window is sitting at a shell prompt
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Kovid Goyal
+                Copyright &#169; 2023, Kovid Goyal
             </div>
             Made with 
             <a href="https://github.com/pradyunsg/furo">Furo</a>
@@ -1920,10 +1970,8 @@ confirmation when the window is sitting at a shell prompt
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>

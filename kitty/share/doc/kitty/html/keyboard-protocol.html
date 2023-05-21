@@ -3,20 +3,20 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
 <meta property="og:title" content="Comprehensive keyboard handling in terminals" />
-  
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://sw.kovidgoyal.net/kitty/keyboard-protocol.html" />
-  
+<meta property="og:site_name" content="kitty" />
 <meta property="og:description" content="There are various problems with the current state of keyboard handling in terminals. They include: No way to use modifiers other than ctrl and alt, No way to reliably use multiple modifier keys, ot..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="File transfer over the TTY" href="file-transfer-protocol.html" /><link rel="prev" title="Terminal graphics protocol" href="graphics-protocol.html" />
+<meta property="og:image" content="https://sw.kovidgoyal.net/kitty/None" />
+<meta property="og:image:alt" content="There are various problems with the current state of keyboard handling in terminals. They include: No way to use modifiers other than ctrl and alt, No way to..." />
+<meta name="description" content="There are various problems with the current state of keyboard handling in terminals. They include: No way to use modifiers other than ctrl and alt, No way to reliably use multiple modifier keys, ot..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="File transfer over the TTY" href="file-transfer-protocol.html" /><link rel="prev" title="Terminal graphics protocol" href="graphics-protocol.html" />
 
-    <link rel="shortcut icon" href="_static/kitty.svg"/><meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="_static/kitty.svg"/><!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>Comprehensive keyboard handling in terminals - kitty</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -156,7 +156,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="_static/kitty.svg" alt="Logo"/>
@@ -164,7 +164,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -339,6 +339,7 @@
 <li class="toctree-l6"><a class="reference internal" href="kittens/ssh.html#options">Options</a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="kittens/ssh.html#copying-terminfo-files-manually">Copying terminfo files manually</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="kittens/custom.html">Custom kittens</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -404,6 +405,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="remote-control.html#matching-windows-and-tabs">Matching windows and tabs</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4 has-children"><a class="reference internal" href="rc_protocol.html">The kitty remote control protocol</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#encrypted-communication">Encrypted communication</a></li>
+<li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#async-and-streaming-requests">Async and streaming requests</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#close-tab">close-tab</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#close-window">close-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#create-marker">create-marker</a></li>
@@ -427,6 +429,7 @@
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#scroll-window">scroll-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#select-window">select-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#send-text">send-text</a></li>
+<li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-background-image">set-background-image</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-background-opacity">set-background-opacity</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-colors">set-colors</a></li>
 <li class="toctree-l5"><a class="reference internal" href="rc_protocol.html#set-enabled-layouts">set-enabled-layouts</a></li>
@@ -634,8 +637,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><input class="toctree-checkbox" id="toctree-checkbox-82" name="toctree-checkbox-82" role="switch" type="checkbox"/><label for="toctree-checkbox-82"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#some-special-symbols-are-rendered-small-truncated-in-kitty">Some special symbols are rendered small/truncated in kitty?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim">Using a color theme with a background color does not work well in vim?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer">I get errors about the terminal being unknown or opening the terminal failing when SSHing into a different computer?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo">Keys such as arrow keys, backspace, delete, home/end, etc. do not work when using su or sudo?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-or-functional-keys-like-arrow-keys-don-t-work">I get errors about the terminal being unknown or opening the terminal failing or functional keys like arrow keys don't work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#i-cannot-use-the-key-combination-x-in-program-y">I cannot use the key combination X in program Y?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-change-the-colors-in-a-running-kitty-instance">How do I change the colors in a running kitty instance?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-specify-command-line-options-for-kitty-on-macos">How do I specify command line options for kitty on macOS?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#i-catted-a-binary-file-and-now-kitty-is-hung">I catted a binary file and now kitty is hung?</a></li>
@@ -659,81 +662,87 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="changelog.html#detailed-list-of-changes">Detailed list of changes</a><input class="toctree-checkbox" id="toctree-checkbox-85" name="toctree-checkbox-85" role="switch" type="checkbox"/><label for="toctree-checkbox-85"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#future">0.26.2 [future]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">0.26.1 [2022-08-30]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">0.26.0 [2022-08-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">0.25.2 [2022-06-07]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">0.25.1 [2022-05-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">0.25.0 [2022-04-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">0.24.4 [2022-03-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">0.24.3 [2022-02-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">0.24.2 [2022-02-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">0.24.1 [2022-01-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id10">0.24.0 [2022-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id11">0.23.1 [2021-08-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id12">0.23.0 [2021-08-16]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id13">0.22.2 [2021-08-02]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id14">0.22.1 [2021-07-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id15">0.22.0 [2021-07-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id16">0.21.2 [2021-06-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id17">0.21.1 [2021-06-14]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id18">0.21.0 [2021-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id19">0.20.3 [2021-05-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id20">0.20.2 [2021-04-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id21">0.20.1 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id22">0.20.0 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id23">0.19.3 [2020-12-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id24">0.19.2 [2020-11-13]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id25">0.19.1 [2020-10-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id26">0.19.0 [2020-10-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id27">0.18.3 [2020-08-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id28">0.18.2 [2020-07-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id29">0.18.1 [2020-06-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id30">0.18.0 [2020-06-20]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id31">0.17.4 [2020-05-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id32">0.17.3 [2020-04-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id33">0.17.2 [2020-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id34">0.17.1 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id35">0.17.0 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id36">0.16.0 [2020-01-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id37">0.15.1 [2019-12-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id38">0.15.0 [2019-11-27]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id39">0.14.6 [2019-09-25]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id40">0.14.5 [2019-09-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id41">0.14.4 [2019-08-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id42">0.14.3 [2019-07-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id43">0.14.2 [2019-06-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id44">0.14.1 [2019-05-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id45">0.14.0 [2019-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id46">0.13.3 [2019-01-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id47">0.13.2 [2019-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id48">0.13.1 [2018-12-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id49">0.13.0 [2018-12-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id50">0.12.3 [2018-09-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id51">0.12.2 [2018-09-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id52">0.12.1 [2018-09-08]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id53">0.12.0 [2018-09-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id54">0.11.3 [2018-07-10]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id55">0.11.2 [2018-07-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id56">0.11.1 [2018-06-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id57">0.11.0 [2018-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id58">0.10.1 [2018-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id59">0.10.0 [2018-05-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id60">0.9.1 [2018-05-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id61">0.9.0 [2018-04-15]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id62">0.8.4 [2018-03-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id63">0.8.3 [2018-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id64">0.8.2 [2018-03-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id65">0.8.1 [2018-03-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id66">0.8.0 [2018-02-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id67">0.7.1 [2018-01-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id68">0.7.0 [2018-01-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id69">0.6.1 [2017-12-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id70">0.6.0 [2017-12-18]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id71">0.5.1 [2017-12-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id72">0.5.0 [2017-11-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id73">0.4.2 [2017-10-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id74">0.4.0 [2017-10-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#future">0.28.0 [future]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">0.27.1 [2023-02-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">0.27.0 [2023-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">0.26.5 [2022-11-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">0.26.4 [2022-10-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">0.26.3 [2022-09-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">0.26.2 [2022-09-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">0.26.1 [2022-08-30]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">0.26.0 [2022-08-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">0.25.2 [2022-06-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id10">0.25.1 [2022-05-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id11">0.25.0 [2022-04-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id12">0.24.4 [2022-03-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id13">0.24.3 [2022-02-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id14">0.24.2 [2022-02-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id15">0.24.1 [2022-01-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id16">0.24.0 [2022-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id17">0.23.1 [2021-08-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id18">0.23.0 [2021-08-16]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id19">0.22.2 [2021-08-02]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id20">0.22.1 [2021-07-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id21">0.22.0 [2021-07-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id22">0.21.2 [2021-06-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id23">0.21.1 [2021-06-14]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id24">0.21.0 [2021-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id25">0.20.3 [2021-05-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id26">0.20.2 [2021-04-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id27">0.20.1 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id28">0.20.0 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id29">0.19.3 [2020-12-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id30">0.19.2 [2020-11-13]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id31">0.19.1 [2020-10-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id32">0.19.0 [2020-10-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id33">0.18.3 [2020-08-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id34">0.18.2 [2020-07-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id35">0.18.1 [2020-06-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id36">0.18.0 [2020-06-20]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id37">0.17.4 [2020-05-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id38">0.17.3 [2020-04-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id39">0.17.2 [2020-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id40">0.17.1 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id41">0.17.0 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id42">0.16.0 [2020-01-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id43">0.15.1 [2019-12-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id44">0.15.0 [2019-11-27]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id45">0.14.6 [2019-09-25]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id46">0.14.5 [2019-09-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id47">0.14.4 [2019-08-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id48">0.14.3 [2019-07-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id49">0.14.2 [2019-06-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id50">0.14.1 [2019-05-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id51">0.14.0 [2019-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id52">0.13.3 [2019-01-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id53">0.13.2 [2019-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id54">0.13.1 [2018-12-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id55">0.13.0 [2018-12-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id56">0.12.3 [2018-09-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id57">0.12.2 [2018-09-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id58">0.12.1 [2018-09-08]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id59">0.12.0 [2018-09-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id60">0.11.3 [2018-07-10]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id61">0.11.2 [2018-07-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id62">0.11.1 [2018-06-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id63">0.11.0 [2018-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id64">0.10.1 [2018-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id65">0.10.0 [2018-05-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id66">0.9.1 [2018-05-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id67">0.9.0 [2018-04-15]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id68">0.8.4 [2018-03-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id69">0.8.3 [2018-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id70">0.8.2 [2018-03-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id71">0.8.1 [2018-03-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id72">0.8.0 [2018-02-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id73">0.7.1 [2018-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id74">0.7.0 [2018-01-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id75">0.6.1 [2017-12-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id76">0.6.0 [2017-12-18]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id77">0.5.1 [2017-12-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id78">0.5.0 [2017-11-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id79">0.4.2 [2017-10-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id80">0.4.0 [2017-10-22]</a></li>
 </ul>
 </li>
 </ul>
@@ -766,6 +775,7 @@
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="graphics-protocol.html#display-images-on-screen">Display images on screen</a><input class="toctree-checkbox" id="toctree-checkbox-91" name="toctree-checkbox-91" role="switch" type="checkbox"/><label for="toctree-checkbox-91"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="graphics-protocol.html#controlling-displayed-image-layout">Controlling displayed image layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="graphics-protocol.html#unicode-placeholders">Unicode placeholders</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="graphics-protocol.html#deleting-images">Deleting images</a></li>
@@ -809,6 +819,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#functional-key-definitions">Functional key definitions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#legacy-ctrl-mapping-of-ascii-keys">Legacy <kbd class="kbd docutils literal notranslate">ctrl</kbd> mapping of ASCII keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bugs-in-fixterms">Bugs in fixterms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-xterm-s-modifyotherkeys-should-not-be-used">Why xterm's modifyOtherKeys should not be used</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="file-transfer-protocol.html">File transfer over the TTY</a><input class="toctree-checkbox" id="toctree-checkbox-97" name="toctree-checkbox-97" role="switch" type="checkbox"/><label for="toctree-checkbox-97"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -840,9 +851,15 @@
 <li class="toctree-l2"><a class="reference internal" href="unscroll.html">Unscrolling the screen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="color-stack.html">Saving and restoring colors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deccara.html">Setting text styles/colors in arbitrary regions of the screen</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="clipboard.html">Copying all data types to the clipboard</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#reading-data-from-the-system-clipboard">Reading data from the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#writing-data-to-the-system-clipboard">Writing data to the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#support-for-terminal-multiplexers">Support for terminal multiplexers</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-102" name="toctree-checkbox-102" role="switch" type="checkbox"/><label for="toctree-checkbox-102"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="press-mentions.html#video-reviews">Video reviews</a></li>
 </ul>
 </li>
@@ -865,7 +882,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -910,7 +928,8 @@ issues in that proposal, listed at the <a class="reference internal" href="#fixt
 <li><p>The <a class="reference external" href="https://wezfurlong.org/wezterm/config/lua/config/enable_kitty_keyboard.html">WezTerm terminal</a></p></li>
 <li><p>The <a class="reference external" href="https://github.com/dankamongmen/notcurses/issues/2131">notcurses library</a></p></li>
 <li><p>The <a class="reference external" href="https://github.com/crossterm-rs/crossterm/pull/688">crossterm library</a></p></li>
-<li><p>The <a class="reference external" href="https://github.com/neovim/neovim/pull/18181">neovim text editor</a></p></li>
+<li><p>The <a class="reference external" href="https://github.com/vim/vim/commit/63a2e360cca2c70ab0a85d14771d3259d4b3aafa">Vim text editor</a></p></li>
+<li><p>The <a class="reference external" href="https://github.com/neovim/neovim/pull/18181">Neovim text editor</a></p></li>
 <li><p>The <a class="reference external" href="https://github.com/mawww/kakoune/issues/4103">kakoune text editor</a></p></li>
 <li><p>The <a class="reference external" href="https://gitlab.com/craigbarnes/dte/-/issues/138">dte text editor</a></p></li>
 </ul>
@@ -930,13 +949,13 @@ screen.</p></li>
 that are easy to parse unambiguously.</p></li>
 <li><p>Emit the escape sequence <code class="docutils literal notranslate"><span class="pre">CSI</span> <span class="pre">&lt;</span> <span class="pre">u</span></code> at application exit if using the main
 screen or just before leaving alternate screen mode if using the alternate screen,
-to restore the previously used keyboard mode.</p></li>
+to restore whatever the keyboard mode was before step 1.</p></li>
 </ol>
 <p>Key events will all be delivered to your application either as plain UTF-8
 text, or using the following escape codes, for those keys that do not produce
 text (<code class="docutils literal notranslate"><span class="pre">CSI</span></code> is the bytes <code class="docutils literal notranslate"><span class="pre">0x1b</span> <span class="pre">0x5b</span></code>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CSI</span> <span class="n">number</span> <span class="p">;</span> <span class="n">modifiers</span> <span class="p">[</span><span class="n">u</span><span class="o">~</span><span class="p">]</span>
-<span class="n">CSI</span> <span class="mi">1</span><span class="p">;</span> <span class="n">modifiers</span> <span class="p">[</span><span class="n">ABCDEFHPQRS</span><span class="p">]</span>
+<span class="n">CSI</span> <span class="mi">1</span><span class="p">;</span> <span class="n">modifiers</span> <span class="p">[</span><span class="n">ABCDEFHPQS</span><span class="p">]</span>
 <span class="mh">0x0d</span> <span class="o">-</span> <span class="k">for</span> <span class="n">the</span> <span class="n">Enter</span> <span class="n">key</span>
 <span class="mh">0x7f</span> <span class="ow">or</span> <span class="mh">0x08</span> <span class="o">-</span> <span class="k">for</span> <span class="n">Backspace</span>
 <span class="mh">0x09</span> <span class="o">-</span> <span class="k">for</span> <span class="n">Tab</span>
@@ -951,7 +970,7 @@ modifiers pressed for the key event. The encoding is described in the
 <kbd class="kbd docutils literal notranslate">End</kbd>, <kbd class="kbd docutils literal notranslate">Arrow</kbd> keys and <kbd class="kbd docutils literal notranslate">F1</kbd> ... <kbd class="kbd docutils literal notranslate">F4</kbd>, they are enumerated in
 the <a class="reference internal" href="#functional"><span class="std std-ref">Functional key definitions</span></a> table below.  Note that if no modifiers are present the
 parameters are omitted entirely giving an escape code of the form <code class="docutils literal notranslate"><span class="pre">CSI</span>
-<span class="pre">[ABCDEFHPQRS]</span></code>.</p>
+<span class="pre">[ABCDEFHPQS]</span></code>.</p>
 <p>If you want support for more advanced features such as repeat and release
 events, alternate keys for shortcut matching et cetera, these can be turned on
 using <a class="reference internal" href="#progressive-enhancement"><span class="std std-ref">Progressive enhancement</span></a> as documented in the rest of this
@@ -1170,7 +1189,7 @@ encoding, using dedicated numbers from the <a class="reference internal" href="#
 <p>With this flag turned on, all key events that do not generate text are
 represented in one of the following two forms:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CSI</span> <span class="n">number</span><span class="p">;</span> <span class="n">modifier</span> <span class="n">u</span>
-<span class="n">CSI</span> <span class="mi">1</span><span class="p">;</span> <span class="n">modifier</span> <span class="p">[</span><span class="o">~</span><span class="n">ABCDEFHPQRS</span><span class="p">]</span>
+<span class="n">CSI</span> <span class="mi">1</span><span class="p">;</span> <span class="n">modifier</span> <span class="p">[</span><span class="o">~</span><span class="n">ABCDEFHPQS</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>This makes it very easy to parse key events in an application. In particular,
@@ -1237,7 +1256,7 @@ progressive enhancement.</p>
 <h3>Legacy functional keys<a class="headerlink" href="#legacy-functional-keys" title="Permalink to this heading">#</a></h3>
 <p>These keys are encoded using three schemes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CSI</span> <span class="n">number</span> <span class="p">;</span> <span class="n">modifier</span> <span class="o">~</span>
-<span class="n">CSI</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">modifier</span> <span class="p">{</span><span class="n">ABCDEFHPQRS</span><span class="p">}</span>
+<span class="n">CSI</span> <span class="mi">1</span> <span class="p">;</span> <span class="n">modifier</span> <span class="p">{</span><span class="n">ABCDEFHPQS</span><span class="p">}</span>
 <span class="n">SS3</span> <span class="p">{</span><span class="n">ABCDEFHPQRS</span><span class="p">}</span>
 </pre></div>
 </div>
@@ -1575,7 +1594,7 @@ compatibility reasons.</p>
 <td><p><code class="docutils literal notranslate"><span class="pre">1 Q</span> <span class="pre">or</span> <span class="pre">12</span> <span class="pre">~</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>F3</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">1 R</span> <span class="pre">or</span> <span class="pre">13</span> <span class="pre">~</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">13 ~</span></code></p></td>
 <td><p>F4</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">1 S</span> <span class="pre">or</span> <span class="pre">14</span> <span class="pre">~</span></code></p></td>
 </tr>
@@ -1802,8 +1821,17 @@ compatibility reasons.</p>
 </tbody>
 </table>
 </div>
-<p>Note that the escape codes above of the form <code class="docutils literal notranslate"><span class="pre">CSI</span> <span class="pre">1</span> <span class="pre">letter</span></code> will omit the
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The escape codes above of the form <code class="docutils literal notranslate"><span class="pre">CSI</span> <span class="pre">1</span> <span class="pre">letter</span></code> will omit the
 <code class="docutils literal notranslate"><span class="pre">1</span></code> if there are no modifiers, since <code class="docutils literal notranslate"><span class="pre">1</span></code> is the default value.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The original version of this specification allowed F3 to be encoded as both
+CSI R and CSI ~. However, CSI R conflicts with the Cursor Position Report,
+so it was removed.</p>
+</div>
 </section>
 <section id="legacy-ctrl-mapping-of-ascii-keys">
 <span id="ctrl-mapping"></span><h2>Legacy <kbd class="kbd docutils literal notranslate">ctrl</kbd> mapping of ASCII keys<a class="headerlink" href="#legacy-ctrl-mapping-of-ascii-keys" title="Permalink to this heading">#</a></h2>
@@ -1979,6 +2007,26 @@ does this only for some keys. The action of <kbd class="kbd docutils literal not
 varies between terminals, historically because of different keyboard layouts.</p></li>
 </ul>
 </section>
+<section id="why-xterm-s-modifyotherkeys-should-not-be-used">
+<h2>Why xterm's modifyOtherKeys should not be used<a class="headerlink" href="#why-xterm-s-modifyotherkeys-should-not-be-used" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Does not support release events</p></li>
+<li><p>Does not fix the issue of <kbd class="kbd docutils literal notranslate">Esc</kbd> key presses not being distinguishable from
+escape codes.</p></li>
+<li><p>Does not fix the issue of some keypresses generating identical bytes and thus
+being indistinguishable</p></li>
+<li><p>There is no robust way to query it or manage its state from a program running
+in the terminal.</p></li>
+<li><p>No support for shifted keys.</p></li>
+<li><p>No support for alternate keyboard layouts.</p></li>
+<li><p>No support for modifiers beyond the basic four.</p></li>
+<li><p>No support for lock keys like Num lock and Caps lock.</p></li>
+<li><p>Is completely unspecified. The most discussion of it available anywhere is
+<a class="reference external" href="https://invisible-island.net/xterm/modified-keys.html">here</a>
+And it contains no specification of what numbers to assign to what function
+keys beyond running a Perl script on an X11 system!!</p></li>
+</ul>
+</section>
 </section>
 
         </article>
@@ -1993,10 +2041,10 @@ varies between terminals, historically because of different keyboard layouts.</p
                 </div>
                 <div class="title">File transfer over the TTY</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="graphics-protocol.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -2010,7 +2058,7 @@ varies between terminals, historically because of different keyboard layouts.</p
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Kovid Goyal
+                Copyright &#169; 2023, Kovid Goyal
             </div>
             Made with 
             <a href="https://github.com/pradyunsg/furo">Furo</a>
@@ -2036,7 +2084,7 @@ varies between terminals, historically because of different keyboard layouts.</p
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -2069,6 +2117,7 @@ varies between terminals, historically because of different keyboard layouts.</p
 <li><a class="reference internal" href="#functional-key-definitions">Functional key definitions</a></li>
 <li><a class="reference internal" href="#legacy-ctrl-mapping-of-ascii-keys">Legacy <kbd class="kbd docutils literal notranslate">ctrl</kbd> mapping of ASCII keys</a></li>
 <li><a class="reference internal" href="#bugs-in-fixterms">Bugs in fixterms</a></li>
+<li><a class="reference internal" href="#why-xterm-s-modifyotherkeys-should-not-be-used">Why xterm's modifyOtherKeys should not be used</a></li>
 </ul>
 </li>
 </ul>
@@ -2081,10 +2130,8 @@ varies between terminals, historically because of different keyboard layouts.</p
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>

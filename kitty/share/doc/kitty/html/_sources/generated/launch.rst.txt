@@ -28,11 +28,14 @@ ______________________________
     :code:`tab`
         A new :term:`tab` in the current OS window
 
-    :code:`os-window <os_window>`
+    :code:`os-window`
         A new :term:`operating system window <os_window>`
 
     :code:`overlay`
         An :term:`overlay window <overlay>` covering the current active kitty window
+
+    :code:`overlay-main`
+        An :term:`overlay window <overlay>` covering the current active kitty window. Unlike a plain overlay window, this window is considered as a :italic:`main` window which means it is used as the active window for getting the current working directory, the input text for kittens, launch commands, etc. Useful if this overlay is intended to run for a long time as a primary window.
 
     :code:`background`
         The process will be run in the :italic:`background`, without a kitty window.
@@ -42,7 +45,7 @@ ______________________________
 
 
     Default: :code:`window`
-    Choices: :code:`background`, :code:`clipboard`, :code:`os-window`, :code:`overlay`, :code:`primary`, :code:`tab`, :code:`window`
+    Choices: :code:`background`, :code:`clipboard`, :code:`os-window`, :code:`overlay`, :code:`overlay-main`, :code:`primary`, :code:`tab`, :code:`window`
 
 .. option:: --dont-take-focus, --keep-focus
 
@@ -50,7 +53,7 @@ ______________________________
 
 .. option:: --cwd <CWD>
 
-    The working directory for the newly launched child. Use the special value :code:`current` to use the working directory of the currently active window. The special value :code:`last_reported` uses the last working directory reported by the shell (needs :ref:`shell_integration` to work). The special value :code:`oldest` works like :code:`current` but uses the working directory of the oldest foreground process associated with the currently active window rather than the newest foreground process.
+    The working directory for the newly launched child. Use the special value :code:`current` to use the working directory of the currently active window. The special value :code:`last_reported` uses the last working directory reported by the shell (needs :ref:`shell_integration` to work). The special value :code:`oldest` works like :code:`current` but uses the working directory of the oldest foreground process associated with the currently active window rather than the newest foreground process. Finally, the special value :code:`root` refers to the process that was originally started when the window was created.
 
 .. option:: --env <ENV>
 
@@ -147,6 +150,12 @@ ______________________________
 
     Set the title for the newly created OS window. This title will override any titles set by programs running in kitty. The special value :code:`current` will use the title of the current OS window, if any.
 
+.. option:: --os-window-state <OS_WINDOW_STATE>
+
+    The initial state for the newly created OS Window.
+    Default: :code:`normal`
+    Choices: :code:`fullscreen`, :code:`maximized`, :code:`minimized`, :code:`normal`
+
 .. option:: --logo <LOGO>
 
     Path to a PNG image to use as the logo for the newly created window. See :opt:`window_logo_path`. Relative paths are resolved from the kitty configuration directory.
@@ -168,7 +177,7 @@ ______________________________
 
 .. option:: --spacing <SPACING>
 
-    Set the margin and padding for the newly created window. For example: :code:`margin=20` or :code:`padding-left=10` or :code:`margin-h=30`. The shorthand form sets all values, the :code:`*-h` and :code:`*-v` variants set horizontal and vertical values. Can be specified multiple times.
+    Set the margin and padding for the newly created window. For example: :code:`margin=20` or :code:`padding-left=10` or :code:`margin-h=30`. The shorthand form sets all values, the :code:`*-h` and :code:`*-v` variants set horizontal and vertical values. Can be specified multiple times. Note that this is ignored for overlay windows as these use the settings from the base window.
 
 .. option:: --watcher <WATCHER>, -w <WATCHER>
 

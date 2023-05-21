@@ -27,7 +27,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "KITTY.CONF" "5" "Sep 05, 2022" "0.26.2" "kitty"
+.TH "KITTY.CONF" "5" "Apr 21, 2023" "0.28.1" "kitty"
 .SH NAME
 kitty.conf \- kitty.conf Documentation
 .sp
@@ -51,11 +51,13 @@ Comments can be added to the config file as lines starting with the \fB#\fP
 character. This works only if the \fB#\fP character is the first character in the
 line.
 .sp
-You can include secondary config files via the \fBinclude\fP directive.  If
+You can include secondary config files via the \fBinclude\fP directive. If
 you use a relative path for \fBinclude\fP, it is resolved with respect to the
 location of the current config file. Note that environment variables are
 expanded, so \fB${USER}.conf\fP becomes \fBname.conf\fP if
-\fBUSER=name\fP\&. Also, you can use \fBglobinclude\fP to include files
+\fBUSER=name\fP\&. A special environment variable \fI\%KITTY_OS\fP is available,
+to detect the operating system. It is \fBlinux\fP, \fBmacos\fP or \fBbsd\fP\&.
+Also, you can use \fBglobinclude\fP to include files
 matching a shell glob pattern and \fBenvinclude\fP to include configuration
 from environment variables. For example:
 .INDENT 0.0
@@ -170,6 +172,8 @@ terminals.
 .TP
 .B symbol_map
 .UNINDENT
+.sp
+Has no default values. Example values are shown below:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -201,6 +205,8 @@ symbol_map codepoints Font Family Name
 .TP
 .B narrow_symbols
 .UNINDENT
+.sp
+Has no default values. Example values are shown below:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -269,6 +275,8 @@ Note that this refers to programming ligatures, typically implemented using the
 .TP
 .B font_features
 .UNINDENT
+.sp
+Has no default values. Example values are shown below:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -371,20 +379,11 @@ font_features UnifontMedium +isol \-medi \-fina \-init
 .TP
 .B modify_font
 .UNINDENT
-.INDENT 0.0
-.INDENT 3.5
 .sp
-.nf
-.ft C
-modify_font
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
-.sp
-Modify font characteristics such as the position or thickness of the underline and strikethrough.
-The modifications can have the suffix \fBpx\fP for pixels or \fB%\fP for percentage of original value.
-No suffix means use pts. For example:
+Modify font characteristics such as the position or thickness of the underline
+and strikethrough. The modifications can have the suffix \fBpx\fP for pixels
+or \fB%\fP for percentage of original value. No suffix means use pts.
+For example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -398,8 +397,9 @@ modify_font strikethrough_position 2px
 .UNINDENT
 .UNINDENT
 .sp
-Additionally, you can modify the size of the cell in which each font glyph is rendered and the baseline
-at which the glyph is placed in the cell. For example:
+Additionally, you can modify the size of the cell in which each font glyph is
+rendered and the baseline at which the glyph is placed in the cell.
+For example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -413,9 +413,10 @@ modify_font baseline 3
 .UNINDENT
 .UNINDENT
 .sp
-Note that modifying the baseline will automatically adjust the underline and strikethrough positions
-by the same amount. Increasing the baseline raises glyphs inside the cell and decreasing it lowers them.
-Decreasing the cell size might cause rendering artifacts, so use with care.
+Note that modifying the baseline will automatically adjust the underline and
+strikethrough positions by the same amount. Increasing the baseline raises
+glyphs inside the cell and decreasing it lowers them. Decreasing the cell size
+might cause rendering artifacts, so use with care.
 .INDENT 0.0
 .TP
 .B box_drawing_scale
@@ -435,6 +436,68 @@ The sizes of the lines used for the box drawing Unicode characters. These values
 are in pts. They will be scaled by the monitor DPI to arrive at a pixel value.
 There must be four values corresponding to thin, normal, thick, and very thick
 lines.
+.INDENT 0.0
+.TP
+.B undercurl_style
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+undercurl_style thin\-sparse
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The style with which undercurls are rendered. This option takes the form
+\fB(thin|thick)\-(sparse|dense)\fP\&. Thin and thick control the thickness of the
+undercurl. Sparse and dense control how often the curl oscillates. With sparse
+the curl will peak once per character, with dense twice.
+.INDENT 0.0
+.TP
+.B text_composition_strategy
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+text_composition_strategy platform
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Control how kitty composites text glyphs onto the background color. The default
+value of \fBplatform\fP tries for text rendering as close to \(dqnative\(dq for
+the platform kitty is running on as possible.
+.sp
+A value of \fBlegacy\fP uses the old (pre kitty 0.28) strategy for how glyphs
+are composited. This will make dark text on light backgrounds look thicker and
+light text on dark backgrounds thinner. It might also make some text appear like
+the strokes are uneven.
+.sp
+You can fine tune the actual contrast curve used for glyph composition by
+specifying two space separated numbers for this setting.
+.sp
+The first number is the gamma adjustment, which controls the thickness of dark
+text on light backgrounds. Increasing the value will make text appear thicker.
+The default value for this is \fB1.0\fP on Linux and \fB1.7\fP on macOS.
+Valid values are \fB0.01\fP and above. The result is scaled based on the
+luminance difference between the background and the foreground. Dark text on
+light backgrounds receives the full impact of the curve while light text on dark
+backgrounds is affected very little.
+.sp
+The second number is an additional multiplicative contrast. It is percentage
+ranging from \fB0\fP to \fB100\fP\&. The default value is \fB0\fP on Linux
+and \fB30\fP on macOS.
+.sp
+If you wish to achieve similar looking thickness in light and dark themes, a good way
+to experiment is start by setting the value to \fB1.0 0\fP and use a dark theme.
+Then adjust the second parameter until it looks good. Then switch to a light theme
+and adjust the first parameter until the perceived thickness matches the dark theme.
 .INDENT 0.0
 .TP
 .B cursor
@@ -758,9 +821,10 @@ open_url_with default
 .UNINDENT
 .UNINDENT
 .sp
-The program to open clicked URLs. The special value \fBdefault\fP means to
-use the operating system\(aqs default URL handler (\fBopen\fP on macOS and
-\fBxdg\-open\fP on Linux).
+The program to open clicked URLs. The special value \fBdefault\fP with first
+look for any URL handlers defined via the \fI\%Scripting the mouse click\fP facility and if
+non are found, it will use the Operating System\(aqs default URL handler
+(\fBopen\fP on macOS and \fBxdg\-open\fP on Linux).
 .INDENT 0.0
 .TP
 .B url_prefixes
@@ -799,19 +863,31 @@ are still clickable.
 .TP
 .B url_excluded_characters
 .UNINDENT
+.sp
+Additional characters to be disallowed from URLs, when detecting URLs under the
+mouse cursor. By default, all characters that are legal in URLs are allowed.
+Additionally, newlines are allowed (but stripped). This is to accommodate
+programs such as mutt that add hard line breaks even for continued lines.
+\fB\en\fP can be added to this option to disable this behavior. Special
+characters can be specified using backslash escapes, to specify a backslash use
+a double backslash.
+.INDENT 0.0
+.TP
+.B show_hyperlink_targets
+.UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .nf
 .ft C
-url_excluded_characters
+show_hyperlink_targets no
 .ft P
 .fi
 .UNINDENT
 .UNINDENT
 .sp
-Additional characters to be disallowed from URLs, when detecting URLs under the
-mouse cursor. By default, all characters that are legal in URLs are allowed.
+When the mouse hovers over a terminal hyperlink, show the actual URL that will
+be activated when the hyperlink is clicked.
 .INDENT 0.0
 .TP
 .B copy_on_select
@@ -873,7 +949,7 @@ If the text being pasted is a URL and the cursor is at a shell prompt,
 automatically quote the URL (needs \fI\%shell_integration\fP).
 .TP
 .B \fBconfirm\fP:
-Confirm the paste if bracketed paste mode is not active or there is more
+Confirm the paste if bracketed paste mode is not active or there is
 a large amount of text being pasted.
 .TP
 .B \fBfilter\fP:
@@ -920,16 +996,6 @@ Unicode database will be matched.
 .INDENT 0.0
 .TP
 .B select_by_word_characters_forward
-.UNINDENT
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-select_by_word_characters_forward
-.ft P
-.fi
-.UNINDENT
 .UNINDENT
 .sp
 Characters considered part of a word when extending the selection forward on
@@ -1578,6 +1644,22 @@ operating systems sound API, such as WAV or OGA on Linux (libcanberra) or AIFF,
 MP3 or WAV on macOS (NSSound)
 .INDENT 0.0
 .TP
+.B linux_bell_theme
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+linux_bell_theme __custom
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The XDG Sound Theme kitty will use to play the bell sound. Defaults to the custom theme name used by GNOME and Budgie, falling back to the default freedesktop theme if it does not exist. This option may be removed if Linux ever provides desktop\-agnostic support for setting system sound themes.
+.INDENT 0.0
+.TP
 .B remember_window_size, initial_window_width, initial_window_height
 .UNINDENT
 .INDENT 0.0
@@ -1593,11 +1675,12 @@ initial_window_height 400
 .UNINDENT
 .UNINDENT
 .sp
-If enabled, the window size will be remembered so that new instances of kitty
-will have the same size as the previous instance. If disabled, the window will
-initially have size configured by initial_window_width/height, in pixels. You
-can use a suffix of \(dqc\(dq on the width/height values to have them interpreted as
-number of cells instead of pixels.
+If enabled, the \fI\%OS Window\fP size will be remembered so that
+new instances of kitty will have the same size as the previous instance.
+If disabled, the \fI\%OS Window\fP will initially have size
+configured by initial_window_width/height, in pixels. You can use a suffix of
+\(dqc\(dq on the width/height values to have them interpreted as number of cells
+instead of pixels.
 .INDENT 0.0
 .TP
 .B enabled_layouts
@@ -1673,7 +1756,7 @@ draw_minimal_borders yes
 .UNINDENT
 .sp
 Draw only the minimum borders needed. This means that only the borders that
-separate the inactive window from a neighbor are drawn. Note that setting a
+separate the window from a neighbor are drawn. Note that setting a
 non\-zero \fI\%window_margin_width\fP overrides this and causes all borders to be
 drawn.
 .INDENT 0.0
@@ -2087,9 +2170,9 @@ kitty\(aqs source code: \fBkitty/tab_bar.py\fP\&. See also
 for examples from kitty users.
 .TP
 .B \fBhidden\fP
-The tab bar is hidden. If you use this, you might want to create a mapping
-for the \fI\%select_tab\fP action which presents you with a list of tabs and
-allows for easy switching to a tab.
+The tab bar is hidden. If you use this, you might want to create
+a mapping for the \fI\%select_tab\fP action which presents you with a list of
+tabs and allows for easy switching to a tab.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -2220,6 +2303,23 @@ spaces, surround the text with quotes. See \fI\%tab_title_template\fP for how
 this is rendered.
 .INDENT 0.0
 .TP
+.B tab_title_max_length
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+tab_title_max_length 0
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The maximum number of cells that can be used to render the text in a tab.
+A value of zero means that no limit is applied.
+.INDENT 0.0
+.TP
 .B tab_title_template
 .UNINDENT
 .INDENT 0.0
@@ -2256,8 +2356,14 @@ The number of windows in the tab.
 The number of window groups (not counting overlay windows) in the tab.
 .TP
 .B \fBtab.active_wd\fP
-The working directory of the currently active window in the tab (expensive,
-requires syscall).
+The working directory of the currently active window in the tab
+(expensive, requires syscall). Use \fBactive_oldest_wd\fP to get
+the directory of the oldest foreground process rather than the newest.
+.TP
+.B \fBtab.active_exe\fP
+The name of the executable running in the foreground of the currently
+active window in the tab (expensive, requires syscall). Use
+\fBactive_oldest_exe\fP for the oldest foreground process.
 .TP
 .B \fBmax_title_length\fP
 The maximum title length available.
@@ -2344,7 +2450,8 @@ tab_bar_margin_color none
 .UNINDENT
 .sp
 Color for the tab bar margin area. Defaults to using the terminal background
-color.
+color for margins above and below the tab bar. For side margins the default
+color is chosen to match the background color of the neighboring tab.
 .INDENT 0.0
 .TP
 .B foreground, background
@@ -2425,7 +2532,7 @@ background_image_layout tiled
 .UNINDENT
 .sp
 Whether to tile, scale or clamp the background image. The value can be one of
-\fBtiled\fP, \fBmirror\-tiled\fP, \fBscaled\fP, \fBclamped\fP\&.
+\fBtiled\fP, \fBmirror\-tiled\fP, \fBscaled\fP, \fBclamped\fP or \fBcentered\fP\&.
 .INDENT 0.0
 .TP
 .B background_image_linear
@@ -2476,11 +2583,29 @@ background_tint 0.0
 .UNINDENT
 .UNINDENT
 .sp
-How much to tint the background image by the background color. The tint is
-applied only under the text area, not margin/borders. This option makes it
-easier to read the text. Tinting is done using the current background color for
-each window. This option applies only if \fI\%background_opacity\fP is set and
-transparent windows are supported or \fI\%background_image\fP is set.
+How much to tint the background image by the background color. This option
+makes it easier to read the text. Tinting is done using the current background
+color for each window. This option applies only if \fI\%background_opacity\fP is
+set and transparent windows are supported or \fI\%background_image\fP is set.
+.INDENT 0.0
+.TP
+.B background_tint_gaps
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+background_tint_gaps 1.0
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+How much to tint the background image at the window gaps by the background
+color, after applying \fI\%background_tint\fP\&. Since this is multiplicative
+with \fI\%background_tint\fP, it can be used to lighten the tint over the window
+gaps for a \fIseparated\fP look.
 .INDENT 0.0
 .TP
 .B dim_opacity
@@ -2827,21 +2952,12 @@ their stdout/stderr/stdin no longer work.
 .TP
 .B remote_control_password
 .UNINDENT
-.INDENT 0.0
-.INDENT 3.5
 .sp
-.nf
-.ft C
-remote_control_password
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
-.sp
-Allow other programs to control kitty using passwords. This option can be specified multiple
-times to add multiple passwords. If no passwords are present kitty will ask the user for
-permission if a program tries to use remote control with a password. A password can also
-\fIoptionally\fP be associated with a set of allowed remote control actions. For example:
+Allow other programs to control kitty using passwords. This option can be
+specified multiple times to add multiple passwords. If no passwords are present
+kitty will ask the user for permission if a program tries to use remote control
+with a password. A password can also \fIoptionally\fP be associated with a set of
+allowed remote control actions. For example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -2878,8 +2994,8 @@ kitty @ \-\-help
 .UNINDENT
 .UNINDENT
 .sp
-A set of actions to be allowed when no password is sent can be specified by using an empty
-password, for example:
+A set of actions to be allowed when no password is sent can be specified by
+using an empty password. For example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -2891,8 +3007,9 @@ remote_control_password \(dq\(dq *\-colors
 .UNINDENT
 .UNINDENT
 .sp
-Finally, the path to a python module can be specified that provides a function \fBis_cmd_allowed\fP
-that is used to check every remote control command. See \fI\%Customizing authorization with your own program\fP for details. For example:
+Finally, the path to a python module can be specified that provides a function
+\fBis_cmd_allowed\fP that is used to check every remote control command.
+For example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -2905,6 +3022,7 @@ remote_control_password \(dqmy passphrase\(dq my_rc_command_checker.py
 .UNINDENT
 .sp
 Relative paths are resolved from the kitty configuration directory.
+See \fI\%Customizing authorization with your own program\fP for details.
 .INDENT 0.0
 .TP
 .B allow_remote_control
@@ -2928,16 +3046,18 @@ prevents any form of remote control. The meaning of the various values are:
 .INDENT 0.0
 .TP
 .B \fBpassword\fP
-Remote control requests received over both the TTY device and the socket are
-confirmed based on passwords, see \fI\%remote_control_password\fP\&.
+Remote control requests received over both the TTY device and the socket
+are confirmed based on passwords, see \fI\%remote_control_password\fP\&.
 .TP
 .B \fBsocket\-only\fP
-Remote control requests received over a socket are accepted unconditionally.
-Requests received over the TTY are denied. See \fI\%listen_on\fP\&.
+Remote control requests received over a socket are accepted
+unconditionally. Requests received over the TTY are denied.
+See \fI\%listen_on\fP\&.
 .TP
 .B \fBsocket\fP
-Remote control requests received over a socket are accepted unconditionally.
-Requests received over the TTY are confirmed based on password.
+Remote control requests received over a socket are accepted
+unconditionally. Requests received over the TTY are confirmed based on
+password.
 .TP
 .B \fBno\fP
 Remote control is completely disabled.
@@ -2969,22 +3089,13 @@ variables are expanded and relative paths are resolved with respect to the
 temporary directory. If \fB{kitty_pid}\fP is present, then it is replaced by
 the PID of the kitty process, otherwise the PID of the kitty process is
 appended to the value, with a hyphen. See the help for \fI\%kitty
-\-\-listen\-on\fP for more details. Note that this will be ignored unless \fI\%allow_remote_control\fP
-is set to either: \fByes\fP, \fBsocket\fP or \fBsocket\-only\fP\&.
+\-\-listen\-on\fP for more details. Note that this will be ignored unless
+\fI\%allow_remote_control\fP is set to either: \fByes\fP, \fBsocket\fP or
+\fBsocket\-only\fP\&.
 Changing this option by reloading the config is not supported.
 .INDENT 0.0
 .TP
 .B env
-.UNINDENT
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-env
-.ft P
-.fi
-.UNINDENT
 .UNINDENT
 .sp
 Specify the environment variables to be set in all child processes. Using the
@@ -3009,16 +3120,6 @@ The value of \fBVAR2\fP will be \fB<path to home directory>/a/b\fP\&.
 .TP
 .B watcher
 .UNINDENT
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-watcher
-.ft P
-.fi
-.UNINDENT
-.UNINDENT
 .sp
 Path to python file which will be loaded for \fI\%Watching launched windows\fP\&. Can be specified
 more than once to load multiple watchers. The watchers will be added to every
@@ -3028,16 +3129,6 @@ the reload.
 .INDENT 0.0
 .TP
 .B exe_search_path
-.UNINDENT
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-exe_search_path
-.ft P
-.fi
-.UNINDENT
 .UNINDENT
 .sp
 Control where kitty finds the programs to run. The default search order is:
@@ -3101,7 +3192,7 @@ startup_session none
 .UNINDENT
 .sp
 Path to a session file to use for all kitty instances. Can be overridden by
-using the \fI\%kitty \-\-session\fP command line option for individual
+using the \fI\%kitty \-\-session\fP \fB=none\fP command line option for individual
 instances. See \fI\%Startup Sessions\fP in the kitty documentation for details. Note that
 relative paths are interpreted with respect to the kitty config directory.
 Environment variables in the path are expanded. Changing this option by
@@ -3139,7 +3230,7 @@ also \fI\%clipboard_max_size\fP\&.
 .sp
 .nf
 .ft C
-clipboard_max_size 64
+clipboard_max_size 512
 .ft P
 .fi
 .UNINDENT
@@ -3151,16 +3242,6 @@ is applied. See also \fI\%clipboard_control\fP\&.
 .INDENT 0.0
 .TP
 .B file_transfer_confirmation_bypass
-.UNINDENT
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.nf
-.ft C
-file_transfer_confirmation_bypass
-.ft P
-.fi
-.UNINDENT
 .UNINDENT
 .sp
 The password that can be supplied to the \fI\%file transfer kitten\fP to skip the transfer confirmation prompt. This should only
@@ -3436,7 +3517,8 @@ macos_thicken_font 0
 Draw an extra border around the font with the given width, to increase
 legibility at small font sizes on macOS. For example, a value of \fB0.75\fP
 will result in rendering that looks similar to sub\-pixel antialiasing at common
-font sizes.
+font sizes. Note that in modern kitty, this option is obsolete (although still
+supported). Consider using \fI\%text_composition_strategy\fP instead.
 .INDENT 0.0
 .TP
 .B macos_traditional_fullscreen
@@ -3527,12 +3609,13 @@ macos_colorspace srgb
 .UNINDENT
 .UNINDENT
 .sp
-The colorspace in which to interpret terminal colors. The default of \fBsrgb\fP will
-cause colors to match those seen in web browsers. The value of \fBdefault\fP will
-use whatever the native colorspace of the display is. The value of \fBdisplayp3\fP
-will use Apple\(aqs special snowflake display P3 color space, which will result in over
-saturated (brighter) colors with some color shift. Reloading configuration will change this
-value only for newly created OS windows.
+The colorspace in which to interpret terminal colors. The default of
+\fBsrgb\fP will cause colors to match those seen in web browsers. The value of
+\fBdefault\fP will use whatever the native colorspace of the display is.
+The value of \fBdisplayp3\fP will use Apple\(aqs special snowflake display P3
+color space, which will result in over saturated (brighter) colors with some
+color shift. Reloading configuration will change this value only for newly
+created OS windows.
 .INDENT 0.0
 .TP
 .B linux_display_server
@@ -3715,6 +3798,8 @@ remove the default shortcuts.
 .TP
 .B action_alias
 .UNINDENT
+.sp
+Has no default values. Example values are shown below:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -3757,6 +3842,8 @@ action_alias hints kitten hints \-\-hints\-offset=0
 .TP
 .B kitten_alias
 .UNINDENT
+.sp
+Has no default values. Example values are shown below:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -5190,8 +5277,8 @@ map ctrl+alt+a send_text all Special text
 .UNINDENT
 .sp
 This will send \(dqSpecial text\(dq when you press the \fBCtrl+Alt+A\fP key
-combination. The text to be sent is a python string literal so you can use
-escapes like \fBx1b\fP to send control codes or \fBu21fb\fP to send
+combination. The text to be sent decodes \fI\%ANSI C escapes\fP
+so you can use escapes like \fB\ee\fP to send control codes or \fB\eu21fb\fP to send
 Unicode characters (or you can just input the Unicode characters directly as
 UTF\-8 text). You can use \fBkitty +kitten show_key\fP to get the key escape
 codes you want to emulate.
@@ -5210,8 +5297,8 @@ Some more examples:
 .nf
 .ft C
 # Output a word and move the cursor to the start of the line (like typing and pressing Home)
-map ctrl+alt+a send_text normal Word\ex1b[H
-map ctrl+alt+a send_text application Word\ex1bOH
+map ctrl+alt+a send_text normal Word\ee[H
+map ctrl+alt+a send_text application Word\eeOH
 # Run a command at a shell prompt (like typing the command and pressing Enter)
 map ctrl+alt+a send_text normal,application some command with arguments\er
 .ft P
@@ -5232,12 +5319,82 @@ map shift+cmd+/ open_url https://sw.kovidgoyal.net/kitty/ 🍎
 .fi
 .UNINDENT
 .UNINDENT
+.INDENT 0.0
+.TP
+.B Hide macOS kitty application
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+map cmd+h hide_macos_app 🍎
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Hide macOS other applications
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+map opt+cmd+h hide_macos_other_apps 🍎
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Minimize macOS window
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+map cmd+m minimize_macos_window 🍎
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Quit kitty
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+map cmd+q quit 🍎
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
 .sp
 You can edit a fully commented sample kitty.conf by pressing the
 \fI\%ctrl+shift+f2\fP shortcut in kitty. This will generate a config file
 with full documentation and all settings commented out. If you have a
 pre\-existing \fBkitty.conf\fP, then that will be used instead, delete it to
 see the sample file.
+.sp
+A default configuration file can also be generated by running:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+kitty +runpy \(aqfrom kitty.config import *; print(commented_out_default_config())\(aq
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+This will print the commented out default config file to \fBSTDOUT\fP\&.
 .sp
 See the \fI\%list of all the things you can make kitty can do\fP\&.
 .SH MAPPABLE ACTIONS
@@ -5293,7 +5450,7 @@ Default shortcuts using this action:
 .B paste
 .UNINDENT
 .sp
-Paste the specified text into the current window
+Paste the specified text into the current window. ANSI C escapes are decoded.
 .INDENT 0.0
 .TP
 .B show_first_command_output_on_screen
@@ -5412,6 +5569,9 @@ Show the environment variables that the kitty process sees
 .sp
 Switch to the named layout
 .sp
+In case there are multiple layouts with the same name and different options,
+specify the full layout definition or a unique prefix of the full definition.
+.sp
 For example:
 .INDENT 0.0
 .INDENT 3.5
@@ -5419,6 +5579,7 @@ For example:
 .nf
 .ft C
 map f1 goto_layout tall
+map f2 goto_layout fat:bias=20
 .ft P
 .fi
 .UNINDENT
@@ -5440,7 +5601,7 @@ Perform a layout specific action. See \fI\%Arrange windows\fP for details
 .B next_layout
 .UNINDENT
 .sp
-Go to the next enabled layout
+Go to the next enabled layout. Can optionally supply an integer to jump by the specified number.
 .sp
 Default shortcuts using this action:
 \fI\%ctrl+shift+l\fP
@@ -5628,6 +5789,24 @@ Default shortcuts using this action:
 \fI\%ctrl+shift+f2\fP
 .INDENT 0.0
 .TP
+.B hide_macos_app
+.UNINDENT
+.sp
+Hide macOS kitty application
+.sp
+Default shortcuts using this action:
+\fI\%cmd+h\fP
+.INDENT 0.0
+.TP
+.B hide_macos_other_apps
+.UNINDENT
+.sp
+Hide macOS other applications
+.sp
+Default shortcuts using this action:
+\fI\%opt+cmd+h\fP
+.INDENT 0.0
+.TP
 .B input_unicode_character
 .UNINDENT
 .sp
@@ -5700,6 +5879,15 @@ Default shortcuts using this action:
 \fI\%ctrl+shift+f5\fP
 .INDENT 0.0
 .TP
+.B minimize_macos_window
+.UNINDENT
+.sp
+Minimize macOS window
+.sp
+Default shortcuts using this action:
+\fI\%cmd+m\fP
+.INDENT 0.0
+.TP
 .B open_url
 .UNINDENT
 .sp
@@ -5754,6 +5942,12 @@ map f5 set_colors \-\-configured /path/to/some/config/file/colors.conf
 .fi
 .UNINDENT
 .UNINDENT
+.INDENT 0.0
+.TP
+.B sleep
+.UNINDENT
+.sp
+Sleep for the specified time period. Suffix can be s for seconds, m, for minutes, h for hours and d for days. The time can be fractional.
 .INDENT 0.0
 .TP
 .B toggle_macos_secure_keyboard_entry
@@ -5849,7 +6043,7 @@ Paste the current primary selection or the clipboard if no selection is present
 .B scroll_end
 .UNINDENT
 .sp
-Scroll to the bottom of the scrollback buffer
+Scroll to the bottom of the scrollback buffer when in main screen
 .sp
 Default shortcuts using this action:
 \fI\%ctrl+shift+end\fP
@@ -5858,7 +6052,7 @@ Default shortcuts using this action:
 .B scroll_home
 .UNINDENT
 .sp
-Scroll to the top of the scrollback buffer
+Scroll to the top of the scrollback buffer when in main screen
 .sp
 Default shortcuts using this action:
 \fI\%ctrl+shift+home\fP
@@ -5867,7 +6061,7 @@ Default shortcuts using this action:
 .B scroll_line_down
 .UNINDENT
 .sp
-Scroll down by one line
+Scroll down by one line when in main screen
 .sp
 Default shortcuts using this action:
 \fI\%ctrl+shift+down\fP
@@ -5876,7 +6070,7 @@ Default shortcuts using this action:
 .B scroll_line_up
 .UNINDENT
 .sp
-Scroll up by one line
+Scroll up by one line when in main screen
 .sp
 Default shortcuts using this action:
 \fI\%ctrl+shift+up\fP
@@ -5885,7 +6079,7 @@ Default shortcuts using this action:
 .B scroll_page_down
 .UNINDENT
 .sp
-Scroll down by one page
+Scroll down by one page when in main screen
 .sp
 Default shortcuts using this action:
 \fI\%ctrl+shift+page_down\fP
@@ -5894,7 +6088,7 @@ Default shortcuts using this action:
 .B scroll_page_up
 .UNINDENT
 .sp
-Scroll up by one page
+Scroll up by one page when in main screen
 .sp
 Default shortcuts using this action:
 \fI\%ctrl+shift+page_up\fP
@@ -5903,13 +6097,13 @@ Default shortcuts using this action:
 .B scroll_prompt_to_bottom
 .UNINDENT
 .sp
-Scroll prompt to the bottom of the screen, filling in extra lines from the scrollback buffer
+Scroll prompt to the bottom of the screen, filling in extra lines from the scrollback buffer, when in main screen
 .INDENT 0.0
 .TP
 .B scroll_prompt_to_top
 .UNINDENT
 .sp
-Scroll prompt to the top of the screen, filling screen with empty lines
+Scroll prompt to the top of the screen, filling screen with empty lines, when in main screen
 .INDENT 0.0
 .TP
 .B scroll_to_prompt
@@ -6387,6 +6581,9 @@ Focus the nth OS window
 .UNINDENT
 .sp
 Quit, closing all windows
+.sp
+Default shortcuts using this action:
+\fI\%cmd+q\fP
 .INDENT 0.0
 .TP
 .B set_background_opacity
@@ -6442,6 +6639,6 @@ Default shortcuts using this action:
 .SH AUTHOR
 Kovid Goyal
 .SH COPYRIGHT
-2022, Kovid Goyal
+2023, Kovid Goyal
 .\" Generated by docutils manpage writer.
 .

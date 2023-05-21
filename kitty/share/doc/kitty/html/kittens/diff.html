@@ -3,20 +3,20 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
 <meta property="og:title" content="kitty-diff" />
-  
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://sw.kovidgoyal.net/kitty/kittens/diff.html" />
-  
+<meta property="og:site_name" content="kitty" />
 <meta property="og:description" content="A fast side-by-side diff tool with syntax highlighting and images Major Features: Displays diffs side-by-side in the kitty terminal, Does syntax highlighting of the displayed diffs, asynchronously,..." />
-  <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Unicode input" href="unicode_input.html" /><link rel="prev" title="icat" href="icat.html" />
+<meta property="og:image" content="https://sw.kovidgoyal.net/kitty/None" />
+<meta property="og:image:alt" content="A fast side-by-side diff tool with syntax highlighting and images Major Features: Displays diffs side-by-side in the kitty terminal, Does syntax highlighting..." />
+<meta name="description" content="A fast side-by-side diff tool with syntax highlighting and images Major Features: Displays diffs side-by-side in the kitty terminal, Does syntax highlighting of the displayed diffs, asynchronously,..." />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Unicode input" href="unicode_input.html" /><link rel="prev" title="icat" href="icat.html" />
 
-    <link rel="shortcut icon" href="../_static/kitty.svg"/><meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="../_static/kitty.svg"/><!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>kitty-diff - kitty</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -156,7 +156,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="../_static/kitty.svg" alt="Logo"/>
@@ -164,7 +164,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -339,6 +339,7 @@
 <li class="toctree-l6"><a class="reference internal" href="ssh.html#options">Options</a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="ssh.html#copying-terminfo-files-manually">Copying terminfo files manually</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="custom.html">Custom kittens</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -404,6 +405,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../remote-control.html#matching-windows-and-tabs">Matching windows and tabs</a><input class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../rc_protocol.html">The kitty remote control protocol</a><input class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#encrypted-communication">Encrypted communication</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#async-and-streaming-requests">Async and streaming requests</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#close-tab">close-tab</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#close-window">close-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#create-marker">create-marker</a></li>
@@ -427,6 +429,7 @@
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#scroll-window">scroll-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#select-window">select-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#send-text">send-text</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#set-background-image">set-background-image</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#set-background-opacity">set-background-opacity</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#set-colors">set-colors</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../rc_protocol.html#set-enabled-layouts">set-enabled-layouts</a></li>
@@ -634,8 +637,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a><input class="toctree-checkbox" id="toctree-checkbox-82" name="toctree-checkbox-82" role="switch" type="checkbox"/><label for="toctree-checkbox-82"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../faq.html#some-special-symbols-are-rendered-small-truncated-in-kitty">Some special symbols are rendered small/truncated in kitty?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../faq.html#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim">Using a color theme with a background color does not work well in vim?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer">I get errors about the terminal being unknown or opening the terminal failing when SSHing into a different computer?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../faq.html#keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo">Keys such as arrow keys, backspace, delete, home/end, etc. do not work when using su or sudo?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-or-functional-keys-like-arrow-keys-don-t-work">I get errors about the terminal being unknown or opening the terminal failing or functional keys like arrow keys don't work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../faq.html#i-cannot-use-the-key-combination-x-in-program-y">I cannot use the key combination X in program Y?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../faq.html#how-do-i-change-the-colors-in-a-running-kitty-instance">How do I change the colors in a running kitty instance?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../faq.html#how-do-i-specify-command-line-options-for-kitty-on-macos">How do I specify command line options for kitty on macOS?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../faq.html#i-catted-a-binary-file-and-now-kitty-is-hung">I catted a binary file and now kitty is hung?</a></li>
@@ -659,81 +662,87 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../changelog.html#detailed-list-of-changes">Detailed list of changes</a><input class="toctree-checkbox" id="toctree-checkbox-85" name="toctree-checkbox-85" role="switch" type="checkbox"/><label for="toctree-checkbox-85"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#future">0.26.2 [future]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id1">0.26.1 [2022-08-30]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id2">0.26.0 [2022-08-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id3">0.25.2 [2022-06-07]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id4">0.25.1 [2022-05-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id5">0.25.0 [2022-04-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id6">0.24.4 [2022-03-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id7">0.24.3 [2022-02-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id8">0.24.2 [2022-02-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id9">0.24.1 [2022-01-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id10">0.24.0 [2022-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id11">0.23.1 [2021-08-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id12">0.23.0 [2021-08-16]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id13">0.22.2 [2021-08-02]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id14">0.22.1 [2021-07-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id15">0.22.0 [2021-07-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id16">0.21.2 [2021-06-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id17">0.21.1 [2021-06-14]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id18">0.21.0 [2021-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id19">0.20.3 [2021-05-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id20">0.20.2 [2021-04-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id21">0.20.1 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id22">0.20.0 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id23">0.19.3 [2020-12-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id24">0.19.2 [2020-11-13]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id25">0.19.1 [2020-10-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id26">0.19.0 [2020-10-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id27">0.18.3 [2020-08-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id28">0.18.2 [2020-07-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id29">0.18.1 [2020-06-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id30">0.18.0 [2020-06-20]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id31">0.17.4 [2020-05-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id32">0.17.3 [2020-04-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id33">0.17.2 [2020-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id34">0.17.1 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id35">0.17.0 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id36">0.16.0 [2020-01-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id37">0.15.1 [2019-12-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id38">0.15.0 [2019-11-27]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id39">0.14.6 [2019-09-25]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id40">0.14.5 [2019-09-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id41">0.14.4 [2019-08-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id42">0.14.3 [2019-07-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id43">0.14.2 [2019-06-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id44">0.14.1 [2019-05-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id45">0.14.0 [2019-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id46">0.13.3 [2019-01-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id47">0.13.2 [2019-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id48">0.13.1 [2018-12-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id49">0.13.0 [2018-12-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id50">0.12.3 [2018-09-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id51">0.12.2 [2018-09-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id52">0.12.1 [2018-09-08]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id53">0.12.0 [2018-09-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id54">0.11.3 [2018-07-10]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id55">0.11.2 [2018-07-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id56">0.11.1 [2018-06-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id57">0.11.0 [2018-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id58">0.10.1 [2018-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id59">0.10.0 [2018-05-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id60">0.9.1 [2018-05-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id61">0.9.0 [2018-04-15]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id62">0.8.4 [2018-03-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id63">0.8.3 [2018-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id64">0.8.2 [2018-03-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id65">0.8.1 [2018-03-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id66">0.8.0 [2018-02-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id67">0.7.1 [2018-01-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id68">0.7.0 [2018-01-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id69">0.6.1 [2017-12-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id70">0.6.0 [2017-12-18]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id71">0.5.1 [2017-12-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id72">0.5.0 [2017-11-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id73">0.4.2 [2017-10-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id74">0.4.0 [2017-10-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#future">0.28.0 [future]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id1">0.27.1 [2023-02-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id2">0.27.0 [2023-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id3">0.26.5 [2022-11-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id4">0.26.4 [2022-10-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id5">0.26.3 [2022-09-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id6">0.26.2 [2022-09-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id7">0.26.1 [2022-08-30]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id8">0.26.0 [2022-08-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id9">0.25.2 [2022-06-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id10">0.25.1 [2022-05-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id11">0.25.0 [2022-04-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id12">0.24.4 [2022-03-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id13">0.24.3 [2022-02-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id14">0.24.2 [2022-02-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id15">0.24.1 [2022-01-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id16">0.24.0 [2022-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id17">0.23.1 [2021-08-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id18">0.23.0 [2021-08-16]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id19">0.22.2 [2021-08-02]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id20">0.22.1 [2021-07-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id21">0.22.0 [2021-07-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id22">0.21.2 [2021-06-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id23">0.21.1 [2021-06-14]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id24">0.21.0 [2021-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id25">0.20.3 [2021-05-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id26">0.20.2 [2021-04-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id27">0.20.1 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id28">0.20.0 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id29">0.19.3 [2020-12-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id30">0.19.2 [2020-11-13]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id31">0.19.1 [2020-10-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id32">0.19.0 [2020-10-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id33">0.18.3 [2020-08-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id34">0.18.2 [2020-07-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id35">0.18.1 [2020-06-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id36">0.18.0 [2020-06-20]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id37">0.17.4 [2020-05-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id38">0.17.3 [2020-04-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id39">0.17.2 [2020-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id40">0.17.1 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id41">0.17.0 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id42">0.16.0 [2020-01-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id43">0.15.1 [2019-12-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id44">0.15.0 [2019-11-27]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id45">0.14.6 [2019-09-25]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id46">0.14.5 [2019-09-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id47">0.14.4 [2019-08-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id48">0.14.3 [2019-07-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id49">0.14.2 [2019-06-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id50">0.14.1 [2019-05-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id51">0.14.0 [2019-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id52">0.13.3 [2019-01-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id53">0.13.2 [2019-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id54">0.13.1 [2018-12-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id55">0.13.0 [2018-12-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id56">0.12.3 [2018-09-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id57">0.12.2 [2018-09-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id58">0.12.1 [2018-09-08]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id59">0.12.0 [2018-09-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id60">0.11.3 [2018-07-10]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id61">0.11.2 [2018-07-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id62">0.11.1 [2018-06-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id63">0.11.0 [2018-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id64">0.10.1 [2018-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id65">0.10.0 [2018-05-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id66">0.9.1 [2018-05-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id67">0.9.0 [2018-04-15]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id68">0.8.4 [2018-03-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id69">0.8.3 [2018-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id70">0.8.2 [2018-03-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id71">0.8.1 [2018-03-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id72">0.8.0 [2018-02-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id73">0.7.1 [2018-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id74">0.7.0 [2018-01-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id75">0.6.1 [2017-12-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id76">0.6.0 [2017-12-18]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id77">0.5.1 [2017-12-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id78">0.5.0 [2017-11-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id79">0.4.2 [2017-10-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id80">0.4.0 [2017-10-22]</a></li>
 </ul>
 </li>
 </ul>
@@ -766,6 +775,7 @@
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../graphics-protocol.html#display-images-on-screen">Display images on screen</a><input class="toctree-checkbox" id="toctree-checkbox-91" name="toctree-checkbox-91" role="switch" type="checkbox"/><label for="toctree-checkbox-91"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../graphics-protocol.html#controlling-displayed-image-layout">Controlling displayed image layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../graphics-protocol.html#unicode-placeholders">Unicode placeholders</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../graphics-protocol.html#deleting-images">Deleting images</a></li>
@@ -809,6 +819,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../keyboard-protocol.html#functional-key-definitions">Functional key definitions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../keyboard-protocol.html#legacy-ctrl-mapping-of-ascii-keys">Legacy <kbd class="kbd docutils literal notranslate">ctrl</kbd> mapping of ASCII keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../keyboard-protocol.html#bugs-in-fixterms">Bugs in fixterms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../keyboard-protocol.html#why-xterm-s-modifyotherkeys-should-not-be-used">Why xterm's modifyOtherKeys should not be used</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../file-transfer-protocol.html">File transfer over the TTY</a><input class="toctree-checkbox" id="toctree-checkbox-97" name="toctree-checkbox-97" role="switch" type="checkbox"/><label for="toctree-checkbox-97"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -840,9 +851,15 @@
 <li class="toctree-l2"><a class="reference internal" href="../unscroll.html">Unscrolling the screen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../color-stack.html">Saving and restoring colors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../deccara.html">Setting text styles/colors in arbitrary regions of the screen</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../clipboard.html">Copying all data types to the clipboard</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../clipboard.html#reading-data-from-the-system-clipboard">Reading data from the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clipboard.html#writing-data-to-the-system-clipboard">Writing data to the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../clipboard.html#support-for-terminal-multiplexers">Support for terminal multiplexers</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-102" name="toctree-checkbox-102" role="switch" type="checkbox"/><label for="toctree-checkbox-102"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../press-mentions.html#video-reviews">Video reviews</a></li>
 </ul>
 </li>
@@ -865,7 +882,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -902,24 +920,22 @@ maximum speed</p></li>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
-<p>Simply <a class="reference internal" href="../quickstart.html#quickstart"><span class="std std-ref">install kitty</span></a>.  You also need to have either the <a class="reference external" href="https://git-scm.com/">git</a> program or the <strong class="program">diff</strong> program installed.
-Additionally, for syntax highlighting to work, <a class="reference external" href="https://pygments.org/">pygments</a> must be installed (note that pygments is included in
-the official kitty binary builds).</p>
+<p>Simply <a class="reference internal" href="../quickstart.html#quickstart"><span class="std std-ref">install kitty</span></a>.</p>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
 <p>In the kitty terminal, run:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten diff file1 file2
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty<span class="w"> </span>+kitten<span class="w"> </span>diff<span class="w"> </span>file1<span class="w"> </span>file2
 </pre></div>
 </div>
 <p>to see the diff between <code class="file docutils literal notranslate"><span class="pre">file1</span></code> and <code class="file docutils literal notranslate"><span class="pre">file2</span></code>.</p>
 <p>Create an alias in your shell’s startup file to shorten the command, for
 example:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span> <span class="nv">d</span><span class="o">=</span><span class="s2">&quot;kitty +kitten diff&quot;</span>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="nb">alias</span><span class="w"> </span><span class="nv">d</span><span class="o">=</span><span class="s2">&quot;kitty +kitten diff&quot;</span>
 </pre></div>
 </div>
 <p>Now all you need to do to diff two files is:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>d file1 file2
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>d<span class="w"> </span>file1<span class="w"> </span>file2
 </pre></div>
 </div>
 <p>You can also pass directories instead of files to see the recursive diff of the
@@ -936,7 +952,7 @@ directory contents.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Quit</p></td>
-<td><p><kbd class="kbd docutils literal notranslate">Q</kbd>, <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">C</kbd></kbd>, <kbd class="kbd docutils literal notranslate">Esc</kbd></p></td>
+<td><p><kbd class="kbd docutils literal notranslate">Q</kbd>, <kbd class="kbd docutils literal notranslate">Esc</kbd></p></td>
 </tr>
 <tr class="row-odd"><td><p>Scroll line up</p></td>
 <td><p><kbd class="kbd docutils literal notranslate">K</kbd>, <kbd class="kbd docutils literal notranslate">Up</kbd></p></td>
@@ -995,6 +1011,12 @@ directory contents.</p>
 <tr class="row-odd"><td><p>Scroll to previous match</p></td>
 <td><p><kbd class="kbd docutils literal notranslate">&lt;</kbd>, <kbd class="kbd docutils literal notranslate">,</kbd></p></td>
 </tr>
+<tr class="row-even"><td><p>Copy selection to clipboard</p></td>
+<td><p><kbd class="kbd docutils literal notranslate">y</kbd></p></td>
+</tr>
+<tr class="row-odd"><td><p>Copy selection or exit</p></td>
+<td><p><kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Ctrl</kbd>+<kbd class="kbd docutils literal notranslate">C</kbd></kbd></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1002,20 +1024,20 @@ directory contents.</p>
 <section id="integrating-with-git">
 <h2>Integrating with git<a class="headerlink" href="#integrating-with-git" title="Permalink to this heading">#</a></h2>
 <p>Add the following to <code class="file docutils literal notranslate"><span class="pre">~/.gitconfig</span></code>:</p>
-<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[diff]</span><span class="w"></span>
-<span class="w">    </span><span class="na">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kitty</span><span class="w"></span>
-<span class="w">    </span><span class="na">guitool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kitty.gui</span><span class="w"></span>
-<span class="k">[difftool]</span><span class="w"></span>
-<span class="w">    </span><span class="na">prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span><span class="w"></span>
-<span class="w">    </span><span class="na">trustExitCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span><span class="w"></span>
-<span class="k">[difftool &quot;kitty&quot;]</span><span class="w"></span>
-<span class="w">    </span><span class="na">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kitty +kitten diff $LOCAL $REMOTE</span><span class="w"></span>
-<span class="k">[difftool &quot;kitty.gui&quot;]</span><span class="w"></span>
-<span class="w">    </span><span class="na">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kitty kitty +kitten diff $LOCAL $REMOTE</span><span class="w"></span>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[diff]</span>
+<span class="w">    </span><span class="na">tool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kitty</span>
+<span class="w">    </span><span class="na">guitool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kitty.gui</span>
+<span class="k">[difftool]</span>
+<span class="w">    </span><span class="na">prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">false</span>
+<span class="w">    </span><span class="na">trustExitCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">true</span>
+<span class="k">[difftool &quot;kitty&quot;]</span>
+<span class="w">    </span><span class="na">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kitty +kitten diff $LOCAL $REMOTE</span>
+<span class="k">[difftool &quot;kitty.gui&quot;]</span>
+<span class="w">    </span><span class="na">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">kitty kitty +kitten diff $LOCAL $REMOTE</span>
 </pre></div>
 </div>
 <p>Now to use kitty-diff to view git diffs, you can simply do:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git difftool --no-symlinks --dir-diff
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>difftool<span class="w"> </span>--no-symlinks<span class="w"> </span>--dir-diff
 </pre></div>
 </div>
 <p>Once again, creating an alias for this command is useful.</p>
@@ -1024,7 +1046,7 @@ directory contents.</p>
 <h2>Why does this work only in kitty?<a class="headerlink" href="#why-does-this-work-only-in-kitty" title="Permalink to this heading">#</a></h2>
 <p>The diff kitten makes use of various features that are <a class="reference internal" href="../protocol-extensions.html"><span class="doc">kitty only</span></a>, such as the <a class="reference internal" href="../graphics-protocol.html"><span class="doc">kitty graphics protocol</span></a>, the <a class="reference internal" href="../keyboard-protocol.html"><span class="doc">extended keyboard protocol</span></a>, etc. It also leverages terminal program infrastructure
 I created for all of kitty’s other kittens to reduce the amount of code needed
-(the entire implementation is under 2000 lines of code).</p>
+(the entire implementation is under 3000 lines of code).</p>
 <p>And fundamentally, it’s kitty only because I wrote it for myself, and I am
 highly unlikely to use any other terminals :)</p>
 </section>
@@ -1042,11 +1064,12 @@ directives.</p>
 <span class="sig-name descname"><span class="pre">syntax_aliases</span></span><a class="headerlink" href="#opt-kitten-diff.syntax_aliases" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">syntax_aliases</span><span class="w"> </span><span class="s">pyj:py pyi:py recipe:py</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">syntax_aliases</span><span class="w"> </span><span class="s">pyj:py pyi:py recipe:py</span>
 </pre></div>
 </div>
 <p>File extension aliases for syntax highlight. For example, to syntax highlight
-<code class="file docutils literal notranslate"><span class="pre">file.xyz</span></code> as <code class="file docutils literal notranslate"><span class="pre">file.abc</span></code> use a setting of <code class="code docutils literal notranslate"><span class="pre">xyz:abc</span></code>.</p>
+<code class="file docutils literal notranslate"><span class="pre">file.xyz</span></code> as <code class="file docutils literal notranslate"><span class="pre">file.abc</span></code> use a setting of <code class="code docutils literal notranslate"><span class="pre">xyz:abc</span></code>.
+Multiple aliases must be separated by spaces.</p>
 <dl class="std opt">
 <dt class="sig sig-object std" id="opt-kitten-diff.num_context_lines">
 <span class="sig-name descname"><span class="pre">num_context_lines</span></span><a class="headerlink" href="#opt-kitten-diff.num_context_lines" title="Permalink to this definition">#</a></dt>
@@ -1061,19 +1084,21 @@ directives.</p>
 <span class="sig-name descname"><span class="pre">diff_cmd</span></span><a class="headerlink" href="#opt-kitten-diff.diff_cmd" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">diff_cmd</span><span class="w"> </span><span class="s">auto</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">diff_cmd</span><span class="w"> </span><span class="s">auto</span>
 </pre></div>
 </div>
 <p>The diff command to use. Must contain the placeholder <code class="code docutils literal notranslate"><span class="pre">_CONTEXT_</span></code> which
-will be replaced by the number of lines of context. The default special value
-<code class="code docutils literal notranslate"><span class="pre">auto</span></code> is to search the system for either <strong class="program">git</strong> or
-<strong class="program">diff</strong> and use that, if found.</p>
+will be replaced by the number of lines of context. A few special values are allowed:
+<code class="code docutils literal notranslate"><span class="pre">auto</span></code> will automatically pick an available diff implementation. <code class="code docutils literal notranslate"><span class="pre">builtin</span></code>
+will use the anchored diff algorithm from the Go standard library. <code class="code docutils literal notranslate"><span class="pre">git</span></code> will
+use the git command to do the diffing. <code class="code docutils literal notranslate"><span class="pre">diff</span></code> will use the diff command to
+do the diffing.</p>
 <dl class="std opt">
 <dt class="sig sig-object std" id="opt-kitten-diff.replace_tab_by">
 <span class="sig-name descname"><span class="pre">replace_tab_by</span></span><a class="headerlink" href="#opt-kitten-diff.replace_tab_by" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">replace_tab_by</span><span class="w"> </span><span class="s">\x20\x20\x20\x20</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">replace_tab_by</span><span class="w"> </span><span class="s">\x20\x20\x20\x20</span>
 </pre></div>
 </div>
 <p>The string to replace tabs with. Default is to use four spaces.</p>
@@ -1082,15 +1107,12 @@ will be replaced by the number of lines of context. The default special value
 <span class="sig-name descname"><span class="pre">ignore_name</span></span><a class="headerlink" href="#opt-kitten-diff.ignore_name" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">ignore_name</span><span class="w"></span>
-</pre></div>
-</div>
 <p>A glob pattern that is matched against only the filename of files and directories. Matching
 files and directories are ignored when scanning the filesystem to look for files to diff.
 Can be specified multiple times to use multiple patterns. For example:</p>
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">ignore_name</span><span class="w"> </span><span class="mf">.</span><span class="s">git</span><span class="w"></span>
-<span class="nv">ignore_name</span><span class="w"> </span><span class="s">*~</span><span class="w"></span>
-<span class="nv">ignore_name</span><span class="w"> </span><span class="s">*.pyc</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">ignore_name</span><span class="w"> </span><span class="mf">.</span><span class="s">git</span>
+<span class="nv">ignore_name</span><span class="w"> </span><span class="s">*~</span>
+<span class="nv">ignore_name</span><span class="w"> </span><span class="s">*.pyc</span>
 </pre></div>
 </div>
 </section>
@@ -1101,17 +1123,19 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">pygments_style</span></span><a class="headerlink" href="#opt-kitten-diff.pygments_style" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">pygments_style</span><span class="w"> </span><span class="s">default</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">pygments_style</span><span class="w"> </span><span class="s">default</span>
 </pre></div>
 </div>
-<p>The pygments color scheme to use for syntax highlighting. See <a class="reference external" href="https://pygments.org/styles/">pygments builtin styles</a> for a list of schemes.</p>
+<p>The pygments color scheme to use for syntax highlighting. See <a class="reference external" href="https://pygments.org/styles/">pygments builtin styles</a> for a list of schemes. Note that
+this <strong>does not</strong> change the colors used for diffing,
+only the colors used for syntax highlighting. To change the general colors use the settings below.</p>
 <dl class="std opt">
 <dt class="sig sig-object std" id="opt-kitten-diff.foreground">
 <span class="sig-name descname"><span class="pre">foreground</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">background</span></span><a class="headerlink" href="#opt-kitten-diff.foreground" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">foreground</span><span class="w"> </span><span class="s">black</span><span class="w"></span>
-<span class="nv">background</span><span class="w"> </span><span class="s">white</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">foreground</span><span class="w"> </span><span class="s">black</span>
+<span class="nv">background</span><span class="w"> </span><span class="s">white</span>
 </pre></div>
 </div>
 <p>Basic colors</p>
@@ -1120,8 +1144,8 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">title_fg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">title_bg</span></span><a class="headerlink" href="#opt-kitten-diff.title_fg" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">title_fg</span><span class="w"> </span><span class="s">black</span><span class="w"></span>
-<span class="nv">title_bg</span><span class="w"> </span><span class="s">white</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">title_fg</span><span class="w"> </span><span class="s">black</span>
+<span class="nv">title_bg</span><span class="w"> </span><span class="s">white</span>
 </pre></div>
 </div>
 <p>Title colors</p>
@@ -1130,7 +1154,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">margin_bg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">margin_fg</span></span><a class="headerlink" href="#opt-kitten-diff.margin_bg" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">margin_bg</span><span class="w"> </span><span class="s">#fafbfc</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">margin_bg</span><span class="w"> </span><span class="s">#fafbfc</span>
 <span class="nv">margin_fg</span><span class="w"> </span><span class="s">#aaaaaa</span>
 </pre></div>
 </div>
@@ -1140,8 +1164,8 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">removed_bg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">highlight_removed_bg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">removed_margin_bg</span></span><a class="headerlink" href="#opt-kitten-diff.removed_bg" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">removed_bg</span><span class="w">           </span><span class="s">#ffeef0</span><span class="w"></span>
-<span class="nv">highlight_removed_bg</span><span class="w"> </span><span class="s">#fdb8c0</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">removed_bg</span><span class="w">           </span><span class="s">#ffeef0</span>
+<span class="nv">highlight_removed_bg</span><span class="w"> </span><span class="s">#fdb8c0</span>
 <span class="nv">removed_margin_bg</span><span class="w">    </span><span class="s">#ffdce0</span>
 </pre></div>
 </div>
@@ -1151,8 +1175,8 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">added_bg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">highlight_added_bg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">added_margin_bg</span></span><a class="headerlink" href="#opt-kitten-diff.added_bg" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">added_bg</span><span class="w">           </span><span class="s">#e6ffed</span><span class="w"></span>
-<span class="nv">highlight_added_bg</span><span class="w"> </span><span class="s">#acf2bd</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">added_bg</span><span class="w">           </span><span class="s">#e6ffed</span>
+<span class="nv">highlight_added_bg</span><span class="w"> </span><span class="s">#acf2bd</span>
 <span class="nv">added_margin_bg</span><span class="w">    </span><span class="s">#cdffd8</span>
 </pre></div>
 </div>
@@ -1171,7 +1195,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">margin_filler_bg</span></span><a class="headerlink" href="#opt-kitten-diff.margin_filler_bg" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">margin_filler_bg</span><span class="w"> </span><span class="s">none</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">margin_filler_bg</span><span class="w"> </span><span class="s">none</span>
 </pre></div>
 </div>
 <p>Filler (empty) line background in margins, defaults to the filler background</p>
@@ -1180,7 +1204,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">hunk_margin_bg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">hunk_bg</span></span><a class="headerlink" href="#opt-kitten-diff.hunk_margin_bg" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">hunk_margin_bg</span><span class="w"> </span><span class="s">#dbedff</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">hunk_margin_bg</span><span class="w"> </span><span class="s">#dbedff</span>
 <span class="nv">hunk_bg</span><span class="w">        </span><span class="s">#f1f8ff</span>
 </pre></div>
 </div>
@@ -1190,10 +1214,10 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">search_bg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">search_fg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">select_bg</span></span><span class="sig-prename descclassname"><span class="pre">,</span> </span><span class="sig-name descname"><span class="pre">select_fg</span></span><a class="headerlink" href="#opt-kitten-diff.search_bg" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">search_bg</span><span class="w"> </span><span class="s">#444</span><span class="w"></span>
-<span class="nv">search_fg</span><span class="w"> </span><span class="s">white</span><span class="w"></span>
-<span class="nv">select_bg</span><span class="w"> </span><span class="s">#b4d5fe</span><span class="w"></span>
-<span class="nv">select_fg</span><span class="w"> </span><span class="s">black</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="nv">search_bg</span><span class="w"> </span><span class="s">#444</span>
+<span class="nv">search_fg</span><span class="w"> </span><span class="s">white</span>
+<span class="nv">select_bg</span><span class="w"> </span><span class="s">#b4d5fe</span>
+<span class="nv">select_fg</span><span class="w"> </span><span class="s">black</span>
 </pre></div>
 </div>
 <p>Highlighting</p>
@@ -1205,8 +1229,8 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Quit</span></span><a class="headerlink" href="#shortcut-kitten-diff.Quit" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">q</span><span class="w"> </span><span class="nf">quit</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">esc</span><span class="w"> </span><span class="nf">quit</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">q</span><span class="w"> </span><span class="nf">quit</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">esc</span><span class="w"> </span><span class="nf">quit</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1214,7 +1238,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">down</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-down" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">j</span><span class="w"> </span><span class="nf">scroll_by</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">j</span><span class="w"> </span><span class="nf">scroll_by</span><span class="w"> </span><span class="mi">1</span>
 <span class="kd">map</span><span class="w"> </span><span class="s">down</span><span class="w"> </span><span class="nf">scroll_by</span><span class="w"> </span><span class="mi">1</span>
 </pre></div>
 </div>
@@ -1223,7 +1247,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">up</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-up" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">k</span><span class="w"> </span><span class="nf">scroll_by</span><span class="w"> </span><span class="mi">-1</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">k</span><span class="w"> </span><span class="nf">scroll_by</span><span class="w"> </span><span class="mi">-1</span>
 <span class="kd">map</span><span class="w"> </span><span class="s">up</span><span class="w"> </span><span class="nf">scroll_by</span><span class="w"> </span><span class="mi">-1</span>
 </pre></div>
 </div>
@@ -1232,7 +1256,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">to</span> <span class="pre">top</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-to-top" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">home</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">start</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">home</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">start</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1240,7 +1264,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">to</span> <span class="pre">bottom</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-to-bottom" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">end</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">end</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">end</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">end</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1248,8 +1272,8 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">to</span> <span class="pre">next</span> <span class="pre">page</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-to-next-page" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">page_down</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-page</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">space</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-page</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">page_down</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-page</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">space</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-page</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1257,7 +1281,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">to</span> <span class="pre">previous</span> <span class="pre">page</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-to-previous-page" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">page_up</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">prev-page</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">page_up</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">prev-page</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1265,7 +1289,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">to</span> <span class="pre">next</span> <span class="pre">change</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-to-next-change" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">n</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-change</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">n</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-change</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1273,7 +1297,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">to</span> <span class="pre">previous</span> <span class="pre">change</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-to-previous-change" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">p</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">prev-change</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">p</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">prev-change</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1281,7 +1305,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Show</span> <span class="pre">all</span> <span class="pre">context</span></span><a class="headerlink" href="#shortcut-kitten-diff.Show-all-context" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">a</span><span class="w"> </span><span class="nf">change_context</span><span class="w"> </span><span class="s">all</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">a</span><span class="w"> </span><span class="nf">change_context</span><span class="w"> </span><span class="s">all</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1289,7 +1313,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Show</span> <span class="pre">default</span> <span class="pre">context</span></span><a class="headerlink" href="#shortcut-kitten-diff.Show-default-context" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">=</span><span class="w"> </span><span class="nf">change_context</span><span class="w"> </span><span class="s">default</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">=</span><span class="w"> </span><span class="nf">change_context</span><span class="w"> </span><span class="s">default</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1313,7 +1337,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Search</span> <span class="pre">forward</span></span><a class="headerlink" href="#shortcut-kitten-diff.Search-forward" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="nf">start_search</span><span class="w"> </span><span class="s">regex forward</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="nf">start_search</span><span class="w"> </span><span class="s">regex forward</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1321,7 +1345,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Search</span> <span class="pre">backward</span></span><a class="headerlink" href="#shortcut-kitten-diff.Search-backward" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">?</span><span class="w"> </span><span class="nf">start_search</span><span class="w"> </span><span class="s">regex backward</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">?</span><span class="w"> </span><span class="nf">start_search</span><span class="w"> </span><span class="s">regex backward</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1329,8 +1353,8 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">to</span> <span class="pre">next</span> <span class="pre">search</span> <span class="pre">match</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-to-next-search-match" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">.</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-match</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">&gt;</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-match</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">.</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-match</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">&gt;</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">next-match</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1338,8 +1362,8 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Scroll</span> <span class="pre">to</span> <span class="pre">previous</span> <span class="pre">search</span> <span class="pre">match</span></span><a class="headerlink" href="#shortcut-kitten-diff.Scroll-to-previous-search-match" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">,</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">prev-match</span><span class="w"></span>
-<span class="kd">map</span><span class="w"> </span><span class="s">&lt;</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">prev-match</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">,</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">prev-match</span>
+<span class="kd">map</span><span class="w"> </span><span class="s">&lt;</span><span class="w"> </span><span class="nf">scroll_to</span><span class="w"> </span><span class="s">prev-match</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1347,7 +1371,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Search</span> <span class="pre">forward</span> <span class="pre">(no</span> <span class="pre">regex)</span></span><a class="headerlink" href="#shortcut-kitten-diff.Search-forward-no-regex" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f</span><span class="w"> </span><span class="nf">start_search</span><span class="w"> </span><span class="s">substring forward</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">f</span><span class="w"> </span><span class="nf">start_search</span><span class="w"> </span><span class="s">substring forward</span>
 </pre></div>
 </div>
 <dl class="std shortcut">
@@ -1355,7 +1379,23 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 <span class="sig-name descname"><span class="pre">Search</span> <span class="pre">backward</span> <span class="pre">(no</span> <span class="pre">regex)</span></span><a class="headerlink" href="#shortcut-kitten-diff.Search-backward-no-regex" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">b</span><span class="w"> </span><span class="nf">start_search</span><span class="w"> </span><span class="s">substring backward</span><span class="w"></span>
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">b</span><span class="w"> </span><span class="nf">start_search</span><span class="w"> </span><span class="s">substring backward</span>
+</pre></div>
+</div>
+<dl class="std shortcut">
+<dt class="sig sig-object std" id="shortcut-kitten-diff.Copy-selection-to-clipboard">
+<span class="sig-name descname"><span class="pre">Copy</span> <span class="pre">selection</span> <span class="pre">to</span> <span class="pre">clipboard</span></span><a class="headerlink" href="#shortcut-kitten-diff.Copy-selection-to-clipboard" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">y</span><span class="w"> </span><span class="nf">copy_to_clipboard</span>
+</pre></div>
+</div>
+<dl class="std shortcut">
+<dt class="sig sig-object std" id="shortcut-kitten-diff.Copy-selection-to-clipboard-or-exit-if-no-selection-is-present">
+<span class="sig-name descname"><span class="pre">Copy</span> <span class="pre">selection</span> <span class="pre">to</span> <span class="pre">clipboard</span> <span class="pre">or</span> <span class="pre">exit</span> <span class="pre">if</span> <span class="pre">no</span> <span class="pre">selection</span> <span class="pre">is</span> <span class="pre">present</span></span><a class="headerlink" href="#shortcut-kitten-diff.Copy-selection-to-clipboard-or-exit-if-no-selection-is-present" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<div class="highlight-conf notranslate"><div class="highlight"><pre><span></span><span class="kd">map</span><span class="w"> </span><span class="s">ctrl+c</span><span class="w"> </span><span class="nf">copy_to_clipboard_or_exit</span>
 </pre></div>
 </div>
 </section>
@@ -1365,7 +1405,7 @@ Can be specified multiple times to use multiple patterns. For example:</p>
 </section>
 <section id="command-line-interface">
 <h2>Command Line Interface<a class="headerlink" href="#command-line-interface" title="Permalink to this heading">#</a></h2>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty +kitten diff <span class="o">[</span>options<span class="o">]</span> file_or_directory_left file_or_directory_right
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>kitty<span class="w"> </span>+kitten<span class="w"> </span>diff<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>file_or_directory_left<span class="w"> </span>file_or_directory_right
 </pre></div>
 </div>
 <p>Show a side-by-side diff of the specified files/directories. You can also use <span class="italic">ssh:hostname:remote-file-path</span> to diff remote files.</p>
@@ -1414,10 +1454,10 @@ comments describing each setting by clicking: <a class="reference download inter
                 </div>
                 <div class="title">Unicode input</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="icat.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -1431,7 +1471,7 @@ comments describing each setting by clicking: <a class="reference download inter
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Kovid Goyal
+                Copyright &#169; 2023, Kovid Goyal
             </div>
             Made with 
             <a href="https://github.com/pradyunsg/furo">Furo</a>
@@ -1457,7 +1497,7 @@ comments describing each setting by clicking: <a class="reference download inter
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -1492,10 +1532,8 @@ comments describing each setting by clicking: <a class="reference download inter
     </aside>
   </div>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>

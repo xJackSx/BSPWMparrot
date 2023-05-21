@@ -35,22 +35,236 @@ mouse anywhere in the current command to move the cursor there. See
 Detailed list of changes
 -------------------------------------
 
-0.26.2 [future]
+0.28.0 [future]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- hyperlinked_grep kitten: Allow control over which parts of rg output are hyperlinked (:pull:`5428`)
+- Text rendering: Use sRGB correct linear gamma blending for nicer font rendering and better color accuracy with transparent windows. See the option :opt:`text_composition_strategy` for details. The obsolete :opt:`macos_thicken_font` will make the font too thick and needs to be removed manually if it is configured. (:pull:`5969`)
+
+- icat kitten: Support display of images inside tmux (:pull:`5664`)
+
+- Graphics protocol: Add support for displaying images inside programs that do not support the protocol such as vim and tmux (:pull:`5664`)
+
+- Fix a regression in 0.27.0 that broke ``kitty @ set-font-size 0`` (:iss:`5992`)
+
+- launch: When using ``--cwd=current`` for a remote system support running non shell commands as well (:disc:`5987`)
+
+- When changing the cursor color via escape codes or remote control to a fixed color, do not reset cursor_text_color (:iss:`5994`)
+
+- Input Method Extensions: Fix incorrect rendering of IME in-progress and committed text in some situations (:pull:`6049`, :pull:`6087`)
+
+- Linux: Reduce minimum required OpenGL version from 3.3 to 3.1 + extensions (:iss:`2790`)
+
+- Fix a regression that broke drawing of images below cell backgrounds (:iss:`6061`)
+
+- macOS: Fix the window buttons not being hidden after exiting the traditional full screen (:iss:`6009`)
+
+- When reloading configuration, also reload custom MIME types from :file:`mime.types` config file (:pull:`6012`)
+
+- launch: Allow specifying the state (full screen/maximized/minimized) for newly created OS Windows (:iss:`6026`)
+
+- Sessions: Allow specifying the OS window state via the ``os_window_state`` directive (:iss:`5863`)
+
+- macOS: Display the newly created OS window in specified state to avoid or reduce the window transition animations (:pull:`6035`)
+
+- macOS: Fix the maximized window not taking up full space when the title bar is hidden or when :opt:`resize_in_steps` is configured (:iss:`6021`)
+
+- Linux: A new option :opt:`linux_bell_theme` to control which sound theme is used for the bell sound (:pull:`4858`)
+
+- ssh kitten: Change the syntax of glob patterns slightly to match common usage
+  elsewhere. Now the syntax is the same a "extendedglob" in most shells.
+
+- hints kitten: Allow copying matches to named buffers (:disc:`6073`)
+
+- Fix overlay windows not inheriting the per-window padding and margin settings
+  of their parents (:iss:`6063`)
+
+- Wayland KDE: Fix selecting in un-focused OS window not working correctly (:iss:`6095`)
+
+- X11: Fix a crash if the X server requests clipboard data after we have relinquished the clipboard (:iss:`5650`)
+
+- Allow stopping of URL detection at newlines via :opt:`url_excluded_characters` (:iss:`6122`)
+
+- Linux Wayland: Fix animated images not being animated continuously (:iss:`6126`)
+
+
+0.27.1 [2023-02-07]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Fix :opt:`modify_font` not working for strikethrough position (:iss:`5946`)
+
+- Fix a regression causing the ``edit-in-kitty`` command not working if :file:`kitten` is not added
+  to PATH (:iss:`5956`)
+
+- icat kitten: Fix a regression that broke display of animated GIFs over SSH (:iss:`5958`)
+
+- Wayland GNOME: Fix for ibus not working when using XWayland (:iss:`5967`)
+
+- Fix regression in previous release that caused incorrect entries in terminfo for modifier+F3 key combinations (:pull:`5970`)
+
+- Bring back the deprecated and removed ``kitty +complete`` and delegate it to :program:`kitten` for backward compatibility (:pull:`5977`)
+
+- Bump the version of Go needed to build kitty to ``1.20`` so we can use the Go stdlib ecdh package for crypto.
+
+
+0.27.0 [2023-01-31]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- A new statically compiled, standalone executable, ``kitten`` (written in Go)
+  that can be used on all UNIX-like servers for remote control (``kitten @``),
+  viewing images (``kitten icat``), manipulating the clipboard (``kitten clipboard``), etc.
+
+- :doc:`clipboard kitten </kittens/clipboard>`: Allow copying arbitrary data types to/from the clipboard, not just plain text
+
+- Speed up the ``kitty @`` executable by ~10x reducing the time for typical
+  remote control commands from ~50ms to ~5ms
+
+- icat kitten: Speed up by using POSIX shared memory when possible to transfer
+  image data to the terminal. Also support common image formats
+  GIF/PNG/JPEG/WEBP/TIFF/BMP out of the box without needing ImageMagick.
+
+- Option :opt:`show_hyperlink_targets` to show the target of terminal hyperlinks when hovering over them with the mouse (:pull:`5830`)
+
+- Keyboard protocol: Remove ``CSI R`` from the allowed encodings of the :kbd:`F3` key as it conflicts with the *Cursor Position Report* escape code (:disc:`5813`)
+
+- Allow using the cwd of the original process for :option:`launch --cwd` (:iss:`5672`)
+
+- Session files: Expand environment variables (:disc:`5917`)
+
+- Pass key events mapped to scroll actions to the program running in the terminal when the terminal is in alternate screen mode (:iss:`5839`)
+
+- Implement :ref:`edit-in-kitty <edit_file>` using the new ``kitten`` static executable (:iss:`5546`, :iss:`5630`)
+
+- Add an option :opt:`background_tint_gaps` to control background image tinting for window gaps (:iss:`5596`)
+
+- A new option :opt:`undercurl_style` to control the rendering of undercurls (:pull:`5883`)
+
+- Bash integration: Fix ``clone-in-kitty`` not working on bash >= 5.2 if environment variable values contain newlines or other special characters (:iss:`5629`)
+
+- A new :ac:`sleep` action useful in combine based mappings to make kitty sleep before executing the next action
+
+- Wayland GNOME: Workaround for latest mutter release breaking full screen for semi-transparent kitty windows (:iss:`5677`)
+
+- A new option :opt:`tab_title_max_length` to limit the length of tab (:iss:`5718`)
+
+- When drawing the tab bar have the default left and right margins drawn in a color matching the neighboring tab (:iss:`5719`)
+
+- When using the :code:`include` directive in :file:`kitty.conf` make the environment variable :envvar:`KITTY_OS` available for OS specific config
+
+- Wayland: Fix signal handling not working with some GPU drivers (:iss:`4636`)
+
+- Remote control: When matching windows allow using negative id numbers to match recently created windows (:iss:`5753`)
+
+- ZSH Integration: Bind :kbd:`alt+left` and :kbd:`alt+right` to move by word if not already bound. This mimics the default bindings in Terminal.app (:iss:`5793`)
+
+- macOS: Allow to customize :sc:`Hide <hide_macos_app>`, :sc:`Hide Others <hide_macos_other_apps>`, :sc:`Minimize <minimize_macos_window>`, and :sc:`Quit <quit>` global menu shortcuts. Note that :opt:`clear_all_shortcuts` will remove these shortcuts now (:iss:`948`)
+
+- When a multi-key sequence does not match any action, send all key events to the child program (:pull:`5841`)
+
+- broadcast kitten: Allow pressing a key to stop echoing of input into the broadcast window itself (:disc:`5868`)
+
+- When reporting unused activity in a window, ignore activity that occurs soon after a window resize (:iss:`5881`)
+
+- Fix using :opt:`cursor` = ``none`` not working on text that has reverse video (:iss:`5897`)
+
+- Fix ssh kitten not working on FreeBSD (:iss:`5928`)
+
+- macOS: Export kitty selected text to the system for use with services that accept it (patch by Sertaç Ö. Yıldız)
+
+
+0.26.5 [2022-11-07]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Splits layout: Add a new mappable action to move the active window to the screen edge (:iss:`5643`)
+
+- ssh kitten: Allow using absolute paths for the location of transferred data (:iss:`5607`)
+
+- Fix a regression in the previous release that caused a :opt:`resize_draw_strategy` of ``static`` to not work (:iss:`5601`)
+
+- Wayland KDE: Fix abort when pasting into Firefox (:iss:`5603`)
+
+- Wayland GNOME: Fix ghosting when using :opt:`background_tint` (:iss:`5605`)
+
+- Fix cursor position at x=0 changing to x=1 on resize (:iss:`5635`)
+
+- Wayland GNOME: Fix incorrect window size in some circumstances when switching between windows with window decorations disabled (:iss:`4802`)
+
+- Wayland: Fix high CPU usage when using some input methods (:pull:`5369`)
+
+- Remote control: When matching window by `state:focused` and no window currently has keyboard focus, match the window belonging to the OS window that was last focused (:iss:`5602`)
+
+
+0.26.4 [2022-10-17]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- macOS: Allow changing the kitty icon by placing a custom icon in the kitty config folder (:pull:`5464`)
+
+- Allow centering the :opt:`background_image` (:iss:`5525`)
+
+- X11: Fix a regression in the previous release that caused pasting from GTK based applications to have extra newlines (:iss:`5528`)
+
+- Tab bar: Improve empty space management when some tabs have short titles, allocate the saved space to the active tab (:iss:`5548`)
+
+- Fix :opt:`background_tint` not applying to window margins and padding (:iss:`3933`)
+
+- Wayland: Fix background image scaling using tiled mode on high DPI screens
+
+- Wayland: Fix an abort when changing background colors with :opt:`wayland_titlebar_color` set to ``background`` (:iss:`5562`)
+
+- Update to Unicode 15.0 (:pull:`5542`)
+
+- GNOME Wayland: Fix a memory leak in gnome-shell when using client side decorations
+
+
+0.26.3 [2022-09-22]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Wayland: Mark windows in which a bell occurs as urgent on compositors that support the xdg-activation protocol
+
+- Allow passing null bytes through the system clipboard (:iss:`5483`)
+
+- ssh kitten: Fix :envvar:`KITTY_PUBLIC_KEY` not being encoded properly when transmitting (:iss:`5496`)
+
+- Sessions: Allow controlling which OS Window is active via the ``focus_os_window`` directive
+
+- Wayland: Fix for bug in NVIDIA drivers that prevents transparency working (:iss:`5479`)
+
+- Wayland: Fix for a bug that could cause kitty to become non-responsive when
+  using multiple OS windows in a single instance on some compositors (:iss:`5495`)
+
+- Wayland: Fix for a bug preventing kitty from starting on Hyprland when using a non-unit scale (:iss:`5467`)
+
+- Wayland: Generate a XDG_ACTIVATION_TOKEN when opening URLs or running programs in the background via the launch action
+
+- Fix a regression that caused kitty not to restore SIGPIPE after python nukes it when launching children. Affects bash which does not sanitize its signal mask. (:iss:`5500`)
+
+- Fix a use-after-free when handling fake mouse clicks and the action causes windows to be removed/re-allocated (:iss:`5506`)
+
+
+0.26.2 [2022-09-05]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Allow creating :code:`overlay-main` windows, which are treated as the active window unlike normal overlays (:iss:`5392`)
+
+- hints kitten: Allow using :doc:`launch` as the program to run, to open the result in a new kitty tab/window/etc. (:iss:`5462`)
+
+- hyperlinked_grep kitten: Allow control over which parts of ``rg`` output are hyperlinked (:pull:`5428`)
 
 - Fix regression in 0.26.0 that caused launching kitty without working STDIO handles to result in high CPU usage and prewarming failing (:iss:`5444`)
 
-- :doc:`/launch`: Allow setting the margin and padding for the newly created window (:iss:`5463`)
+- :doc:`/launch`: Allow setting the margin and padding for newly created windows (:iss:`5463`)
 
 - macOS: Fix regression in 0.26.0 that caused asking the user for a line of input such as for :ac:`set_tab_title` to not work (:iss:`5447`)
 
 - hints kitten: hyperlink matching: Fix hints occasionally matching text on subsequent line as part of hyperlink (:pull:`5450`)
 
-- hints kitten: Allow using :doc:`launch` as the program to run, to open the result in a new kitty tab/window/etc. (:iss:`5462`)
+- Fix a regression in 0.26.0 that broke mapping of native keys whose key codes did not fit in 21 bits (:iss:`5452`)
 
-- Fix a regression in 0.26.0 that broke mapping of native keys who key codes did not fit in 21 bits (:iss:`5452`)
+- Wayland: Fix remembering window size not accurate when client side decorations are present
+
+- Fix an issue where notification identifiers were not sanitized leading to
+  code execution if the user clicked on a notification popup from a malicious
+  source. Thanks to Carter Sande for discovering this vulnerability.
+
 
 0.26.1 [2022-08-30]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,6 +274,7 @@ Detailed list of changes
 - Fix a regression in 0.26.0 that caused kitty to no longer set the ``LANG`` environment variable on macOS (:iss:`5439`)
 
 - Allow specifying a title when using the :ac:`set_tab_title` action (:iss:`5441`)
+
 
 0.26.0 [2022-08-29]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1547,6 +1762,7 @@ Detailed list of changes
 
 - Fix :option:`--title` not being applied at window creation time (:iss:`2570`)
 
+
 0.17.2 [2020-03-29]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1731,6 +1947,7 @@ Detailed list of changes
 - When windows are semi-transparent and all contain graphics, correctly render
   them. (:iss:`2310`)
 
+
 0.15.1 [2019-12-21]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1838,6 +2055,7 @@ Detailed list of changes
   spacing=100 (:iss:`1968`)
 
 - Use selection foreground color for underlines as well (:iss:`1982`)
+
 
 0.14.4 [2019-08-31]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2145,6 +2363,7 @@ Detailed list of changes
 - Mouse selection: When extending by word, fix extending selection to non-word
   characters not working well (:iss:`1616`)
 
+
 0.13.3 [2019-01-19]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2237,6 +2456,7 @@ Detailed list of changes
 
 - Fix resizing window smaller and then restoring causing some wrapped lines to not
   be properly unwrapped (:iss:`1206`)
+
 
 0.13.0 [2018-12-05]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2335,6 +2555,7 @@ Detailed list of changes
 - Fix hover detection of URLs not working when hovering over the first colon
   and slash characters in short URLs (:iss:`1201`)
 
+
 0.12.3 [2018-09-29]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2411,6 +2632,7 @@ Detailed list of changes
 - Fix using :opt:`focus_follows_mouse` causing text selection with the
   mouse to malfunction when using multiple kitty windows (:iss:`1002`)
 
+
 0.12.1 [2018-09-08]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -2453,6 +2675,7 @@ Detailed list of changes
 
 - macOS: Diff kitten: Fix syntax highlighting not working because of
   a bug in the 0.12.0 macOS package
+
 
 0.12.0 [2018-09-01]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2964,6 +3187,7 @@ Detailed list of changes
 
 - Fix a crash when getting the contents of the scrollback buffer as text
 
+
 0.8.1 [2018-03-09]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -3040,6 +3264,7 @@ Detailed list of changes
 
 - Browsing the scrollback buffer now happens in an overlay window instead of a
   new window/tab.
+
 
 0.7.1 [2018-01-31]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

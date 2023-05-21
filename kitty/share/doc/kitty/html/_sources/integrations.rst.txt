@@ -80,6 +80,12 @@ base application that uses kitty's graphics protocol for images.
 A text mode WWW browser that supports kitty's graphics protocol to display
 images.
 
+.. _tool_mpv:
+
+`mpv <https://github.com/mpv-player/mpv/commit/874e28f4a41a916bb567a882063dd2589e9234e1>`_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A video player that can play videos in the terminal.
+
 .. _tool_timg:
 
 `timg <https://github.com/hzeller/timg>`_
@@ -214,7 +220,8 @@ Allows easily running tests in a terminal window
 
 `hologram.nvim <https://github.com/edluffy/hologram.nvim>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Terminal image viewer for Neovim
+Terminal image viewer for Neovim. For a bit of fun, you can even have `cats
+running around inside nvim <https://github.com/giusgad/pets.nvim>`__.
 
 
 Scrollback manipulation

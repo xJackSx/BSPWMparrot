@@ -10,8 +10,9 @@ configuration is a simple, human editable, single file for easy reproducibility
 (I like to store configuration in source control).
 
 The code in |kitty| is designed to be simple, modular and hackable. It is
-written in a mix of C (for performance sensitive parts) and Python (for easy
-hackability of the UI). It does not depend on any large and complex UI toolkit,
+written in a mix of C (for performance sensitive parts), Python (for easy
+extensibility and flexibility of the UI) and Go (for the command line
+:term:`kittens`).  It does not depend on any large and complex UI toolkit,
 using only OpenGL for rendering everything.
 
 Finally, |kitty| is designed from the ground up to support all modern terminal
@@ -85,7 +86,7 @@ Extending kitty
 ------------------
 
 kitty has a powerful framework for scripting. You can create small terminal
-programs called :doc:`kittens <kittens_intro>`. These can used to add features
+programs called :doc:`kittens <kittens_intro>`. These can be used to add features
 to kitty, for example, :doc:`editing remote files <kittens/remote_file>` or
 :doc:`inputting Unicode characters <kittens/unicode_input>`. They can also be
 used to create programs that leverage kitty's powerful features, for example,
@@ -127,7 +128,7 @@ Startup Sessions
 You can control the :term:`tabs <tab>`, :term:`kitty window <window>` layout,
 working directory, startup programs, etc. by creating a *session* file and using
 the :option:`kitty --session` command line flag or the :opt:`startup_session`
-option in :file:`kitty.conf`. For example:
+option in :file:`kitty.conf`. An example, showing all available commands:
 
 .. code-block:: session
 
@@ -154,22 +155,31 @@ option in :file:`kitty.conf`. For example:
     launch zsh
 
     # Create a new OS window
-    # Any definitions specifed before the first new_os_window will apply to first OS window.
+    # Any definitions specified before the first new_os_window will apply to first OS window.
     new_os_window
     # Set new window size to 80x24 cells
     os_window_size 80c 24c
     # Set the --class for the new OS window
     os_window_class mywindow
+    # Change the OS window state to normal, fullscreen, maximized or minimized
+    os_window_state normal
     launch sh
     # Resize the current window (see the resize_window action for details)
     resize_window wider 2
-    # Make the current window the active (focused) window
+    # Make the current window the active (focused) window in its tab
     focus
+    # Make the current OS Window the globally active window (not supported on Wayland)
+    focus_os_window
     launch emacs
 
 .. note::
     The :doc:`launch <launch>` command when used in a session file cannot create
     new OS windows, or tabs.
+
+.. note::
+   Environment variables of the for :code:`${NAME}` or :code:`$NAME` are
+   expanded in the session file, except in the *arguments* (not options) to the
+   launch command.
 
 
 Creating tabs/windows
@@ -225,9 +235,10 @@ Font control
 |kitty| has extremely flexible and powerful font selection features. You can
 specify individual families for the regular, bold, italic and bold+italic fonts.
 You can even specify specific font families for specific ranges of Unicode
-characters. This allows precise control over text rendering. It can comein handy
-for applications like powerline, without the need to use patched fonts. See the
-various font related configuration directives in :ref:`conf-kitty-fonts`.
+characters. This allows precise control over text rendering. It can come in
+handy for applications like powerline, without the need to use patched fonts.
+See the various font related configuration directives in
+:ref:`conf-kitty-fonts`.
 
 
 .. _scrollback:

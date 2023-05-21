@@ -3,20 +3,20 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
 <meta property="og:title" content="The kitty remote control protocol" />
-  
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://sw.kovidgoyal.net/kitty/rc_protocol.html" />
-  
+<meta property="og:site_name" content="kitty" />
 <meta property="og:description" content="The kitty remote control protocol is a simple protocol that involves sending data to kitty in the form of JSON. Any individual command of kitty has the form: Where<ESC> is the byte 0x1b. The JSON o..." />
-  <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="The launch command" href="launch.html" /><link rel="prev" title="Control kitty from scripts" href="remote-control.html" />
+<meta property="og:image" content="https://sw.kovidgoyal.net/kitty/None" />
+<meta property="og:image:alt" content="The kitty remote control protocol is a simple protocol that involves sending data to kitty in the form of JSON. Any individual command of kitty has the form:..." />
+<meta name="description" content="The kitty remote control protocol is a simple protocol that involves sending data to kitty in the form of JSON. Any individual command of kitty has the form: Where<ESC> is the byte 0x1b. The JSON o..." />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="The launch command" href="launch.html" /><link rel="prev" title="Control kitty from scripts" href="remote-control.html" />
 
-    <link rel="shortcut icon" href="_static/kitty.svg"/><meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <link rel="shortcut icon" href="_static/kitty.svg"/><!-- Generated with Sphinx 6.1.3 and Furo 2023.03.27 -->
         <title>The kitty remote control protocol - kitty</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -156,7 +156,7 @@
   <aside class="sidebar-drawer">
     <div class="sidebar-container">
       
-      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="index.html">
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   <div class="sidebar-logo-container">
     <img class="sidebar-logo" src="_static/kitty.svg" alt="Logo"/>
@@ -164,7 +164,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -339,6 +339,7 @@
 <li class="toctree-l6"><a class="reference internal" href="kittens/ssh.html#options">Options</a></li>
 </ul>
 </li>
+<li class="toctree-l5"><a class="reference internal" href="kittens/ssh.html#copying-terminfo-files-manually">Copying terminfo files manually</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="kittens/custom.html">Custom kittens</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" role="switch" type="checkbox"/><label for="toctree-checkbox-28"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -404,6 +405,7 @@
 <li class="toctree-l3 current has-children"><a class="reference internal" href="remote-control.html#matching-windows-and-tabs">Matching windows and tabs</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-39" name="toctree-checkbox-39" role="switch" type="checkbox"/><label for="toctree-checkbox-39"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l4 current has-children current-page"><a class="current reference internal" href="#">The kitty remote control protocol</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-40" name="toctree-checkbox-40" role="switch" type="checkbox"/><label for="toctree-checkbox-40"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="#encrypted-communication">Encrypted communication</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#async-and-streaming-requests">Async and streaming requests</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#close-tab">close-tab</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#close-window">close-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#create-marker">create-marker</a></li>
@@ -427,6 +429,7 @@
 <li class="toctree-l5"><a class="reference internal" href="#scroll-window">scroll-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#select-window">select-window</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#send-text">send-text</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#set-background-image">set-background-image</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#set-background-opacity">set-background-opacity</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#set-colors">set-colors</a></li>
 <li class="toctree-l5"><a class="reference internal" href="#set-enabled-layouts">set-enabled-layouts</a></li>
@@ -634,8 +637,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="faq.html">Frequently Asked Questions</a><input class="toctree-checkbox" id="toctree-checkbox-82" name="toctree-checkbox-82" role="switch" type="checkbox"/><label for="toctree-checkbox-82"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#some-special-symbols-are-rendered-small-truncated-in-kitty">Some special symbols are rendered small/truncated in kitty?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim">Using a color theme with a background color does not work well in vim?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer">I get errors about the terminal being unknown or opening the terminal failing when SSHing into a different computer?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#keys-such-as-arrow-keys-backspace-delete-home-end-etc-do-not-work-when-using-su-or-sudo">Keys such as arrow keys, backspace, delete, home/end, etc. do not work when using su or sudo?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-or-functional-keys-like-arrow-keys-don-t-work">I get errors about the terminal being unknown or opening the terminal failing or functional keys like arrow keys don't work?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#i-cannot-use-the-key-combination-x-in-program-y">I cannot use the key combination X in program Y?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-change-the-colors-in-a-running-kitty-instance">How do I change the colors in a running kitty instance?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-specify-command-line-options-for-kitty-on-macos">How do I specify command line options for kitty on macOS?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="faq.html#i-catted-a-binary-file-and-now-kitty-is-hung">I catted a binary file and now kitty is hung?</a></li>
@@ -659,81 +662,87 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="changelog.html#detailed-list-of-changes">Detailed list of changes</a><input class="toctree-checkbox" id="toctree-checkbox-85" name="toctree-checkbox-85" role="switch" type="checkbox"/><label for="toctree-checkbox-85"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#future">0.26.2 [future]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">0.26.1 [2022-08-30]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">0.26.0 [2022-08-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">0.25.2 [2022-06-07]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">0.25.1 [2022-05-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">0.25.0 [2022-04-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">0.24.4 [2022-03-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">0.24.3 [2022-02-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">0.24.2 [2022-02-03]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">0.24.1 [2022-01-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id10">0.24.0 [2022-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id11">0.23.1 [2021-08-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id12">0.23.0 [2021-08-16]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id13">0.22.2 [2021-08-02]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id14">0.22.1 [2021-07-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id15">0.22.0 [2021-07-26]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id16">0.21.2 [2021-06-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id17">0.21.1 [2021-06-14]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id18">0.21.0 [2021-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id19">0.20.3 [2021-05-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id20">0.20.2 [2021-04-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id21">0.20.1 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id22">0.20.0 [2021-04-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id23">0.19.3 [2020-12-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id24">0.19.2 [2020-11-13]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id25">0.19.1 [2020-10-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id26">0.19.0 [2020-10-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id27">0.18.3 [2020-08-11]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id28">0.18.2 [2020-07-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id29">0.18.1 [2020-06-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id30">0.18.0 [2020-06-20]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id31">0.17.4 [2020-05-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id32">0.17.3 [2020-04-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id33">0.17.2 [2020-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id34">0.17.1 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id35">0.17.0 [2020-03-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id36">0.16.0 [2020-01-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id37">0.15.1 [2019-12-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id38">0.15.0 [2019-11-27]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id39">0.14.6 [2019-09-25]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id40">0.14.5 [2019-09-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id41">0.14.4 [2019-08-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id42">0.14.3 [2019-07-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id43">0.14.2 [2019-06-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id44">0.14.1 [2019-05-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id45">0.14.0 [2019-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id46">0.13.3 [2019-01-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id47">0.13.2 [2019-01-04]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id48">0.13.1 [2018-12-06]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id49">0.13.0 [2018-12-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id50">0.12.3 [2018-09-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id51">0.12.2 [2018-09-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id52">0.12.1 [2018-09-08]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id53">0.12.0 [2018-09-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id54">0.11.3 [2018-07-10]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id55">0.11.2 [2018-07-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id56">0.11.1 [2018-06-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id57">0.11.0 [2018-06-12]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id58">0.10.1 [2018-05-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id59">0.10.0 [2018-05-21]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id60">0.9.1 [2018-05-05]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id61">0.9.0 [2018-04-15]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id62">0.8.4 [2018-03-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id63">0.8.3 [2018-03-29]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id64">0.8.2 [2018-03-17]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id65">0.8.1 [2018-03-09]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id66">0.8.0 [2018-02-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id67">0.7.1 [2018-01-31]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id68">0.7.0 [2018-01-24]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id69">0.6.1 [2017-12-28]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id70">0.6.0 [2017-12-18]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id71">0.5.1 [2017-12-01]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id72">0.5.0 [2017-11-19]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id73">0.4.2 [2017-10-23]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="changelog.html#id74">0.4.0 [2017-10-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#future">0.28.0 [future]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id1">0.27.1 [2023-02-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id2">0.27.0 [2023-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id3">0.26.5 [2022-11-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id4">0.26.4 [2022-10-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id5">0.26.3 [2022-09-22]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id6">0.26.2 [2022-09-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id7">0.26.1 [2022-08-30]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id8">0.26.0 [2022-08-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id9">0.25.2 [2022-06-07]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id10">0.25.1 [2022-05-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id11">0.25.0 [2022-04-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id12">0.24.4 [2022-03-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id13">0.24.3 [2022-02-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id14">0.24.2 [2022-02-03]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id15">0.24.1 [2022-01-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id16">0.24.0 [2022-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id17">0.23.1 [2021-08-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id18">0.23.0 [2021-08-16]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id19">0.22.2 [2021-08-02]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id20">0.22.1 [2021-07-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id21">0.22.0 [2021-07-26]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id22">0.21.2 [2021-06-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id23">0.21.1 [2021-06-14]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id24">0.21.0 [2021-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id25">0.20.3 [2021-05-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id26">0.20.2 [2021-04-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id27">0.20.1 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id28">0.20.0 [2021-04-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id29">0.19.3 [2020-12-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id30">0.19.2 [2020-11-13]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id31">0.19.1 [2020-10-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id32">0.19.0 [2020-10-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id33">0.18.3 [2020-08-11]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id34">0.18.2 [2020-07-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id35">0.18.1 [2020-06-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id36">0.18.0 [2020-06-20]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id37">0.17.4 [2020-05-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id38">0.17.3 [2020-04-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id39">0.17.2 [2020-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id40">0.17.1 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id41">0.17.0 [2020-03-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id42">0.16.0 [2020-01-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id43">0.15.1 [2019-12-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id44">0.15.0 [2019-11-27]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id45">0.14.6 [2019-09-25]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id46">0.14.5 [2019-09-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id47">0.14.4 [2019-08-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id48">0.14.3 [2019-07-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id49">0.14.2 [2019-06-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id50">0.14.1 [2019-05-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id51">0.14.0 [2019-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id52">0.13.3 [2019-01-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id53">0.13.2 [2019-01-04]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id54">0.13.1 [2018-12-06]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id55">0.13.0 [2018-12-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id56">0.12.3 [2018-09-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id57">0.12.2 [2018-09-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id58">0.12.1 [2018-09-08]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id59">0.12.0 [2018-09-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id60">0.11.3 [2018-07-10]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id61">0.11.2 [2018-07-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id62">0.11.1 [2018-06-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id63">0.11.0 [2018-06-12]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id64">0.10.1 [2018-05-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id65">0.10.0 [2018-05-21]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id66">0.9.1 [2018-05-05]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id67">0.9.0 [2018-04-15]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id68">0.8.4 [2018-03-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id69">0.8.3 [2018-03-29]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id70">0.8.2 [2018-03-17]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id71">0.8.1 [2018-03-09]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id72">0.8.0 [2018-02-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id73">0.7.1 [2018-01-31]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id74">0.7.0 [2018-01-24]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id75">0.6.1 [2017-12-28]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id76">0.6.0 [2017-12-18]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id77">0.5.1 [2017-12-01]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id78">0.5.0 [2017-11-19]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id79">0.4.2 [2017-10-23]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="changelog.html#id80">0.4.0 [2017-10-22]</a></li>
 </ul>
 </li>
 </ul>
@@ -766,6 +775,7 @@
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="graphics-protocol.html#display-images-on-screen">Display images on screen</a><input class="toctree-checkbox" id="toctree-checkbox-91" name="toctree-checkbox-91" role="switch" type="checkbox"/><label for="toctree-checkbox-91"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="graphics-protocol.html#controlling-displayed-image-layout">Controlling displayed image layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="graphics-protocol.html#unicode-placeholders">Unicode placeholders</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="graphics-protocol.html#deleting-images">Deleting images</a></li>
@@ -809,6 +819,7 @@
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#functional-key-definitions">Functional key definitions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#legacy-ctrl-mapping-of-ascii-keys">Legacy <kbd class="kbd docutils literal notranslate">ctrl</kbd> mapping of ASCII keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#bugs-in-fixterms">Bugs in fixterms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="keyboard-protocol.html#why-xterm-s-modifyotherkeys-should-not-be-used">Why xterm's modifyOtherKeys should not be used</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="file-transfer-protocol.html">File transfer over the TTY</a><input class="toctree-checkbox" id="toctree-checkbox-97" name="toctree-checkbox-97" role="switch" type="checkbox"/><label for="toctree-checkbox-97"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -840,9 +851,15 @@
 <li class="toctree-l2"><a class="reference internal" href="unscroll.html">Unscrolling the screen</a></li>
 <li class="toctree-l2"><a class="reference internal" href="color-stack.html">Saving and restoring colors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="deccara.html">Setting text styles/colors in arbitrary regions of the screen</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="clipboard.html">Copying all data types to the clipboard</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#reading-data-from-the-system-clipboard">Reading data from the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#writing-data-to-the-system-clipboard">Writing data to the system clipboard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="clipboard.html#support-for-terminal-multiplexers">Support for terminal multiplexers</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-101" name="toctree-checkbox-101" role="switch" type="checkbox"/><label for="toctree-checkbox-101"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="press-mentions.html">Press mentions of kitty</a><input class="toctree-checkbox" id="toctree-checkbox-102" name="toctree-checkbox-102" role="switch" type="checkbox"/><label for="toctree-checkbox-102"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="press-mentions.html#video-reviews">Video reviews</a></li>
 </ul>
 </li>
@@ -865,7 +882,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -888,12 +906,13 @@ form:</p>
 </pre></div>
 </div>
 <p>Where <code class="docutils literal notranslate"><span class="pre">&lt;ESC&gt;</span></code> is the byte <code class="docutils literal notranslate"><span class="pre">0x1b</span></code>. The JSON object has the form:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;cmd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command name&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;kitty version&gt;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;no_response&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Optional Boolean&gt;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Optional JSON object&gt;&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;cmd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;command name&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;kitty version&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;no_response&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Optional Boolean&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;kitty_window_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Optional value of the KITTY_WINDOW_ID env var&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;payload&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;Optional JSON object&gt;&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">version</span></code> above is an array of the form <code class="code docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">14,</span> <span class="pre">2]</span></code>. If you are
@@ -912,6 +931,11 @@ the <code class="docutils literal notranslate"><span class="pre">&#64;</span> <s
 <p>Now, in a different terminal, you can get the pretty printed <code class="docutils literal notranslate"><span class="pre">&#64;</span> <span class="pre">ls</span></code> output
 with the following command line:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="o">-</span><span class="n">en</span> <span class="s1">&#39;\eP@kitty-cmd{&quot;cmd&quot;:&quot;ls&quot;,&quot;version&quot;:[0,14,2]}\e</span><span class="se">\\</span><span class="s1">&#39;</span> <span class="o">|</span> <span class="n">socat</span> <span class="o">-</span> <span class="n">unix</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">test</span> <span class="o">|</span> <span class="n">awk</span> <span class="s1">&#39;{ print substr($0, 13, length($0) - 14) }&#39;</span> <span class="o">|</span> <span class="n">jq</span> <span class="o">-</span><span class="n">c</span> <span class="s1">&#39;.data | fromjson&#39;</span> <span class="o">|</span> <span class="n">jq</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>There is also the statically compiled stand-alone executable <code class="docutils literal notranslate"><span class="pre">kitten</span></code>
+that can be used for this, available from the <a class="reference external" href="https://github.com/kovidgoyal/kitty/releases">kitty releases</a> page:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kitten</span> <span class="o">@</span> <span class="o">--</span><span class="n">help</span>
 </pre></div>
 </div>
 <section id="encrypted-communication">
@@ -937,23 +961,40 @@ SHA-256 hashing, once.  An IV of at least 96 bits of CSPRNG data is used. The
 tag for authenticated encryption <strong>must</strong> be at least 128 bits long.  The tag
 <strong>must</strong> authenticate only the value of the <code class="docutils literal notranslate"><span class="pre">encrypted</span></code> field. A new command
 is created and transmitted that contains the fields:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;kitty version&gt;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;iv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base85 encoded IV&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base85 encoded AEAD tag&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;pubkey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base85 encoded ECDH public key of sender&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="nt">&quot;encrypted&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The original command encrypted and base85 encoded&quot;</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;kitty version&gt;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;iv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base85 encoded IV&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;tag&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base85 encoded AEAD tag&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;pubkey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base85 encoded ECDH public key of sender&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;encrypted&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The original command encrypted and base85 encoded&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
+</section>
+<section id="async-and-streaming-requests">
+<h2>Async and streaming requests<a class="headerlink" href="#async-and-streaming-requests" title="Permalink to this heading">#</a></h2>
+<p>Some remote control commands require asynchronous communication, that is, the
+response from the terminal can happen after an arbitrary amount of time. For
+example, the <code class="code docutils literal notranslate"><span class="pre">select-window</span></code> command requires the user to select a window
+before a response can be sent. Such command must set the field <code class="code docutils literal notranslate"><span class="pre">async</span></code>
+in the JSON block above to a random string that serves as a unique id. The
+client can cancel an async request in flight by adding the <code class="code docutils literal notranslate"><span class="pre">cancel_async</span></code>
+field to the JSON block. A async response remains in flight until the terminal
+sends a response to the request. Note that cancellation requests dont need to
+be encrypted as users must not be prompted for these and the worst a malicious
+cancellation request can do is prevent another sync request from getting a
+response.</p>
+<p>Similar to async requests are <em>streaming</em> requests. In these the client has to
+send a large amount of data to the terminal and so the request is split into
+chunks. In every chunk the JSON block must contain the field <code class="docutils literal notranslate"><span class="pre">stream</span></code> set to
+<code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">stream_id</span></code> set to a random long string, that should be the same for
+all chunks in a request. End of data is indicated by sending a chunk with no data.</p>
 </section>
 <section id="close-tab">
 <h2>close-tab<a class="headerlink" href="#close-tab" title="Permalink to this heading">#</a></h2>
 <p>Fields are:</p>
 <dl class="simple">
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which tab to close</p>
-</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">no_response</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to wait for a response</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to close the tab of the window the command is run in</p>
 </dd>
@@ -967,8 +1008,6 @@ is created and transmitted that contains the fields:</p>
 <dl class="simple">
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to close</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">no_response</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to wait for a response</p>
-</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to close the window the command is run in</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">ignore_no_match</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether no matches should be ignored or return an error</p>
@@ -977,14 +1016,13 @@ is created and transmitted that contains the fields:</p>
 </section>
 <section id="create-marker">
 <h2>create-marker<a class="headerlink" href="#create-marker" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>marker_spec/list.str: A list or arguments that define the marker specification, for example: [‘text’, ‘1’, ‘ERROR’]</p>
-</div></blockquote>
 <p>Fields are:</p>
 <dl class="simple">
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to create the marker in</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to create marker in the window the command is run in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">marker_spec</span> <span class="pre">(optional)</span></code></dt><dd><p>A list or arguments that define the marker specification, for example: [‘text’, ‘1’, ‘ERROR’]</p>
 </dd>
 </dl>
 </section>
@@ -1014,9 +1052,10 @@ is created and transmitted that contains the fields:</p>
 </section>
 <section id="disable-ligatures">
 <h2>disable-ligatures<a class="headerlink" href="#disable-ligatures" title="Permalink to this heading">#</a></h2>
-<p>strategy+/choices.never.always.cursor: One of <code class="code docutils literal notranslate"><span class="pre">never</span></code>, <code class="code docutils literal notranslate"><span class="pre">always</span></code> or <code class="code docutils literal notranslate"><span class="pre">cursor</span></code></p>
 <p>Fields are:</p>
 <dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">strategy</span> <span class="pre">(required)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">never</span></code>, <code class="code docutils literal notranslate"><span class="pre">always</span></code> or <code class="code docutils literal notranslate"><span class="pre">cursor</span></code></p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match_window</span> <span class="pre">(optional)</span></code></dt><dd><p>Window to change opacity in</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match_tab</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Tab to change opacity in</p>
@@ -1027,7 +1066,11 @@ is created and transmitted that contains the fields:</p>
 </section>
 <section id="env">
 <h2>env<a class="headerlink" href="#env" title="Permalink to this heading">#</a></h2>
-<p>env+/dict.str: Dictionary of environment variables to values. Empty values cause the variable to be removed.</p>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">env</span> <span class="pre">(required)</span></code></dt><dd><p>Dictionary of environment variables to values. When a env var ends with = it is removed from the environment.</p>
+</dd>
+</dl>
 </section>
 <section id="focus-tab">
 <h2>focus-tab<a class="headerlink" href="#focus-tab" title="Permalink to this heading">#</a></h2>
@@ -1057,12 +1100,11 @@ is created and transmitted that contains the fields:</p>
 </section>
 <section id="get-text">
 <h2>get-text<a class="headerlink" href="#get-text" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>extent/choices.screen.first_cmd_output_on_screen.last_cmd_output.last_visited_cmd_output.all.selection:         One of <code class="code docutils literal notranslate"><span class="pre">screen</span></code>, <code class="code docutils literal notranslate"><span class="pre">first_cmd_output_on_screen</span></code>, <code class="code docutils literal notranslate"><span class="pre">last_cmd_output</span></code>,         <code class="code docutils literal notranslate"><span class="pre">last_visited_cmd_output</span></code>, <code class="code docutils literal notranslate"><span class="pre">all</span></code>, or <code class="code docutils literal notranslate"><span class="pre">selection</span></code></p>
-</div></blockquote>
 <p>Fields are:</p>
 <dl class="simple">
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The window to get text from</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">extent</span> <span class="pre">(default:</span> <span class="pre">screen)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">screen</span></code>, <code class="code docutils literal notranslate"><span class="pre">first_cmd_output_on_screen</span></code>, <code class="code docutils literal notranslate"><span class="pre">last_cmd_output</span></code>,         <code class="code docutils literal notranslate"><span class="pre">last_visited_cmd_output</span></code>, <code class="code docutils literal notranslate"><span class="pre">all</span></code>, or <code class="code docutils literal notranslate"><span class="pre">selection</span></code></p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">ansi</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean, if True send ANSI formatting codes</p>
 </dd>
@@ -1070,7 +1112,7 @@ is created and transmitted that contains the fields:</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">wrap_markers</span> <span class="pre">(optional)</span></code></dt><dd><p>Boolean, if True add wrap markers to output</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">clear_selection</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Boolean, if True clear the selection in the matched window</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">clear_selection</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean, if True clear the selection in the matched window</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean, if True use window the command was run in</p>
 </dd>
@@ -1088,12 +1130,11 @@ is created and transmitted that contains the fields:</p>
 </section>
 <section id="kitten">
 <h2>kitten<a class="headerlink" href="#kitten" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>args/list.str: Arguments to pass to the kitten as a list</p>
-</div></blockquote>
 <p>Fields are:</p>
 <dl class="simple">
 <dt><code class="code docutils literal notranslate"><span class="pre">kitten</span> <span class="pre">(required)</span></code></dt><dd><p>The name of the kitten to run</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">args</span> <span class="pre">(optional)</span></code></dt><dd><p>Arguments to pass to the kitten as a list</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The window to run the kitten over</p>
 </dd>
@@ -1111,23 +1152,21 @@ is created and transmitted that contains the fields:</p>
 </section>
 <section id="launch">
 <h2>launch<a class="headerlink" href="#launch" title="Permalink to this heading">#</a></h2>
-<dl class="simple">
-<dt>args+/list.str: The command line to run in the new window, as a list, use an empty list to run the default shell</dt><dd><p>env/list.str: List of environment variables of the form NAME=VALUE
-type/choices.window.tab.os-window.overlay.background.clipboard.primary: The type of window to open
-location/choices.first.after.before.neighbor.last.vsplit.hsplit.split.default: Where in the tab to open the new window
-stdin_source/choices.none.&#64;selection.&#64;screen.&#64;screen_scrollback.&#64;alternate.&#64;alternate_scrollback.        &#64;first_cmd_output_on_screen.&#64;last_cmd_output.&#64;last_visited_cmd_output: Where to get stdin for the process from
-spacing/list.str: A list of spacing specifications, see the docs for the set-spacing command</p>
-</dd>
-</dl>
 <p>Fields are:</p>
 <dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">args</span> <span class="pre">(required)</span></code></dt><dd><p>The command line to run in the new window, as a list, use an empty list to run the default shell</p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The tab to open the new window in</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">window_title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for the new window</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">cwd</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Working directory for the new window</p>
 </dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">env</span> <span class="pre">(default:</span> <span class="pre">[])</span></code></dt><dd><p>List of environment variables of the form NAME=VALUE</p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">tab_title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for the new tab</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">type</span> <span class="pre">(default:</span> <span class="pre">window)</span></code></dt><dd><p>The type of window to open</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">keep_focus</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether the current window should retain focus or not</p>
 </dd>
@@ -1139,15 +1178,19 @@ spacing/list.str: A list of spacing specifications, see the docs for the set-spa
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">hold</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to keep window open after cmd exits</p>
 </dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">location</span> <span class="pre">(default:</span> <span class="pre">default)</span></code></dt><dd><p>Where in the tab to open the new window</p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">allow_remote_control</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to allow remote control from the new window</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">remote_control_password</span> <span class="pre">(default:</span> <span class="pre">[])</span></code></dt><dd><p>A list of remote control passwords</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">stdin_source</span> <span class="pre">(default:</span> <span class="pre">none)</span></code></dt><dd><p>Where to get stdin for the process from</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">stdin_add_formatting</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to add formatting codes to stdin</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">stdin_add_line_wrap_markers</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to add line wrap markers to stdin</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">no_response</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to send back the window id</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">spacing</span> <span class="pre">(default:</span> <span class="pre">[])</span></code></dt><dd><p>A list of spacing specifications, see the docs for the set-spacing command</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">marker</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Specification for marker for new window, for example: “text 1 ERROR”</p>
 </dd>
@@ -1158,6 +1201,18 @@ spacing/list.str: A list of spacing specifications, see the docs for the set-spa
 <dt><code class="code docutils literal notranslate"><span class="pre">logo_alpha</span> <span class="pre">(default:</span> <span class="pre">-1.0)</span></code></dt><dd><p>Window logo alpha or -1 to use default</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean, if True use tab the command was run in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">os_window_title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for OS Window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">os_window_name</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>WM_NAME for OS Window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">os_window_class</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>WM_CLASS for OS Window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">os_window_state</span> <span class="pre">(default:</span> <span class="pre">normal)</span></code></dt><dd><p>The initial state for OS Window</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">color</span> <span class="pre">(default:</span> <span class="pre">[])</span></code></dt><dd><p>list of color specifications such as foreground=red</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">watcher</span> <span class="pre">(default:</span> <span class="pre">[])</span></code></dt><dd><p>list of paths to watcher files</p>
 </dd>
 </dl>
 </section>
@@ -1171,12 +1226,10 @@ spacing/list.str: A list of spacing specifications, see the docs for the set-spa
 </section>
 <section id="new-window">
 <h2>new-window<a class="headerlink" href="#new-window" title="Permalink to this heading">#</a></h2>
-<dl class="simple">
-<dt>args+/list.str: The command line to run in the new window, as a list, use an empty list to run the default shell</dt><dd><p>window_type/choices.kitty.os: One of <code class="code docutils literal notranslate"><span class="pre">kitty</span></code> or <code class="code docutils literal notranslate"><span class="pre">os</span></code></p>
-</dd>
-</dl>
 <p>Fields are:</p>
 <dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">args</span> <span class="pre">(required)</span></code></dt><dd><p>The command line to run in the new window, as a list, use an empty list to run the default shell</p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The tab to open the new window in</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for the new window</p>
@@ -1185,11 +1238,11 @@ spacing/list.str: A list of spacing specifications, see the docs for the set-spa
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">keep_focus</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether the current window should retain focus or not</p>
 </dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">window_type</span> <span class="pre">(default:</span> <span class="pre">kitty)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">kitty</span></code> or <code class="code docutils literal notranslate"><span class="pre">os</span></code></p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">new_tab</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to open a new tab</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">tab_title</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Title for the new tab</p>
-</dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">no_response</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to send back the window id</p>
 </dd>
 </dl>
 </section>
@@ -1205,10 +1258,6 @@ spacing/list.str: A list of spacing specifications, see the docs for the set-spa
 </section>
 <section id="resize-os-window">
 <h2>resize-os-window<a class="headerlink" href="#resize-os-window" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>action/choices.resize.toggle-fullscreen.toggle-maximized: One of <code class="code docutils literal notranslate"><span class="pre">resize,</span> <span class="pre">toggle-fullscreen</span></code> or <code class="code docutils literal notranslate"><span class="pre">toggle-maximized</span></code>
-unit/choices.cells.pixels: One of <code class="code docutils literal notranslate"><span class="pre">cells</span></code> or <code class="code docutils literal notranslate"><span class="pre">pixels</span></code></p>
-</div></blockquote>
 <p>Fields are:</p>
 <dl class="simple">
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to resize</p>
@@ -1216,6 +1265,10 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 <dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to close the window the command is run in</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">incremental</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to adjust the size incrementally</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">action</span> <span class="pre">(default:</span> <span class="pre">resize)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">resize,</span> <span class="pre">toggle-fullscreen</span></code> or <code class="code docutils literal notranslate"><span class="pre">toggle-maximized</span></code></p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">unit</span> <span class="pre">(default:</span> <span class="pre">cells)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">cells</span></code> or <code class="code docutils literal notranslate"><span class="pre">pixels</span></code></p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">width</span> <span class="pre">(default:</span> <span class="pre">0)</span></code></dt><dd><p>Integer indicating desired window width</p>
 </dd>
@@ -1225,9 +1278,6 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 </section>
 <section id="resize-window">
 <h2>resize-window<a class="headerlink" href="#resize-window" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>axis/choices.horizontal.vertical.reset: One of <code class="code docutils literal notranslate"><span class="pre">horizontal,</span> <span class="pre">vertical</span></code> or <code class="code docutils literal notranslate"><span class="pre">reset</span></code></p>
-</div></blockquote>
 <p>Fields are:</p>
 <dl class="simple">
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which window to resize</p>
@@ -1236,19 +1286,20 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">increment</span> <span class="pre">(default:</span> <span class="pre">2)</span></code></dt><dd><p>Integer specifying the resize increment</p>
 </dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">axis</span> <span class="pre">(default:</span> <span class="pre">horizontal)</span></code></dt><dd><p>One of <code class="code docutils literal notranslate"><span class="pre">horizontal,</span> <span class="pre">vertical</span></code> or <code class="code docutils literal notranslate"><span class="pre">reset</span></code></p>
+</dd>
 </dl>
 </section>
 <section id="scroll-window">
 <h2>scroll-window<a class="headerlink" href="#scroll-window" title="Permalink to this heading">#</a></h2>
-<dl class="simple">
-<dt>amount+/list.scroll_amount: The amount to scroll, a two item list with the first item being              either a number or the keywords, start and end.              And the second item being either ‘p’ for pages or ‘l’ for lines or ‘u’</dt><dd><p>for unscrolling by lines.</p>
-</dd>
-</dl>
+<blockquote>
+<div><p>for unscrolling by lines.</p>
+</div></blockquote>
 <p>Fields are:</p>
 <dl class="simple">
-<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The window to scroll</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">amount</span> <span class="pre">(required)</span></code></dt><dd><p>The amount to scroll, a two item list with the first item being              either a number or the keywords, start and end.              And the second item being either ‘p’ for pages or ‘l’ for lines or ‘u’</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">no_response</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to wait for a response</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The window to scroll</p>
 </dd>
 </dl>
 </section>
@@ -1286,6 +1337,22 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 </dd>
 </dl>
 </section>
+<section id="set-background-image">
+<h2>set-background-image<a class="headerlink" href="#set-background-image" title="Permalink to this heading">#</a></h2>
+<p>Fields are:</p>
+<dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">data</span> <span class="pre">(required)</span></code></dt><dd><p>Chunk of at most 512 bytes of PNG data, base64 encoded. Must send an empty chunk to indicate end of image.     Or the special value - to indicate image must be removed.</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Window to change opacity in</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">layout</span> <span class="pre">(default:</span> <span class="pre">configured)</span></code></dt><dd><p>The image layout</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating operate on all windows</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">configured</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating if the configured value should be changed</p>
+</dd>
+</dl>
+</section>
 <section id="set-background-opacity">
 <h2>set-background-opacity<a class="headerlink" href="#set-background-opacity" title="Permalink to this heading">#</a></h2>
 <p>Fields are:</p>
@@ -1302,9 +1369,10 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 </section>
 <section id="set-colors">
 <h2>set-colors<a class="headerlink" href="#set-colors" title="Permalink to this heading">#</a></h2>
-<p>colors+/dict.colors: An object mapping names to colors as 24-bit RGB integers or null for nullable colors</p>
 <p>Fields are:</p>
 <dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">colors</span> <span class="pre">(required)</span></code></dt><dd><p>An object mapping names to colors as 24-bit RGB integers or null for nullable colors</p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match_window</span> <span class="pre">(optional)</span></code></dt><dd><p>Window to change colors in</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match_tab</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Tab to change colors in</p>
@@ -1319,9 +1387,10 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 </section>
 <section id="set-enabled-layouts">
 <h2>set-enabled-layouts<a class="headerlink" href="#set-enabled-layouts" title="Permalink to this heading">#</a></h2>
-<p>layouts+/list.str: The list of layout names</p>
 <p>Fields are:</p>
 <dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">layouts</span> <span class="pre">(required)</span></code></dt><dd><p>The list of layout names</p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which tab to change the layout of</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">configured</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to change the configured value</p>
@@ -1330,22 +1399,22 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 </section>
 <section id="set-font-size">
 <h2>set-font-size<a class="headerlink" href="#set-font-size" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>increment_op/choices.+.-: The string <code class="docutils literal notranslate"><span class="pre">+</span></code> or <code class="docutils literal notranslate"><span class="pre">-</span></code> to interpret size as an increment</p>
-</div></blockquote>
 <p>Fields are:</p>
 <dl class="simple">
-<dt><code class="code docutils literal notranslate"><span class="pre">size</span> <span class="pre">(required)</span></code></dt><dd><p>The new font size in pts (a positive number)</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">size</span> <span class="pre">(required)</span></code></dt><dd><p>The new font size in pts (a positive number). If absent is assumed to be zero which means reset to default.</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">all</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean whether to change font size in the current window or all windows</p>
+</dd>
+<dt><code class="code docutils literal notranslate"><span class="pre">increment_op</span> <span class="pre">(optional)</span></code></dt><dd><p>The string <code class="docutils literal notranslate"><span class="pre">+</span></code> or <code class="docutils literal notranslate"><span class="pre">-</span></code> to interpret size as an increment</p>
 </dd>
 </dl>
 </section>
 <section id="set-spacing">
 <h2>set-spacing<a class="headerlink" href="#set-spacing" title="Permalink to this heading">#</a></h2>
-<p>settings+/dict.spacing: An object mapping margins/paddings using canonical form {‘margin-top’: 50, ‘padding-left’: null} etc</p>
 <p>Fields are:</p>
 <dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">settings</span> <span class="pre">(required)</span></code></dt><dd><p>An object mapping margins/paddings using canonical form {‘margin-top’: 50, ‘padding-left’: null} etc</p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match_window</span> <span class="pre">(optional)</span></code></dt><dd><p>Window to change paddings and margins in</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match_tab</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Tab to change paddings and margins in</p>
@@ -1358,9 +1427,10 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 </section>
 <section id="set-tab-color">
 <h2>set-tab-color<a class="headerlink" href="#set-tab-color" title="Permalink to this heading">#</a></h2>
-<p>colors+/dict.colors: An object mapping names to colors as 24-bit RGB integers. A color value of null indicates it should be unset.</p>
 <p>Fields are:</p>
 <dl class="simple">
+<dt><code class="code docutils literal notranslate"><span class="pre">colors</span> <span class="pre">(required)</span></code></dt><dd><p>An object mapping names to colors as 24-bit RGB integers. A color value of null indicates it should be unset.</p>
+</dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which tab to change the color of</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">self</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to use the tab of the window the command is run in</p>
@@ -1381,7 +1451,7 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 <h2>set-window-logo<a class="headerlink" href="#set-window-logo" title="Permalink to this heading">#</a></h2>
 <p>Fields are:</p>
 <dl class="simple">
-<dt><code class="code docutils literal notranslate"><span class="pre">data</span> <span class="pre">(required)</span></code></dt><dd><p>Chunk of at most 512 bytes of PNG data, base64 encoded. Must send an empty chunk to indicate end of image.     Or the special value <code class="code docutils literal notranslate"><span class="pre">-</span></code> to indicate image must be removed.</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">data</span> <span class="pre">(required)</span></code></dt><dd><p>Chunk of PNG data, base64 encoded no more than 2048 bytes. Must send an empty chunk to indicate end of image.     Or the special value <code class="code docutils literal notranslate"><span class="pre">-</span></code> to indicate image must be removed.</p>
 </dd>
 <dt><code class="code docutils literal notranslate"><span class="pre">position</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>The logo position as a string, empty string means default</p>
 </dd>
@@ -1407,12 +1477,11 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 </section>
 <section id="signal-child">
 <h2>signal-child<a class="headerlink" href="#signal-child" title="Permalink to this heading">#</a></h2>
-<p>signals/list.str: The signals, a list of names, such as <code class="code docutils literal notranslate"><span class="pre">SIGTERM</span></code>, <code class="code docutils literal notranslate"><span class="pre">SIGKILL</span></code>, <code class="code docutils literal notranslate"><span class="pre">SIGUSR1</span></code>, etc.</p>
 <p>Fields are:</p>
 <dl class="simple">
-<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which windows to send the signals to</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">signals</span> <span class="pre">(required)</span></code></dt><dd><p>The signals, a list of names, such as <code class="code docutils literal notranslate"><span class="pre">SIGTERM</span></code>, <code class="code docutils literal notranslate"><span class="pre">SIGKILL</span></code>, <code class="code docutils literal notranslate"><span class="pre">SIGUSR1</span></code>, etc.</p>
 </dd>
-<dt><code class="code docutils literal notranslate"><span class="pre">no_response</span> <span class="pre">(default:</span> <span class="pre">False)</span></code></dt><dd><p>Boolean indicating whether to wait for a response</p>
+<dt><code class="code docutils literal notranslate"><span class="pre">match</span> <span class="pre">(default:</span> <span class="pre">None)</span></code></dt><dd><p>Which windows to send the signals to</p>
 </dd>
 </dl>
 </section>
@@ -1430,10 +1499,10 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
                 </div>
                 <div class="title">The <strong class="command">launch</strong> command</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="remote-control.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -1447,7 +1516,7 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Kovid Goyal
+                Copyright &#169; 2023, Kovid Goyal
             </div>
             Made with 
             <a href="https://github.com/pradyunsg/furo">Furo</a>
@@ -1473,7 +1542,7 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -1481,6 +1550,7 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
             <ul>
 <li><a class="reference internal" href="#">The kitty remote control protocol</a><ul>
 <li><a class="reference internal" href="#encrypted-communication">Encrypted communication</a></li>
+<li><a class="reference internal" href="#async-and-streaming-requests">Async and streaming requests</a></li>
 <li><a class="reference internal" href="#close-tab">close-tab</a></li>
 <li><a class="reference internal" href="#close-window">close-window</a></li>
 <li><a class="reference internal" href="#create-marker">create-marker</a></li>
@@ -1504,6 +1574,7 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
 <li><a class="reference internal" href="#scroll-window">scroll-window</a></li>
 <li><a class="reference internal" href="#select-window">select-window</a></li>
 <li><a class="reference internal" href="#send-text">send-text</a></li>
+<li><a class="reference internal" href="#set-background-image">set-background-image</a></li>
 <li><a class="reference internal" href="#set-background-opacity">set-background-opacity</a></li>
 <li><a class="reference internal" href="#set-colors">set-colors</a></li>
 <li><a class="reference internal" href="#set-enabled-layouts">set-enabled-layouts</a></li>
@@ -1526,10 +1597,8 @@ unit/choices.cells.pixels: One of <code class="code docutils literal notranslate
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
