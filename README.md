@@ -1,3 +1,5 @@
+https://www.paypal.com/donate/?hosted_button_id=P52X2X7H6HEWW
+
 # Script Parrot
 
 1.- Uso del Script
