@@ -34,24 +34,39 @@ inside the kitty terminal to report key events.
 
 In addition to kitty, this protocol is also implemented in:
 
-* The `foot terminal <https://codeberg.org/dnkl/foot/issues/319>`__
-* The `WezTerm terminal <https://wezfurlong.org/wezterm/config/lua/config/enable_kitty_keyboard.html>`__
 * The `alacritty terminal <https://github.com/alacritty/alacritty/pull/7125>`__
+* The `ghostty terminal <https://ghostty.org>`__
+* The `foot terminal <https://codeberg.org/dnkl/foot/issues/319>`__
+* The `iTerm2 terminal <https://gitlab.com/gnachman/iterm2/-/issues/10017>`__
 * The `rio terminal <https://github.com/raphamorim/rio/commit/cd463ca37677a0fc48daa8795ea46dadc92b1e95>`__
-* The `notcurses library
-  <https://github.com/dankamongmen/notcurses/issues/2131>`__
-* The `crossterm library
-  <https://github.com/crossterm-rs/crossterm/pull/688>`__
+* The `WezTerm terminal <https://wezfurlong.org/wezterm/config/lua/config/enable_kitty_keyboard.html>`__
+* The `TuiOS terminal (multiplexer) <https://github.com/Gaurav-Gosain/tuios/issues/26>`__
+
+Libraries implementing this protocol:
+
+* The `notcurses library <https://github.com/dankamongmen/notcurses/issues/2131>`__
+* The `crossterm library <https://github.com/crossterm-rs/crossterm/pull/688>`__
 * The `textual library <https://github.com/Textualize/textual/pull/4631>`__
+* The vaxis library `go <https://sr.ht/~rockorager/vaxis/>`__ and `zig <https://github.com/rockorager/libvaxis/>`__
+* The `bubbletea library <https://github.com/charmbracelet/bubbletea/issues/869>`__
+
+Programs implementing this protocol:
+
 * The `Vim text editor <https://github.com/vim/vim/commit/63a2e360cca2c70ab0a85d14771d3259d4b3aafa>`__
 * The `Emacs text editor via the kkp package <https://github.com/benjaminor/kkp>`__
 * The `Neovim text editor <https://github.com/neovim/neovim/pull/18181>`__
 * The `kakoune text editor <https://github.com/mawww/kakoune/issues/4103>`__
 * The `dte text editor <https://gitlab.com/craigbarnes/dte/-/issues/138>`__
 * The `Helix text editor <https://github.com/helix-editor/helix/pull/4939>`__
+* The `Flow control editor <https://github.com/neurocyte/flow?tab=readme-ov-file#requirements>`__
 * The `far2l file manager <https://github.com/elfmz/far2l/commit/e1f2ee0ef2b8332e5fa3ad7f2e4afefe7c96fc3b>`__
 * The `Yazi file manager <https://github.com/sxyazi/yazi>`__
 * The `awrit web browser <https://github.com/chase/awrit>`__
+* The `Turbo Vision <https://github.com/magiblot/tvision/commit/6e5a7b46c6634079feb2ac98f0b890bbed59f1ba>`__/`Free Vision <https://gitlab.com/freepascal.org/fpc/source/-/issues/40673#note_2061428120>`__ IDEs
+* The `aerc email client <https://git.sr.ht/~rjarry/aerc/commit/d73cf33c2c6c3e564ce8aff04acc329a06eafc54>`__
+
+Shells implementing this protocol:
+
 * The `nushell shell <https://github.com/nushell/nushell/pull/10540>`__
 * The `fish shell <https://github.com/fish-shell/fish-shell/commit/8bf8b10f685d964101f491b9cc3da04117a308b4>`__
 
@@ -137,14 +152,14 @@ user presses, for example, :kbd:`ctrl+shift+a` the escape code would be ``CSI
 97;modifiers u``. It *must not* be ``CSI 65; modifiers u``.
 
 If *alternate key reporting* is requested by the program running in the
-terminal, the terminal can send two additional Unicode codepoints, the
-*shifted key* and *base layout key*, separated by colons.
-The shifted key is simply the upper-case version of ``unicode-codepoint``, or
-more technically, the shifted version. So `a` becomes `A` and so on, based on
-the current keyboard layout. This is needed to be able to match against a
-shortcut such as :kbd:`ctrl+plus` which depending on the type of keyboard could
-be either :kbd:`ctrl+shift+equal` or :kbd:`ctrl+plus`. Note that the shifted
-key must be present only if shift is also present in the modifiers.
+terminal, the terminal can send two additional Unicode codepoints, the *shifted
+key* and *base layout key*, separated by colons. The shifted key is simply the
+upper-case version of ``unicode-codepoint``, or more technically, the shifted
+version, in the currently active keyboard layout. So `a` becomes `A` and so on,
+based on the current keyboard layout. This is needed to be able to match
+against a shortcut such as :kbd:`ctrl+plus` which depending on the type of
+keyboard could be either :kbd:`ctrl+shift+equal` or :kbd:`ctrl+plus`. Note that
+the shifted key must be present only if shift is also present in the modifiers.
 
 The *base layout key* is the key corresponding to the physical key in the
 standard PC-101 key layout. So for example, if the user is using a Cyrillic
@@ -152,7 +167,7 @@ keyboard with a Cyrillic keyboard layout pressing the :kbd:`ctrl+С` key will
 be :kbd:`ctrl+c` in the standard layout. So the terminal should send the *base
 layout key* as ``99`` corresponding to the ``c`` key.
 
-If only one alternate key is present, it is the *shifted key* if the terminal
+If only one alternate key is present, it is the *shifted key*. If the terminal
 wants to send only a base layout key but no shifted key, it must use an empty
 sub-field for the shifted key, like this::
 
@@ -235,7 +250,11 @@ enhancement <progressive_enhancement>` mechanism described below. Some examples:
 If multiple code points are present, they must be separated by colons.  If no
 known key is associated with the text the key number ``0`` must be used. The
 associated text must not contain control codes (control codes are code points
-below U+0020 and codepoints in the C0 and C1 blocks).
+below U+0020 and codepoints in the C0 and C1 blocks). In the above example, the
+:kbd:`option` modifier is consumed by macOS itself to produce the text å
+and therefore not reported in the keyboard protocol. On some platforms
+composition keys might produce no key information at all, in which case the key
+number ``0`` must be used.
 
 
 Non-Unicode keys
@@ -325,7 +344,7 @@ the bytes used for CSI control codes.
 Turning on this flag will cause the terminal to report the :kbd:`Esc`, :kbd:`alt+key`,
 :kbd:`ctrl+key`, :kbd:`ctrl+alt+key`, :kbd:`shift+alt+key` keys using ``CSI u`` sequences instead
 of legacy ones. Here key is any ASCII key as described in :ref:`legacy_text`.
-Additionally, all keypad keys will be reported as separate keys with ``CSI u``
+Additionally, all non text keypad keys will be reported as separate keys with ``CSI u``
 encoding, using dedicated numbers from the :ref:`table below <functional>`.
 
 With this flag turned on, all key events that do not generate text are
@@ -342,7 +361,7 @@ are the :kbd:`Enter`, :kbd:`Tab` and :kbd:`Backspace` keys which still generate 
 bytes as in legacy mode this is to allow the user to type and execute commands
 in the shell such as ``reset`` after a program that sets this mode crashes
 without clearing it. Note that the Lock modifiers are not reported for text
-producing keys, to keep them useable in legacy programs. To get lock modifiers
+producing keys, to keep them usable in legacy programs. To get lock modifiers
 for all keys use the :ref:`report_all_keys` enhancement.
 
 .. _report_events:
@@ -368,8 +387,13 @@ Report alternate keys
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This progressive enhancement (``0b100``) causes the terminal to report
-alternate key values in addition to the main value, to aid in shortcut
-matching. See :ref:`key_codes` for details on how these are reported.
+alternate key values *in addition* to the main value, to aid in shortcut
+matching. See :ref:`key_codes` for details on how these are reported. Note that
+this flag is a pure enhancement to the form of the escape code used to
+represent key events, only key events represented as escape codes due to the
+other enhancements in effect will be affected by this enhancement. In other
+words, only if a key event was already going to be represented as an escape
+code due to one of the other enhancements will this enhancement affect it.
 
 .. _report_all_keys:
 
@@ -388,17 +412,20 @@ Report associated text enhancement below.
 
 Additionally, with this mode, events for pressing modifier keys are reported.
 Note that *all* keys are reported as escape codes, including :kbd:`Enter`,
-:kbd:`Tab`, :kbd:`Backspace` etc.
+:kbd:`Tab`, :kbd:`Backspace` etc. Note that this enhancement implies all keys
+are automatically disambiguated as well, since they are represented in their
+canonical escape code form.
 
 .. _report_text:
 
 Report associated text
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This progressive enhancement (``0b10000``) causes key events that generate text
-to be reported as ``CSI u`` escape codes with the text embedded in the escape
-code. See :ref:`text_as_codepoints` above for details on the mechanism.
-
+This progressive enhancement (``0b10000``) *additionally* causes key events that
+generate text to be reported as ``CSI u`` escape codes with the text embedded
+in the escape code. See :ref:`text_as_codepoints` above for details on the
+mechanism. Note that this flag is an enhancement to :ref:`report_all_keys`
+and is undefined if used without it.
 
 .. _detection:
 
@@ -413,6 +440,13 @@ followed by request for the `primary device attributes
 attributes is received without getting back an answer for the progressive
 enhancement the terminal does not support this protocol.
 
+.. note::
+   Terminal implementations of this protocol are **strongly** encouraged to
+   implement all progressive enhancements. It does not make sense to
+   implement only a subset. Nonetheless, there are likely to be some terminal
+   implementations that do not do so, applications can detect such
+   implementations by first setting the desired progressive enhancements and
+   then querying for the :ref:`current progressive enhancement <progressive_enhancement>`
 
 Legacy key event encoding
 --------------------------------
@@ -437,7 +471,10 @@ These keys are encoded using three schemes::
 
 In the above, if there are no modifiers, the modifier parameter is omitted.
 The modifier value is encoded as described in the :ref:`modifiers` section,
-above. When the second form is used, the number is always ``1`` and must be
+above, except that lock keys (such as :kbd:`Num lock` and :kbd:`Caps lock`)
+are not encoded as the legacy mode has no encoding for them.
+
+When the second form is used, the number is always ``1`` and must be
 omitted if the modifiers field is also absent. The third form becomes the
 second form when modifiers are present (``SS3 is the bytes 0x1b 0x4f``).
 
@@ -528,8 +565,8 @@ Any other combination of modifiers with these keys is output as the appropriate
 .. csv-table:: Example encodings
    :header: "Key", "Plain", "shift", "alt", "ctrl", "shift+alt", "alt+ctrl", "ctrl+shift"
 
-    "i", "i (105)", "I (73)", "ESC i", ") (41)", "ESC I", "ESC )", "CSI 105; 6 u"
-    "3", "3 (51)", "# (35)", "ESC 3", "3 (51)", "ESC #", "ESC 3", "CSI 51; 6 u"
+    "i", "i (105)", "I (73)", "ESC i", "\t (9)", "ESC I", "ESC \t", "CSI 105; 6 u"
+    "3", "3 (51)", "# (35)", "ESC 3", "ESC (27)", "ESC #", "ESC ESC", "CSI 51; 6 u"
     ";", "; (59)", ": (58)", "ESC ;", "; (59)", "ESC :", "ESC ;", "CSI 59; 6 u"
 
 .. note::

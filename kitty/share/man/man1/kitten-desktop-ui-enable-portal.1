@@ -1,0 +1,16 @@
+.TH "kitten-desktop-ui-enable-portal" "1" "Jul 14, 2025" "0.42.1" "kitten Manual"
+.SH Name
+kitten-desktop-ui-enable-portal \- This will create or edit the various files needed so that the portal from this kitten is used by xdg\-desktop\-portal
+.SH Usage
+.SY "kitten desktop-ui enable-portal "
+.YS
+.SH Description
+Once you run this command, add kitten desktop\-ui run\-server to your window manager startup sequence and reboot your computer (or logout and restart your session) and hopefully xdg\-desktop\-portal should now delegate to kitty for the portals implemented here. If it doesn\[aq]t try running /usr/lib/xdg\-desktop\-portal \-r \-v it will provide a lot of logging about why it is choosing different portal backends. That combined with a careful reading of man portals.conf should be enough to learn how to convince xdg\-desktop\-portal to use kitty.
+
+You can change the system color\-scheme dynamically by running::
+
+kitten desktop\-ui set\-color\-scheme dark
+.SH Options
+.TP
+.BI "--help, -h" " [=no]"
+Show help for this command

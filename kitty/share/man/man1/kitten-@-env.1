@@ -1,4 +1,4 @@
-.TH "kitten-@-env" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-@-env" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-@-env \- Change environment variables seen by future children
 .SH Usage
@@ -10,7 +10,7 @@ Change the environment variables that will be seen in newly launched windows. Si
 .I kitty.conf, but affects running kitty instances. If no = is present, the variable is removed from the environment.
 .SH Options
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command
 .SH Global options
 .TP
@@ -27,7 +27,7 @@ A password to use when contacting kitty. This will cause kitty to ask the user f
 .B \-\-use\-password as always.
 .TP
 .BI "--password-file" " [=rc\-pass]"
-A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Used if no 
+A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Use fd:num to read from the file descriptor num. Used if no 
 .B \-\-password is supplied. Defaults to checking for the 
 .I rc\-pass file in the kitty configuration directory.
 .TP

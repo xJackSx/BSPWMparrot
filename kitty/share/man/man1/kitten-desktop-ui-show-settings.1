@@ -1,0 +1,19 @@
+.TH "kitten-desktop-ui-show-settings" "1" "Jul 14, 2025" "0.42.1" "kitten Manual"
+.SH Name
+kitten-desktop-ui-show-settings \- Print the current values of the desktop settings
+.SH Usage
+.SY "kitten desktop-ui show-settings "
+.YS
+.SH Options
+.TP
+.BI "--as-json" " [=no]"
+Show the settings as JSON for machine consumption
+.TP
+.BI "--in-namespace" 
+Show only settings in the specified names. Can be specified multiple times. When unspecified all namespaces are returned.
+.TP
+.BI "--allow-other-backends" " [=no]"
+Normally, after printing the settings, if the settings did not come from the desktop\-ui kitten the command prints an error and exits. This prevents that.
+.TP
+.BI "--help, -h" " [=no]"
+Show help for this command

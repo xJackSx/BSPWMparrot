@@ -240,17 +240,29 @@ Fields are:
 :code:`match (default: None)`
   The tab to open the new window in
 
+:code:`next_to (default: None)`
+  The window next to which to create the new window or empty string to use active window
+
+:code:`source_window (default: None)`
+  The window to use as source for data or empty string to use active window
+
 :code:`window_title (default: None)`
   Title for the new window
 
 :code:`cwd (default: None)`
   Working directory for the new window
 
+:code:`add_to_session (default: None)`
+  Session name to add created window/tab to
+
 :code:`env (default: [])`
   List of environment variables of the form NAME=VALUE
 
 :code:`var (default: [])`
   List of user variables of the form NAME=VALUE
+
+:code:`os_panel (default: [])`
+  List of panel settings
 
 :code:`tab_title (default: None)`
   Title for the new tab
@@ -327,6 +339,15 @@ Fields are:
 :code:`watcher (default: [])`
   list of paths to watcher files
 
+:code:`bias (default: 0.0)`
+  The bias with which to create the new window in the current layout
+
+:code:`wait_for_child_to_exit (default: False)`
+  Boolean indicating whether to wait and return child exit code
+
+:code:`hold_after_ssh (default: False)`
+  Boolean indicating whether to run a local shell after exiting the ssh session cloned via cwd=current or similar
+
 
 
 load-config
@@ -361,6 +382,9 @@ Fields are:
 
 :code:`self (default: False)`
   Boolean indicating whether to list only the window the command is run in
+
+:code:`output_format (default: json)`
+  Output in json or session format
 
 
 
@@ -423,7 +447,7 @@ Fields are:
   Boolean indicating whether to adjust the size incrementally
 
 :code:`action (default: resize)`
-  One of :code:`resize, toggle-fullscreen` or :code:`toggle-maximized`
+  The action to perform
 
 :code:`unit (default: cells)`
   One of :code:`cells` or :code:`pixels`
@@ -433,6 +457,9 @@ Fields are:
 
 :code:`height (default: 0)`
   Integer indicating desired window height
+
+:code:`os_panel (optional)`
+  Settings for modifying the OS Panel
 
 
 
@@ -479,7 +506,7 @@ Fields are:
 
 scroll-window
 --------------------------------------------------------------------------------
-             for unscrolling by lines.
+             for unscrolling by lines, or 'r' for scrolling ot prompt.
 
 Fields are:
 
@@ -613,7 +640,7 @@ set-colors
 Fields are:
 
 :code:`colors (required)`
-  An object mapping names to colors as 24-bit RGB integers or null for nullable colors
+  An object mapping names to colors as 24-bit RGB integers or null for nullable colors. Or a string for transparent_background_colors.
 
 :code:`match_window (optional)`
   Window to change colors in
@@ -660,7 +687,7 @@ Fields are:
   Boolean whether to change font size in the current window or all windows
 
 :code:`increment_op (optional)`
-  The string ``+`` or ``-`` to interpret size as an increment
+  The string ``+``, ``-``, ``*`` or ``/`` to interpret size as an increment
 
 
 

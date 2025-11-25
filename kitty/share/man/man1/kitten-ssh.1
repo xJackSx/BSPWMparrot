@@ -1,4 +1,5 @@
-.\" Man page generated from reStructuredText.
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
 .
 .
 .nr rst2man-indent-level 0
@@ -27,23 +28,23 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "kitten-ssh" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-ssh" 1 "Nov 03, 2025" "0.44.0" "kitty"
 .SH Name
 kitten-ssh \- kitten Documentation
 .SH Overview
 .INDENT 0.0
 .IP \(bu 2
-Automatic \X'tty: link #shell-integration'\fI\%Shell integration\fP\X'tty: link' on remote hosts
+Automatic Shell integration \%<#\:shell-integration> on remote hosts
 .IP \(bu 2
-Easily \fI\%clone local shell/editor config\fP on remote hosts
+Easily clone local shell/editor config on remote hosts
 .IP \(bu 2
-Automatic \fI\%re\-use of existing connections\fP to avoid connection setup latency
+Automatic \fBre\-use of existing connections\fP to avoid connection setup latency
 .IP \(bu 2
-Make the kitten binary available in the remote host \fI\%on demand\fP
+Make the kitten binary available in the remote host \fBon demand\fP
 .IP \(bu 2
-Easily \fI\%change terminal colors\fP when connecting to remote hosts
+Easily \fBchange terminal colors\fP when connecting to remote hosts
 .IP \(bu 2
-Automatically \fI\%forward the kitty remote control socket\fP to configured hosts
+Automatically \fBforward the kitty remote control socket\fP to configured hosts
 .UNINDENT
 .sp
 Added in version 0.25.0: Automatic shell integration, file transfer and reuse of connections
@@ -56,10 +57,10 @@ The ssh kitten allows you to login easily to remote hosts, and automatically
 setup the environment there to be as comfortable as your local shell. You can
 specify environment variables to set on the remote host and files to copy there,
 making your remote experience just like your local shell. Additionally, it
-automatically sets up \X'tty: link #shell-integration'\fI\%Shell integration\fP\X'tty: link' on the remote host and copies the
+automatically sets up Shell integration \%<#\:shell-integration> on the remote host and copies the
 kitty terminfo database there.
 .sp
-The ssh kitten is a thin wrapper around the traditional \X'tty: link https://man.openbsd.org/ssh'\fI\%ssh\fP\X'tty: link'
+The ssh kitten is a thin wrapper around the traditional ssh \%<https://\:man\:.openbsd\:.org/\:ssh>
 command line program and supports all the same options and arguments and configuration.
 In interactive usage scenarios it is a drop in replacement for \fBssh\fP\&.
 To try it out, simply run:
@@ -139,9 +140,9 @@ The \fB\-\-kitten\fP argument can be specified multiple times, with directives
 from \fBssh.conf\fP\&. These override the final options used for the matched host, as if they
 had been appended to the end of the matching section for that host in
 \fBssh.conf\fP\&. They apply only to the host being SSHed to by this invocation,
-so any \fI\%hostname\fP directives are ignored.
+so any \fBhostname\fP directives are ignored.
 .sp
-\fBWARNING:\fP
+\fBWarning:\fP
 .INDENT 0.0
 .INDENT 3.5
 Due to limitations in the design of SSH, any typing you do before the
@@ -164,14 +165,14 @@ this could be achieved using the ssh kitten with \fBzsh\fP and
 hostname myserver\-*
 
 # Setup zsh to read its files from my\-conf/zsh
-env ZDOTDIR $HOME/my\-conf/zsh
+env ZDOTDIR=$HOME/my\-conf/zsh
 copy \-\-dest my\-conf/zsh/.zshrc .zshrc
 copy \-\-dest my\-conf/zsh/.zshenv .zshenv
 # If you use other zsh init files add them in a similar manner
 
 # Setup vim to read its config from my\-conf/vim
-env VIMINIT $HOME/my\-conf/vim/vimrc
-env VIMRUNTIME $HOME/my\-conf/vim
+env VIMINIT=$HOME/my\-conf/vim/vimrc
+env VIMRUNTIME=$HOME/my\-conf/vim
 copy \-\-dest my\-conf/vim .vim
 copy \-\-dest my\-conf/vim/vimrc .vimrc
 .EE
@@ -180,36 +181,36 @@ copy \-\-dest my\-conf/vim/vimrc .vimrc
 .SH How it works
 .sp
 The ssh kitten works by having SSH transmit and execute a POSIX sh (or
-\fI\%optionally\fP Python) bootstrap script on the
-remote host using an \fI\%interpreter\fP\&. This script
+\fBoptionally\fP Python) bootstrap script on the
+remote host using an \fBinterpreter\fP\&. This script
 reads setup data over the TTY device, which kitty sends as a Base64 encoded
-compressed tarball. The script extracts it and places the \fI\%files\fP
-and sets the \fI\%environment variables\fP before finally
-launching the \fI\%login shell\fP with \fI\%shell
+compressed tarball. The script extracts it and places the \fBfiles\fP
+and sets the \fBenvironment variables\fP before finally
+launching the \fBlogin shell\fP with \fBshell
 integration\fP enabled. The data is requested by
 the kitten over the TTY with a random one time password. kitty reads the request
 and if the password matches a password pre\-stored in shared memory on the
 localhost by the kitten, the transmission is allowed. If your local
-\X'tty: link https://www.openssh.com/'\fI\%OpenSSH\fP\X'tty: link' version is >= 8.4 then the data is
+OpenSSH \%<https://\:www\:.openssh\:.com/> version is >= 8.4 then the data is
 transmitted instantly without any roundtrip delay.
 .sp
-\fBNOTE:\fP
+\fBNote:\fP
 .INDENT 0.0
 .INDENT 3.5
 When connecting to BSD hosts, it is possible the bootstrap script will fail
 or run slowly, because the default shells are crippled in various ways.
 Your best bet is to install Python on the remote, make sure the login shell
 is something POSIX sh compliant, and use \fBpython\fP as the
-\fI\%interpreter\fP in \fBssh.conf\fP\&.
+\fBinterpreter\fP in \fBssh.conf\fP\&.
 .UNINDENT
 .UNINDENT
 .sp
-\fBNOTE:\fP
+\fBNote:\fP
 .INDENT 0.0
 .INDENT 3.5
 This may or may not work when using terminal multiplexers, depending on
 whether they passthrough the escape codes and if the values of the
-environment variables \X'tty: link #envvar-KITTY_PID'\fI\%KITTY_PID\fP\X'tty: link' and \X'tty: link #envvar-KITTY_WINDOW_ID'\fI\%KITTY_WINDOW_ID\fP\X'tty: link' are
+environment variables \fBKITTY_PID\fP \%<#\:envvar-KITTY_PID> and \fBKITTY_WINDOW_ID\fP \%<#\:envvar-KITTY_WINDOW_ID> are
 correct in the current session (they can be wrong when connecting to a tmux
 session running in a different window) and the ssh kitten is run in the
 currently active multiplexer window.
@@ -236,7 +237,7 @@ by spaces. The hostname can include an optional username in the form
 first hostname specification is found. Note that matching of hostname is done
 against the name you specify on the command line to connect to the remote host.
 If you wish to include the same basic configuration for many different hosts,
-you can do so with the \X'tty: link #include'\fI\%include\fP\X'tty: link' directive. In version 0.28.0
+you can do so with the include \%<#\:include> directive. In version 0.28.0
 the behavior of this option was changed slightly, now, when a hostname is encountered
 all its config values are set to defaults instead of being inherited from a previous
 matching hostname block. In particular it means hostnames dont inherit configurations,
@@ -271,7 +272,8 @@ remote_dir .local/share/kitty\-ssh\-kitten
 .UNINDENT
 .sp
 The location on the remote host where the files needed for this kitten are
-installed. Relative paths are resolved with respect to \fB$HOME\fP\&.
+installed. Relative paths are resolved with respect to \fB$HOME\fP\&. Absolute
+paths have their leading / removed and so are also resolved with respect to $HOME.
 .INDENT 0.0
 .TP
 .B copy
@@ -321,7 +323,7 @@ copy \-\-glob \-\-exclude *.jpg \-\-exclude *.bmp images/*
 .UNINDENT
 .sp
 Files whose remote name matches the exclude pattern will not be copied.
-For more details, see \fI\%The copy command\fP\&.
+For more details, see The copy command\&.
 .SH Login shell environment
 .INDENT 0.0
 .TP
@@ -336,7 +338,7 @@ shell_integration inherited
 .UNINDENT
 .UNINDENT
 .sp
-Control the shell integration on the remote host. See \X'tty: link #shell-integration'\fI\%Shell integration\fP\X'tty: link'
+Control the shell integration on the remote host. See Shell integration \%<#\:shell-integration>
 for details on how this setting works. The special value \fBinherited\fP means
 use the setting from \fBkitty.conf\fP\&. This setting is useful for overriding
 integration on a per\-host basis.
@@ -386,7 +388,7 @@ usually means the HOME directory is used.
 Specify a color scheme to use when connecting to the remote host. If this option
 ends with \fB\&.conf\fP, it is assumed to be the name of a config file to load
 from the kitty config directory, otherwise it is assumed to be the name of a
-color theme to load via the \fI\%themes kitten\fP\&. Note that
+color theme to load via the themes kitten \%<>\&. Note that
 only colors applying to the text/background are changed, other config settings
 in the .conf files/themes are ignored.
 .INDENT 0.0
@@ -403,9 +405,9 @@ remote_kitty if\-needed
 .UNINDENT
 .sp
 Make \fBkitten\fP available on the remote host. Useful to run kittens such
-as the \fI\%icat kitten\fP to display images or the
-\fI\%transfer file kitten\fP to transfer files. Only works if
-the remote host has an architecture for which \X'tty: link https://github.com/kovidgoyal/kitty/releases'\fI\%pre\-compiled kitten binaries\fP\X'tty: link' are available. Note that kitten
+as the icat kitten \%<> to display images or the
+transfer file kitten \%<> to transfer files. Only works if
+the remote host has an architecture for which pre\-compiled kitten binaries \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:releases> are available. Note that kitten
 is not actually copied to the remote host, instead a small bootstrap script is
 copied which will download and run kitten when kitten is first executed on the
 remote host. A value of \fBif\-needed\fP means kitten is installed only if not
@@ -432,7 +434,7 @@ Within a single kitty instance, all connections to a particular server can be
 shared. This reduces startup latency for subsequent connections and means that
 you have to enter the password only once. Under the hood, it uses SSH
 ControlMasters and these are automatically cleaned up by kitty when it quits.
-You can map a shortcut to \X'tty: link #action-close_shared_ssh_connections'\fI\%close_shared_ssh_connections\fP\X'tty: link' to disconnect all
+You can map a shortcut to \fBclose_shared_ssh_connections\fP \%<#\:action-close_shared_ssh_connections> to disconnect all
 active shared connections.
 .INDENT 0.0
 .TP
@@ -449,7 +451,7 @@ askpass unless\-set
 .sp
 Control the program SSH uses to ask for passwords or confirmation of host keys
 etc. The default is to use kitty\(aqs native \fBaskpass\fP, unless the
-\X'tty: link #envvar-SSH_ASKPASS'\fI\%SSH_ASKPASS\fP\X'tty: link' environment variable is set. Set this option to
+\fBSSH_ASKPASS\fP \%<#\:envvar-SSH_ASKPASS> environment variable is set. Set this option to
 \fBssh\fP to not interfere with the normal ssh askpass mechanism at all, which
 typically means that ssh will prompt at the terminal. Set it to \fBnative\fP
 to always use kitty\(aqs native, built\-in askpass implementation. Note that not
@@ -483,8 +485,69 @@ Forward the kitty remote control socket to the remote host. This allows using th
 remote control facilities from the remote host. WARNING: This allows any software
 on the remote host full access to the local computer, so only do it for trusted remote hosts.
 Note that this does not work with abstract UNIX sockets such as \fB@mykitty\fP because of SSH limitations.
-This option uses SSH socket forwarding to forward the socket pointed to by the \X'tty: link #envvar-KITTY_LISTEN_ON'\fI\%KITTY_LISTEN_ON\fP\X'tty: link'
+This option uses SSH socket forwarding to forward the socket pointed to by the \fBKITTY_LISTEN_ON\fP \%<#\:envvar-KITTY_LISTEN_ON>
 environment variable.
+.SH Askpass automation
+.INDENT 0.0
+.TP
+.B password
+.UNINDENT
+.sp
+Specify a password to use when SSH prompts for a password. The value format is
+\(dqbackend:secret\(dq. Currently, only the \(dqtext\(dq backend is supported, which stores
+the secret in plain text in the config file. For example:
+.INDENT 0.0
+.INDENT 3.5
+password text:my_password
+.UNINDENT
+.UNINDENT
+.sp
+If the backend prefix is omitted, it is treated as \(dqtext:\(dq for backward
+compatibility. Beware that storing passwords in plain text is insecure.
+.INDENT 0.0
+.TP
+.B totp_secret
+.UNINDENT
+.sp
+Specify a TOTP shared secret to auto\-fill one\-time codes when SSH asks for them.
+The value format is \(dqbackend:secret\(dq. Currently, only the \(dqtext\(dq backend is
+supported. For example:
+.INDENT 0.0
+.INDENT 3.5
+totp_secret text:JBSWY3DPEHPK3PXP
+.UNINDENT
+.UNINDENT
+.sp
+If the backend prefix is omitted, it is treated as \(dqtext:\(dq for backward
+compatibility.
+.INDENT 0.0
+.TP
+.B totp_digits
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+totp_digits 6
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Number of digits for the generated TOTP codes. Default is 6.
+.INDENT 0.0
+.TP
+.B totp_period
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+totp_period 30
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Time period in seconds for the TOTP code validity. Default is 30.
 .SH The copy command
 .INDENT 0.0
 .INDENT 3.5
@@ -502,8 +565,8 @@ copied as is.
 .SS Options
 .INDENT 0.0
 .TP
-.B \-\-glob
-Interpret file arguments as glob patterns. Globbing is based on standard wildcards with the addition that \fB/**/\fP matches any number of directories. See the \X'tty: link https://github.com/bmatcuk/doublestar#patterns'\fI\%detailed syntax\fP\X'tty: link'\&.
+.B \-\-glob [=no]
+Interpret file arguments as glob patterns. Globbing is based on standard wildcards with the addition that \fB/**/\fP matches any number of directories. See the detailed syntax \%<https://\:github\:.com/\:bmatcuk/\:doublestar#\:patterns>\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -513,7 +576,7 @@ The destination on the remote host to copy to. Relative paths are resolved relat
 .INDENT 0.0
 .TP
 .B \-\-exclude <EXCLUDE>
-A glob pattern. Files with names matching this pattern are excluded from being transferred. Only used when copying directories. Can be specified multiple times, if any of the patterns match the file will be excluded. If the pattern includes a \fB/\fP then it will match against the full path, not just the filename. In such patterns you can use \fB/**/\fP to match zero or more directories. For example, to exclude a directory and everything under it use \fB**/directory_name\fP\&. See the \X'tty: link https://github.com/bmatcuk/doublestar#patterns'\fI\%detailed syntax\fP\X'tty: link' for how wildcards match.
+A glob pattern. Files with names matching this pattern are excluded from being transferred. Only used when copying directories. Can be specified multiple times, if any of the patterns match the file will be excluded. If the pattern includes a \fB/\fP then it will match against the full path, not just the filename. In such patterns you can use \fB/**/\fP to match zero or more directories. For example, to exclude a directory and everything under it use \fB**/directory_name\fP\&. See the detailed syntax \%<https://\:github\:.com/\:bmatcuk/\:doublestar#\:patterns> for how wildcards match.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -579,6 +642,5 @@ cap_mkdb /usr/share/misc/termcap
 Kovid Goyal
 .SH Copyright
 
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+2025, Kovid Goyal
+.\" End of generated man page.

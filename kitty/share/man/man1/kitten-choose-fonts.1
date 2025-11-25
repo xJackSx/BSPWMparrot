@@ -1,0 +1,159 @@
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "kitten-choose-fonts" 1 "Nov 03, 2025" "0.44.0" "kitty"
+.SH Name
+kitten-choose-fonts \- kitten Documentation
+.SH Overview
+.sp
+Terminal aficionados spend all day staring at text, as such, getting text
+rendering just right is very important. kitty has extremely powerful facilities
+for fine\-tuning text rendering. It supports OpenType features \%<https://\:en\:.wikipedia\:.org/\:wiki/\:List_of_typographic_features> to select
+alternate glyph shapes, and Variable fonts \%<https://\:en\:.wikipedia\:.org/\:wiki/\:Variable_font> to control the weight or
+spacing of a font precisely. You can also \fBselect which font is used to
+render particular unicode codepoints\fP \%<#\:opt-kitty\:.symbol_map> and you can \fBmodify
+font metrics\fP \%<#\:opt-kitty\:.modify_font> and even \fBadjust the gamma curves\fP \%<#\:opt-kitty\:.text_composition_strategy> used for rendering text onto the background color.
+.sp
+The first step is to select the font faces kitty will use for rendering
+regular, bold and italic text. kitty comes with a convenient UI for choosing fonts,
+in the form of the \fIchoose\-fonts\fP kitten. Simply run:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten choose\-fonts
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+and follow the on screen prompts.
+.sp
+First, choose the family you want, the list of families can be easily filtered by
+typing a few letters from the family name you are looking for. The family
+selection screen shows you a preview of how the family looks.
+.sp
+Once you select a family by pressing the \fBEnter\fP key, you
+are shown previews of what the regular, bold and italic faces look like
+for that family. You can choose to fine tune any of the faces. Start with
+fine\-tuning the regular face by pressing the \fBR\fP key. The other styles
+will be automatically adjusted based on what you select for the regular face.
+.sp
+You can choose a specific style or font feature by clicking on it. A precise
+value for any variable axes can be selected using the slider, in the screenshot
+above, the font supports precise weight adjustment. If you are lucky the font
+designer has included descriptive names for font features, which will be
+displayed, if not, consult the documentation of the font to see what each feature does.
+.SH The font specification syntax
+.sp
+If you don\(aqt like the choose fonts kitten or simply want to understand and
+write font selection options into \fBkitty.conf\fP yourself, read on.
+.sp
+There are four font face selection keys: \fIfont_family\fP, \fIbold_font\fP,
+\fIitalic_font\fP and \fIbold_italic_font\fP\&. Each of these supports the syntax
+described below. Their values can be of three types, either a
+font family name, the keyword \fBauto\fP or an extended \fBkey=value\fP syntax
+for specifying font selection precisely.
+.sp
+If a font family name is specified kitty will use Operating System APIs to
+search for a matching font. The keyword \fBauto\fP means kitty will choose a font
+completely automatically, typically this is used for automatically selecting
+bold/italic variants once the \fBfont_family\fP \%<#\:opt-kitty\:.font_family> is set. The bold and italic
+variants will then automatically use the same set of features as the main face.
+.sp
+To specify font face selection more precisely, a \fBkey=value\fP syntax is used.
+First, let\(aqs look at a few examples:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+# Select by family only, actual face selection is automatic
+font_family family=\(dqFira Code\(dq
+# Select an exact face by Postscript name
+font_family postscript_name=FiraCode
+# Select an exact face by family with features and variable weight
+font_family family=SourceCodeVF variable_name=SourceCodeUpright features=\(dq+zero cv01=2\(dq wght=380
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+The following are the known keys, any other keys are names of \fIvariable axes\fP,
+that is, they are used to set the variable value for some font characteristic.
+.INDENT 0.0
+.TP
+.B \fBfamily\fP
+A font family name. A family typically has multiple actual font faces, such
+as bold and italic variants. One or more of the faces can even be variable,
+allowing fine tuning of font characteristics.
+.TP
+.B \fBstyle\fP
+A style name to choose a particular font from a given family. Useful only
+with the \fBfamily\fP key, when no more precise methods for face selection
+are specified. Can also be used to specify a named variable style for
+variable fonts.
+.TP
+.B \fBpostscript_name\fP
+The actual postscript name for a font face. This allows selecting a
+particular variant within a font family. But note that postscript names
+are usually insufficient for selecting variable fonts.
+.TP
+.B \fBfull_name\fP
+This can be used to select a particular font face in a family. However, it
+is less precise than \fBpostscript_name\fP and should not generally be used.
+.TP
+.B \fBvariable_name\fP
+Some families with variable fonts actually contain multiple font files. For
+example, a family could have variable weights with one font file containing
+upright variable weight faces and another containing italic variable weight
+faces. Well designed fonts use a \fIvariable name\fP to distinguish between
+such files. Should be used in conjunction with \fBfamily\fP to select a
+particular variable font file.
+.TP
+.B \fBfeatures\fP
+A space separated list of OpenType font features to enable/disable or
+select a value of, for this font. Consult the documentation for the font
+family to see what features it supports and their effects. The exact syntax
+for specifying features is documented by HarfBuzz \%<https://\:harfbuzz\:.github\:.io/\:harfbuzz-hb-common\:.html#\:hb-feature-from-string>
+.TP
+.B \fBsystem\fP
+This can be used to pass an arbitrary string, usually a family or full name
+to the OS font selection APIs. Should not be used in conjunction with any
+other keys. Is the same as specifying just the font name without any keys.
+.UNINDENT
+.sp
+In addition to these keys, any four letter key is treated as the name of a
+variable characteristic of the font. Its value is used to set the value for
+the name.
+.SH Author
+
+Kovid Goyal
+.SH Copyright
+
+2025, Kovid Goyal
+.\" End of generated man page.

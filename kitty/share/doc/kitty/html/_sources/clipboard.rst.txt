@@ -47,7 +47,8 @@ The terminal emulator will reply with a sequence of escape codes of the form::
 
 Here, the ``status=DATA`` packets deliver the data (as base64 encoded bytes)
 associated with each MIME type. The terminal emulator should chunk up the data
-for an individual type. A recommended size for each chunk is 4096 bytes. All
+for an individual type, into chunks of size **no more** than 4096 bytes (4096
+is the size of a chunk *before* base64 encoding). All
 the chunks for a given type must be transmitted sequentially and only once they
 are done the chunks for the next type, if any, should be sent. The end of data
 is indicated by a ``status=DONE`` packet.
@@ -90,7 +91,8 @@ following sequence of packets::
 
 The final packet with no mime and no data indicates end of transmission. The
 data for every MIME type should be split into chunks of no more than 4096
-bytes. All the chunks for a given MIME type must be sent sequentially, before
+bytes (4096 is the size of the data before base64 encoding).
+All the chunks for a given MIME type must be sent sequentially, before
 sending chunks for the next MIME type. After the transmission is complete, the
 terminal replies with a single packet indicating success::
 
@@ -136,6 +138,30 @@ the data, but create multiple references to it in the system clipboard. Alias
 packets can be sent anytime after the initial write packet and before the end
 of data packet.
 
+.. _clipboard_repeated_permission:
+
+Avoiding repeated permission prompts
+--------------------------------------
+
+.. versionadded:: 0.42.2
+     using a password to avoid repeated confirmations
+
+If a program like an editor wants to make use of the system clipboard, by
+default, the user is prompted on every read request. This can become quite
+fatiguing. To avoid this situation, this protocol allows sending a password
+and human friendly name with ``type=write`` and ``type=read`` requests. The
+terminal can then ask the user to allow all future requests using that
+password. If the user agrees, future requests on the same tty will be
+automatically allowed by the terminal. The editor or other program using
+this facility should ideally use a password randomnly generated at startup,
+such as a UUID4. However, terminals may implement permanent/stored passwords.
+Users can then configure terminal programs they trust to use these password.
+
+The password and the human name are encoded using the ``pw`` and ``name`` keys
+in the metadata. The values are UTF-8 strings that are base64 encoded.
+Specifying a password without a human friendly name is equivalent to not
+specifying a password and the terminal must treat the request as though
+it had no password.
 
 Support for terminal multiplexers
 ------------------------------------

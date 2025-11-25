@@ -88,6 +88,15 @@ _ksi_deferred_init() {
     builtin local -a opt
     opt=(${(s: :)KITTY_SHELL_INTEGRATION})
     builtin unset KITTY_SHELL_INTEGRATION
+    builtin local krcs="$KITTY_SI_RUN_COMMAND_AT_STARTUP"
+    builtin unset KITTY_SI_RUN_COMMAND_AT_STARTUP
+
+    if [[ -n "$SSH_KITTEN_KITTY_DIR" ]]; then
+        if [[ ! "$PATH" =~ (^|:)${SSH_KITTEN_KITTY_DIR}(:|$) ]] && [[ -z "$(builtin command -v kitten)" ]]; then
+            builtin export PATH="${PATH}:${SSH_KITTEN_KITTY_DIR}"
+        fi
+        builtin unset SSH_KITTEN_KITTY_DIR
+    fi
 
     # The directory where kitty-integration is located: /.../shell-integration/zsh.
     builtin local self_dir="${functions_source[_ksi_deferred_init]:A:h}"
@@ -215,7 +224,7 @@ _ksi_deferred_init() {
             # its preexec hook before us, we'll incorrectly mark its output as
             # belonging to the command (as if the user typed it into zle) rather
             # than command output.
-            builtin print -nu "$_ksi_fd" -f '\e]133;C;cmdline=%q\a' "$1"
+            builtin print -nu "$_ksi_fd" -f '\e]133;C;cmdline=%q\a' -- "$1"
             (( _ksi_state = 1 ))
         }
 
@@ -260,11 +269,10 @@ _ksi_deferred_init() {
         fi
 
         if [[ "$is_ssh_session" == "y" ]]; then
-            # show the hostname via %m for SSH sessions
             functions[_ksi_precmd]+="
-                builtin print -Prnu $_ksi_fd \$'\\e]2;'\"%m: \${(%):-%(4~|…/%3~|%~)}\"\$'\\a'"
+                builtin print -rnu $_ksi_fd \$'\\e]2;'\"\${(V)\${HOST-}/%.*/}: \${(%):-%(4~|…/%3~|%~)}\"\$'\\a'"
             functions[_ksi_preexec]+="
-                builtin print -Prnu $_ksi_fd \$'\\e]2;'\"%m: \${(V)1}\"\$'\\a'"
+                builtin print -rnu $_ksi_fd \$'\\e]2;'\"\${(V)\${HOST-}/%.*/}: \${(V)1}\"\$'\\a'"
         else
             functions[_ksi_precmd]+="
                 builtin print -rnu $_ksi_fd \$'\\e]2;'\"\${(%):-%(4~|…/%3~|%~)}\"\$'\\a'"
@@ -342,6 +350,12 @@ _ksi_deferred_init() {
         fi
     done
 
+    # run startup command
+    if [[ -n "$krcs" ]]; then
+        builtin print -nu "$_ksi_fd" -f '\e]2;%s\e\\' -- "${(V)krcs}"
+        builtin eval "$krcs"
+    fi
+
     if (( $+functions[_ksi_preexec] )); then
         builtin typeset -ag preexec_functions
         preexec_functions+=(_ksi_preexec)
@@ -418,6 +432,7 @@ _ksi_deferred_init() {
     # kitty-integration though because decent public functions aren't supposed to
     # to unfunction themselves when invoked. Unfunctioning is done by calling code.
     builtin unfunction _ksi_deferred_init
+
 }
 
 _ksi_transmit_data() {

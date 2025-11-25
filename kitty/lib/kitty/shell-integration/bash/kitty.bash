@@ -85,7 +85,7 @@ if [ "${BASH_VERSINFO:-0}" -lt 4 ]; then
     builtin return
 fi
 
-if [[ "${_ksi_prompt[sourced]}" == "y" ]]; then
+if [ -v "_ksi_prompt[sourced]" ]; then
     # we have already run
     builtin unset KITTY_SHELL_INTEGRATION
     builtin return
@@ -115,6 +115,14 @@ _ksi_main() {
     IFS="$ifs"
 
     builtin unset KITTY_SHELL_INTEGRATION
+    if [[ -n "$SSH_KITTEN_KITTY_DIR" ]]; then
+        if [[ ! "$PATH" =~ (^|:)${SSH_KITTEN_KITTY_DIR}(:|$) ]] && [[ -z "$(builtin command -v kitten)" ]]; then
+            builtin export PATH="${PATH}:${SSH_KITTEN_KITTY_DIR}"
+        fi
+        builtin unset SSH_KITTEN_KITTY_DIR
+    fi
+    builtin local krcs="$KITTY_SI_RUN_COMMAND_AT_STARTUP"
+    builtin unset KITTY_SI_RUN_COMMAND_AT_STARTUP
 
     _ksi_debug_print() {
         # print a line to STDERR of parent kitty process
@@ -345,6 +353,10 @@ _ksi_main() {
         fi
     fi
     builtin unset KITTY_IS_CLONE_LAUNCH KITTY_CLONE_SOURCE_STRATEGIES
+    if [[ -n "$krcs" ]]; then builtin
+        builtin printf "\e]2;%s\a" "${krcs//[[:cntrl:]]}" # removes any control characters
+        eval "$krcs";
+    fi
 }
 _ksi_main
 builtin unset -f _ksi_main

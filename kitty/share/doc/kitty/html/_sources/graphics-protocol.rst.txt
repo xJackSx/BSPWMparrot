@@ -25,38 +25,46 @@ alpha-blending and text over graphics.
     :alt: Demo of graphics rendering in kitty
     :align: center
 
-Some programs and libraries that use the kitty graphics protocol:
+Some applications that use the kitty graphics protocol:
 
-* `termpdf.py <https://github.com/dsanson/termpdf.py>`_ - a terminal PDF/DJVU/CBR viewer
-* `ranger <https://github.com/ranger/ranger>`_ - a terminal file manager, with image previews
-* `Yazi <https://github.com/sxyazi/yazi>`_ - Blazing fast terminal file manager written in Rust, based on async I/O
+* `awrit <https://github.com/chase/awrit>`_ - Chromium-based web browser rendered in Kitty with mouse and keyboard support
+* `blackcat <https://github.com/j-c-m/blackcat>`_ - a modern compatible cat with image support
+* `broot <https://dystroy.org/broot/>`_ - a terminal file explorer and manager, with preview of images, SVG, PDF, etc.
+* `chafa <https://github.com/hpjansson/chafa>`_  - a terminal image viewer
 * :doc:`kitty-diff <kittens/diff>` - a side-by-side terminal diff program with support for images
-* `tpix <https://github.com/jesvedberg/tpix>`_ - a statically compiled binary that can be used to display images and easily installed on remote servers without root access
+* `fzf <https://github.com/junegunn/fzf/commit/d8188fce7b7bea982e7f9050c35e488e49fb8fd0>`_ - A command line fuzzy finder
 * `mpv <https://github.com/mpv-player/mpv/commit/874e28f4a41a916bb567a882063dd2589e9234e1>`_ - A video player that can play videos in the terminal
+* `neofetch <https://github.com/dylanaraps/neofetch>`_ - A command line system information tool
 * `pixcat <https://github.com/mirukana/pixcat>`_ - a third party CLI and python library that wraps the graphics protocol
-* `neofetch <https://github.com/dylanaraps/neofetch>`_ - A command line system
-  information tool
-* `viu <https://github.com/atanunq/viu>`_ - a terminal image viewer
-* `ctx.graphics <https://ctx.graphics/>`_ - Library for drawing graphics
+* `ranger <https://github.com/ranger/ranger>`_ - a terminal file manager, with image previews
+* `termpdf.py <https://github.com/dsanson/termpdf.py>`_ - a terminal PDF/DJVU/CBR viewer
 * `timg <https://github.com/hzeller/timg>`_ - a terminal image and video viewer
+* `tpix <https://github.com/jesvedberg/tpix>`_ - a statically compiled binary that can be used to display images and easily installed on remote servers without root access
+* `twitch-tui <https://github.com/Xithrius/twitch-tui>`_ - Twitch chat in the terminal
+* `vat <https://github.com/jzbrooks/vat>`_ - a terminal image viewer for vector graphics, including Android Vector Drawables
+* `viu <https://github.com/atanunq/viu>`_ - a terminal image viewer
+* `Yazi <https://github.com/sxyazi/yazi>`_ - Blazing fast terminal file manager written in Rust, based on async I/O
+
+Libraries:
+
+* `ctx.graphics <https://ctx.graphics/>`_ - Library for drawing graphics
 * `notcurses <https://github.com/dankamongmen/notcurses>`_ - C library for terminal graphics with bindings for C++, Rust and Python
 * `rasterm <https://github.com/BourgeoisBear/rasterm>`_  - Go library to display images in the terminal
-* `chafa <https://github.com/hpjansson/chafa>`_  - a terminal image viewer
 * `hologram.nvim <https://github.com/edluffy/hologram.nvim>`_  - view images inside nvim
 * `image.nvim <https://github.com/3rd/image.nvim>`_ - Bringing images to neovim
 * `image_preview.nvim <https://github.com/adelarsq/image_preview.nvim/>`_ - Image preview for neovim
 * `kui.nvim <https://github.com/romgrk/kui.nvim>`_  - Build sophisticated UIs inside neovim using the kitty graphics protocol
 * `term-image <https://github.com/AnonymouX47/term-image>`_  - A Python library, CLI and TUI to display and browse images in the terminal
 * `glkitty <https://github.com/michaeljclark/glkitty>`_ - C library to draw OpenGL shaders in the terminal with a glgears demo
-* `twitch-tui <https://github.com/Xithrius/twitch-tui>`_ - Twitch chat in the terminal
-* `awrit <https://github.com/chase/awrit>`_ - Chromium-based web browser rendered in Kitty with mouse and keyboard support
-* `fzf <https://github.com/junegunn/fzf/commit/d8188fce7b7bea982e7f9050c35e488e49fb8fd0>`_ - A command line fuzzy finder
 
 Other terminals that have implemented the graphics protocol:
 
-* `WezTerm <https://github.com/wez/wezterm/issues/986>`_
+* `Ghostty <https://ghostty.org>`_
 * `Konsole <https://invent.kde.org/utilities/konsole/-/merge_requests/594>`_
+* `st (with a patch) <https://st.suckless.org/patches/kitty-graphics-protocol>`_
+* `Warp <https://docs.warp.dev/getting-started/changelog#id-2025.03.26-v0.2025.03.26.08.10>`_
 * `wayst <https://github.com/91861/wayst>`_
+* `WezTerm <https://github.com/wez/wezterm/issues/986>`_
 
 
 Getting the window size
@@ -93,7 +101,7 @@ code to demonstrate its use
         buf = array.array('H', [0, 0, 0, 0])
         fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, buf)
         print((
-            'number of rows: {} number of columns: {}'
+            'number of rows: {} number of columns: {} '
             'screen width: {} screen height: {}').format(*buf))
 
 .. tab:: Go
@@ -147,7 +155,9 @@ You can also use the *CSI t* escape code to get the screen size. Send
 ``<ESC>[14t`` to ``STDOUT`` and kitty will reply on ``STDIN`` with
 ``<ESC>[4;<height>;<width>t`` where ``height`` and ``width`` are the window
 size in pixels. This escape code is supported in many terminals, not just
-kitty.
+kitty. A more precise version of this escape code, which is however supported
+in less terminals is ``<ESC>[16t`` which causes the terminal to reply with the
+pixel dimensions of a single cell.
 
 A minimal example
 ------------------
@@ -230,7 +240,7 @@ This is a so-called *Application Programming Command (APC)*. Most terminal
 emulators ignore APC codes, making it safe to use.
 
 The control data is a comma-separated list of ``key=value`` pairs.  The payload
-is arbitrary binary data, base64-encoded to prevent interoperation problems
+is arbitrary binary data, :rfc:`base64 <4648>` encoded to prevent interoperation problems
 with legacy terminals that get confused by control codes within an APC code.
 The meaning of the payload is interpreted based on the control data.
 
@@ -291,7 +301,8 @@ compression is supported, which is specified using ``o=z``. For example::
     <ESC>_Gf=24,s=10,v=20,o=z;<payload><ESC>\
 
 This is the same as the example from the RGB data section, except that the
-payload is now compressed using deflate (this occurs prior to base64-encoding).
+payload is now compressed using deflate (this occurs prior to
+:rfc:`base64 <4648>` encoding).
 The terminal emulator will decompress it before rendering. You can specify
 compression for any format. The terminal emulator will decompress before
 interpreting the pixel data.
@@ -329,7 +340,7 @@ similar to reporting any other kind of I/O error. Since the file paths come
 from potentially untrusted sources, terminal emulators **must** refuse to read
 any device/socket/etc. special files. Only regular files are allowed.
 Additionally, terminal emulators may refuse to read files in *sensitive*
-parts of the filesystem, such as :file:`/proc`, :file:`/sys`, :file:`/dev/`, etc.
+parts of the filesystem, such as :file:`/proc`, :file:`/sys`, :file:`/dev`, etc.
 
 Local client
 ^^^^^^^^^^^^^^
@@ -363,7 +374,7 @@ Remote clients, those that are unable to use the filesystem/shared memory to
 transmit data, must send the pixel data directly using escape codes. Since
 escape codes are of limited maximum length, the data will need to be chunked up
 for transfer. This is done using the ``m`` key. The pixel data must first be
-base64 encoded then chunked up into chunks no larger than ``4096`` bytes. All
+:rfc:`base64 <4648>` encoded then chunked up into chunks no larger than ``4096`` bytes. All
 chunks, except the last, must have a size that is a multiple of 4. The client
 then sends the graphics escape code as usual, with the addition of an ``m`` key
 that must have the value ``1`` for all but the last chunk, where it must be
@@ -411,9 +422,7 @@ use the *query action*, set ``a=q``. Then the terminal emulator will try to load
 the image and respond with either OK or an error, as above, but it will not
 replace an existing image with the same id, nor will it store the image.
 
-As of May 2023, kitty has a complete implementation of this protocol and
-WezTerm has a mostly complete implementation. Konsole and wayst have partial
-support. We intend that any terminal emulator that wishes to support it can do so. To
+We intend that any terminal emulator that wishes to support it can do so. To
 check if a terminal emulator supports the graphics protocol the best way is to
 send the above *query action* followed by a request for the `primary device
 attributes <https://vt100.net/docs/vt510-rm/DA1.html>`_. If you get back an
@@ -461,10 +470,11 @@ id. To do so add the ``p`` key with a number between ``1`` and ``4294967295``.
 When you specify a placement id, it will be added to the acknowledgement code
 above. Every placement is uniquely identified by the pair of the ``image id``
 and the ``placement id``. If you specify a placement id for an image that does
-not have an id (i.e. has id=0), it will be ignored. In particular this means
-there can exist multiple images with ``image id=0, placement id=0``. Not
-specifying a placement id or using ``p=0`` for multiple put commands (``a=p``)
-with the same non-zero image id results in multiple placements the image.
+not have an id (i.e. has id=0), it will be ignored, i.e. the placement will not
+get an id. In particular this means there can exist multiple images with
+``image id=0, placement id=0``. Not specifying a placement id or using ``p=0``
+for multiple put commands (``a=p``) with the same non-zero image id results in
+multiple placements the image.
 
 An example response::
 
@@ -473,6 +483,14 @@ An example response::
 If you send two placements with the same ``image id`` and ``placement id`` the
 second one will replace the first. This can be used to resize or move
 placements around the screen, without flicker.
+
+
+.. note::
+   When re-transmitting image data for a specific id, the existing image and
+   all its placements must be deleted. The new data replaces the old image data
+   but is not actually displayed until a placement for it is created. This is
+   to avoid divergent behavior in the case when unrelated programs happen to re-use
+   image ids in the same session.
 
 
 .. versionadded:: 0.19.3
@@ -750,6 +768,9 @@ deleted, if the capital letter form above is specified. Also, when the terminal
 is running out of quota space for new images, existing images without
 placements will be preferentially deleted.
 
+If an image is being loaded in chunks and the upload is not complete when any
+delete command is received, the partial upload must be aborted.
+
 Some examples::
 
     <ESC>_Ga=d<ESC>\              # delete all visible placements
@@ -877,12 +898,12 @@ on.
 Finally, while transferring frame data, the frame *gap* can also be specified
 using the ``z`` key. The gap is the number of milliseconds to wait before
 displaying the next frame when the animation is running. A value of ``z=0`` is
-ignored, ``z=positive number`` sets the gap to the specified number of
-milliseconds and ``z=negative number`` creates a *gapless* frame. Gapless
-frames are not displayed to the user since they are instantly skipped over,
-however they can be useful as the base data for subsequent frames. For example,
-for an animation where the background remains the same and a small object or two
-move.
+ignored (acts as though ``z`` was unspecified), ``z=positive number`` sets the
+gap to the specified number of milliseconds and ``z=negative number`` creates a
+*gapless* frame. Gapless frames are not displayed to the user since they are
+instantly skipped over, however they can be useful as the base data for
+subsequent frames. For example, for an animation where the background remains
+the same and a small object or two move.
 
 Controlling animations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -912,9 +933,9 @@ animation. ``s=2`` runs the animation, but in *loading* mode, in this mode when
 reaching the last frame, instead of looping, the terminal will wait for the
 arrival of more frames. ``s=3`` runs the animation normally, after the last
 frame, the terminal loops back to the first frame. The number of loops can be
-controlled by the ``v`` key. ``v=0`` is ignored, ``v=1`` is loop infinitely,
-and any other positive number is loop ``number - 1`` times. Note that stopping
-the animation resets the loop counter.
+controlled by the ``v`` key. ``v=0`` is ignored (acts as though ``v`` was not
+specified), ``v=1`` is loop infinitely, and any other positive number is loop
+``number - 1`` times. Note that stopping the animation resets the loop counter.
 
 Finally, the *gap* for frames can be set using the ``z`` key. This can be
 specified either when the frame is created as part of the transmit escape code
@@ -953,7 +974,7 @@ by the ``C`` key with the default being to alpha blend the source rectangle
 onto the destination rectangle. With ``C=1`` it will be a simple replacement
 of pixels. For example::
 
-    <ESC>_Gi=1,r=7,c=9,w=23,h=27,X=4,Y=8,x=1,y=3<ESC>\
+    <ESC>_Ga=c,i=1,r=7,c=9,w=23,h=27,X=4,Y=8,x=1,y=3<ESC>\
 
 Will compose a ``23x27`` rectangle located at ``(4, 8)`` in the ``7th frame``
 onto the rectangle located at ``(1, 3)`` in the ``9th frame``. These will be
@@ -994,8 +1015,8 @@ take, and the default value they take when missing. All integers are 32-bit.
 Key      Value                 Default    Description
 =======  ====================  =========  =================
 ``a``    Single character.     ``t``      The overall action this graphics command is performing.
-         ``(a, c, d, f, ``                ``t`` - transmit data, ``T`` - transmit data and display image,
-         ``p, q, t, T)``                  ``q`` - query terminal, ``p`` - put (display) previous transmitted image,
+         ``(a, c, d, f,                   ``t`` - transmit data, ``T`` - transmit data and display image,
+         p, q, t, T)``                    ``q`` - query terminal, ``p`` - put (display) previous transmitted image,
                                           ``d`` - delete image, ``f`` - transmit data for animation frames,
                                           ``a`` - control animation, ``c`` - compose animation frames
 

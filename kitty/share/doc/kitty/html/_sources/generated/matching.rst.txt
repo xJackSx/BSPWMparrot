@@ -2,7 +2,7 @@ Matching windows
 ______________________________
 When matching windows, match specifications are of the form: :italic:`field:query`.
 Where :italic:`field` can be one of: :code:`id`, :code:`title`, :code:`pid`, :code:`cwd`, :code:`cmdline`, :code:`num`,
-:code:`env`, :code:`var`, :code:`state`, :code:`neighbor`, and :code:`recent`.
+:code:`env`, :code:`var`, :code:`state`, :code:`neighbor`, :code:`session` and :code:`recent`.
 :italic:`query` is the expression to match. Expressions can be either a number or a regular expression, and can be
 :ref:`combined using Boolean operators <search_syntax>`.
 
@@ -23,6 +23,11 @@ active window, one being the previously active window and so on.
 The field :code:`neighbor` refers to a neighbor of the active window in the specified direction, which can be:
 :code:`left`, :code:`right`, :code:`top` or :code:`bottom`.
 
+The field :code:`session` matches windows that were created in the specified session.
+Use the expression :code:`^$` to match windows that were not created in a session and
+:code:`.` to match the currently active session and :code:`~` to match either the currently
+active sesison or the last active session when no session is active.
+
 When using the :code:`env` field to match on environment variables, you can specify only the environment variable name
 or a name and value, for example, :code:`env:MY_ENV_VAR=2`.
 
@@ -31,14 +36,15 @@ as with the :code:`env` field.
 
 The field :code:`state` matches on the state of the window. Supported states
 are: :code:`active`, :code:`focused`, :code:`needs_attention`,
-:code:`parent_active`, :code:`parent_focused`, :code:`self`,
-:code:`overlay_parent`.  Active windows are the windows that are active in
-their parent tab. There is only one focused window and it is the window to
-which keyboard events are delivered. If no window is focused, the last focused
-window is matched. The value :code:`self` matches the window in which the
-remote control command is run. The value :code:`overlay_parent` matches the
-window that is under the :code:`self` window, when the self window is an
-overlay.
+:code:`parent_active`, :code:`parent_focused`, :code:`focused_os_window`,
+:code:`self`, :code:`overlay_parent`.  Active windows are the windows that are
+active in their parent tab. There is only one focused window and it is the
+window to which keyboard events are delivered. If no window is focused, the
+last focused window is matched. The value :code:`focused_os_window` matches
+all windows in the currently focused OS window. The value :code:`self` matches
+the window in which the remote control command is run. The value
+:code:`overlay_parent` matches the window that is under the :code:`self`
+window, when the self window is an overlay.
 
 Note that you can use the :ref:`kitten @ ls <at-ls>` command to get a list of windows.
 
@@ -46,7 +52,7 @@ Matching tabs
 ______________________________
 When matching tabs, match specifications are of the form: :italic:`field:query`.
 Where :italic:`field` can be one of: :code:`id`, :code:`index`, :code:`title`, :code:`window_id`, :code:`window_title`,
-:code:`pid`, :code:`cwd`, :code:`cmdline` :code:`env`, :code:`var`, :code:`state` and :code:`recent`.
+:code:`pid`, :code:`cwd`, :code:`cmdline` :code:`env`, :code:`var`, :code:`state`, :code:`session` and :code:`recent`.
 :italic:`query` is the expression to match. Expressions can be either a number or a regular expression, and can be
 :ref:`combined using Boolean operators <search_syntax>`.
 
@@ -66,14 +72,21 @@ The :code:`index` number is used to match the nth tab in the currently active OS
 The :code:`recent` number matches recently active tabs in the currently active OS window, with zero being the currently
 active tab, one the previously active tab and so on.
 
+The field :code:`session` matches tabs that were created in the specified session.
+Use the expression :code:`^$` to match windows that were not created in a session and
+:code:`.` to match the currently active session and :code:`~` to match either the currently
+active sesison or the last active session when no session is active.
+
 When using the :code:`env` field to match on environment variables, you can specify only the environment variable name
 or a name and value, for example, :code:`env:MY_ENV_VAR=2`. Tabs containing any window with the specified environment
 variables are matched. Similarly, :code:`var` matches tabs containing any window with the specified user variable.
 
 The field :code:`state` matches on the state of the tab. Supported states are:
-:code:`active`, :code:`focused`, :code:`needs_attention`, :code:`parent_active` and :code:`parent_focused`.
+:code:`active`, :code:`focused`, :code:`needs_attention`, :code:`parent_active`, :code:`parent_focused`
+and :code:`focused_os_window`.
 Active tabs are the tabs that are active in their parent OS window. There is only one focused tab
 and it is the tab to which keyboard events are delivered. If no tab is focused, the last focused tab is matched.
+The value :code:`focused_os_window` matches all tabs in the currently focused OS window.
 
 Note that you can use the :ref:`kitten @ ls <at-ls>` command to get a list of tabs.
 

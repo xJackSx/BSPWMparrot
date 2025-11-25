@@ -1,4 +1,5 @@
-.\" Man page generated from reStructuredText.
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
 .
 .
 .nr rst2man-indent-level 0
@@ -27,7 +28,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "kitten-icat" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-icat" 1 "Nov 03, 2025" "0.44.0" "kitty"
 .SH Name
 kitten-icat \- Display images in the terminal
 .SH Overview
@@ -45,8 +46,8 @@ kitten icat image.jpeg
 .UNINDENT
 .UNINDENT
 .sp
-It supports all image types supported by \X'tty: link https://www.imagemagick.org'\fI\%ImageMagick\fP\X'tty: link'\&. It even works over SSH. For details, see the
-\fI\%kitty graphics protocol\fP\&.
+It supports all image types supported by ImageMagick \%<https://\:www\:.imagemagick\:.org>\&. It even works over SSH. For details, see the
+kitty graphics protocol \%<>\&.
 .sp
 You might want to create an alias in your shell\(aqs configuration files:
 .INDENT 0.0
@@ -60,16 +61,16 @@ alias icat=\(dqkitten icat\(dq
 .sp
 Then you can simply use \fBicat image.png\fP to view images.
 .sp
-\fBNOTE:\fP
+\fBNote:\fP
 .INDENT 0.0
 .INDENT 3.5
-\X'tty: link https://www.imagemagick.org'\fI\%ImageMagick\fP\X'tty: link' must be installed for the
+ImageMagick \%<https://\:www\:.imagemagick\:.org> must be installed for the
 full range of image types. Without it only PNG/JPG/GIF/BMP/TIFF/WEBP are
 supported.
 .UNINDENT
 .UNINDENT
 .sp
-\fBNOTE:\fP
+\fBNote:\fP
 .INDENT 0.0
 .INDENT 3.5
 kitty\(aqs image display protocol may not work when used within a terminal
@@ -79,8 +80,8 @@ whether the multiplexer has added support for it or not.
 .UNINDENT
 .sp
 The \fBicat\fP kitten has various command line arguments to allow it to be used
-from inside other programs to display images. In particular, \fI\%\-\-place\fP,
-\fI\%\-\-detect\-support\fP and \fI\%\-\-print\-window\-size\fP\&.
+from inside other programs to display images. In particular, \fB\-\-place\fP,
+\fB\-\-detect\-support\fP and \fB\-\-print\-window\-size\fP\&.
 .sp
 If you are trying to integrate icat into a complex program like a file manager
 or editor, there are a few things to keep in mind. icat normally works by communicating
@@ -91,8 +92,8 @@ discarded. If you would instead like to use it just as a backend to generate
 the escape codes for image display, you need to pass it options to tell it the
 window dimensions, where to place the image in the window and the transfer mode
 to use. If you do that, it will not try to communicate with the TTY device at
-all. The requisite options are: \fI\%\-\-use\-window\-size\fP, \fI\%\-\-place\fP
-and \fI\%\-\-transfer\-mode\fP, \fI\%\-\-stdin=no\fP\&.
+all. The requisite options are: \fB\-\-use\-window\-size\fP, \fB\-\-place\fP
+and \fB\-\-transfer\-mode\fP, \fB\-\-stdin=no\fP\&.
 For example, to demonstrate usage without access to the TTY:
 .INDENT 0.0
 .INDENT 3.5
@@ -108,17 +109,17 @@ The values, 3000, 2000 are made up. They are the window width and height in
 pixels, to obtain which access to the TTY is needed.
 .sp
 To be really robust you should consider writing proper support for the
-\fI\%kitty graphics protocol\fP in the program instead.
+kitty graphics protocol \%<> in the program instead.
 Nowadays there are many libraries that have support for it.
 .SH Source code for icat
 .sp
-The source code for this kitten is \X'tty: link https://github.com/kovidgoyal/kitty/tree/master/kittens/icat'\fI\%available on GitHub\fP\X'tty: link'\&.
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:icat>\&.
 .SH Command line interface
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-kitty +kitten icat [options] image\-file\-or\-url\-or\-directory ...
+kitten icat [options] image\-file\-or\-url\-or\-directory ...
 .EE
 .UNINDENT
 .UNINDENT
@@ -135,12 +136,12 @@ Choices: \fBcenter\fP, \fBleft\fP, \fBright\fP
 .INDENT 0.0
 .TP
 .B \-\-place <PLACE>
-Choose where on the screen to display the image. The image will be scaled to fit into the specified rectangle. The syntax for specifying rectangles is <width>x<height>@<left>x<top>. All measurements are in cells (i.e. cursor positions) with the origin (0, 0) at the top\-left corner of the screen. Note that the \fI\%\-\-align\fP option will horizontally align the image within this rectangle. By default, the image is horizontally centered within the rectangle. Using place will cause the cursor to be positioned at the top left corner of the image, instead of on the line after the image.
+Choose where on the screen to display the image. The image will be scaled to fit into the specified rectangle. The syntax for specifying rectangles is <width>x<height>@<left>x<top>. All measurements are in cells (i.e. cursor positions) with the origin (0, 0) at the top\-left corner of the screen. Note that the \fB\-\-align\fP option will horizontally align the image within this rectangle. By default, the image is horizontally centered within the rectangle. Using place will cause the cursor to be positioned at the top left corner of the image, instead of on the line after the image.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-scale\-up
-When used in combination with \fI\%\-\-place\fP it will cause images that are smaller than the specified area to be scaled up to use as much of the specified area as possible.
+.B \-\-scale\-up [=no]
+When used in combination with \fB\-\-place\fP it will cause images that are smaller than the specified area to be scaled up to use as much of the specified area as possible.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -157,8 +158,8 @@ Choices: \fBboth\fP, \fBhorizontal\fP, \fBnone\fP, \fBvertical\fP
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-clear
-Remove all images currently displayed on the screen.
+.B \-\-clear [=no]
+Remove all images currently displayed on the screen. Note that this cannot work with terminal multiplexers such as tmux since only the multiplexer can know the position of the screen.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -169,8 +170,8 @@ Choices: \fBdetect\fP, \fBfile\fP, \fBmemory\fP, \fBstream\fP
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-detect\-support
-Detect support for image display in the terminal. If not supported, will exit with exit code 1, otherwise will exit with code 0 and print the supported transfer mode to stderr, which can be used with the \fI\%\-\-transfer\-mode\fP option.
+.B \-\-detect\-support [=no]
+Detect support for image display in the terminal. If not supported, will exit with exit code 1, otherwise will exit with code 0 and print the supported transfer mode to stderr, which can be used with the \fB\-\-transfer\-mode\fP option.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -185,7 +186,7 @@ Instead of querying the terminal for the window size, use the specified size, wh
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-print\-window\-size
+.B \-\-print\-window\-size [=no]
 Print out the window size as <width>x<height> (in pixels) and quit. This is a convenience method to query the window size if using \fBkitten icat\fP from a scripting language that cannot make termios calls.
 .UNINDENT
 .INDENT 0.0
@@ -197,7 +198,7 @@ Choices: \fBdetect\fP, \fBno\fP, \fByes\fP
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-silent
+.B \-\-silent [=no]
 Not used, present for legacy compatibility.
 .UNINDENT
 .INDENT 0.0
@@ -221,18 +222,18 @@ Default: \fB\-1\fP
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-hold
+.B \-\-hold [=no]
 Wait for a key press before exiting after displaying the images.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-unicode\-placeholder
-Use the Unicode placeholder method to display the images. Useful to display images from within full screen terminal programs that do not understand the kitty graphics protocol such as multiplexers or editors. See \X'tty: link #graphics-unicode-placeholders'\fI\%Unicode placeholders\fP\X'tty: link' for details. Note that when using this method, placed (with \fI\%\-\-place\fP) images that do not fit on the screen, will get wrapped at the screen edge instead of getting truncated. This wrapping is per line and therefore the image will look like it is interleaved with blank lines.
+.B \-\-unicode\-placeholder [=no]
+Use the Unicode placeholder method to display the images. Useful to display images from within full screen terminal programs that do not understand the kitty graphics protocol such as multiplexers or editors. See Unicode placeholders \%<#\:graphics-unicode-placeholders> for details. Note that when using this method, images placed (with \fB\-\-place\fP) that do not fit on the screen, will get wrapped at the screen edge instead of getting truncated. This wrapping is per line and therefore the image will look like it is interleaved with blank lines.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-passthrough <PASSTHROUGH>
-Whether to surround graphics commands with escape sequences that allow them to passthrough programs like tmux. The default is to detect when running inside tmux and automatically use the tmux passthrough escape codes. Note that when this option is enabled it implies \fI\%\-\-unicode\-placeholder\fP as well.
+Whether to surround graphics commands with escape sequences that allow them to passthrough programs like tmux. The default is to detect when running inside tmux and automatically use the tmux passthrough escape codes. Note that when this option is enabled it implies \fB\-\-unicode\-placeholder\fP as well.
 Default: \fBdetect\fP
 Choices: \fBdetect\fP, \fBnone\fP, \fBtmux\fP
 .UNINDENT
@@ -242,11 +243,15 @@ Choices: \fBdetect\fP, \fBnone\fP, \fBtmux\fP
 The graphics protocol id to use for the created image. Normally, a random id is created if needed. This option allows control of the id. When multiple images are sent, sequential ids starting from the specified id are used. Valid ids are from 1 to 4294967295. Numbers outside this range are automatically wrapped.
 Default: \fB0\fP
 .UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-no\-trailing\-newline [=no], \-n [=no]
+By default, the cursor is moved to the next line after displaying an image. This option, prevents that. Should not be used when catting multiple images. Also has no effect when the \fB\-\-place\fP option is used.
+.UNINDENT
 .SH Author
 
 Kovid Goyal
 .SH Copyright
 
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+2025, Kovid Goyal
+.\" End of generated man page.

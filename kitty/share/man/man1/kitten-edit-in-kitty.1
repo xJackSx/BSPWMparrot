@@ -1,4 +1,4 @@
-.TH "kitten-edit-in-kitty" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-edit-in-kitty" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-edit-in-kitty \- Edit a file in a kitty overlay window
 .SH Usage
@@ -11,10 +11,12 @@ For usage instructions see: https://sw.kovidgoyal.net/kitty/shell\-integration/#
 .SH Options
 .TP
 .BI "--title, --window-title" 
-The title to set for the new window. By default, title is controlled by the child process. The special value current will copy the title from the currently active window.
+The title to set for the new window. By default, title is controlled by the child process. The special value current will copy the title from the 
+.B \-\-source\-window.
 .TP
 .BI "--tab-title" 
-The title for the new tab if launching in a new tab. By default, the title of the active window in the tab is used as the tab title. The special value current will copy the title from the title of the currently active tab.
+The title for the new tab if launching in a new tab. By default, the title of the active window in the tab is used as the tab title. The special value current will copy the title from the tab containing the 
+.B \-\-source\-window.
 .TP
 .BI "--type" " [=window]"
 Where to launch the child process:
@@ -23,10 +25,10 @@ window
     A new kitty window in the current tab
 
 tab
-    A new tab in the current OS window
+    A new tab in the current OS window. Not available when the launch <launch> command is used in startup sessions.
 
 os\-window
-    A new operating system window
+    A new operating system window.  Not available when the launch <launch> command is used in startup sessions.
 
 overlay
     An overlay window covering the current active kitty window
@@ -43,15 +45,23 @@ clipboard, primary
     These two are meant to work with 
 .B \-\-stdin\-source to copy data to the system clipboard or primary selection.
 
+os\-panel
+    Similar to os\-window, except that it creates the new OS Window as a desktop panel. Only works on platforms that support this, such as Wayand compositors that support the layer shell protocol. Use the 
+.B \-\-os\-panel option to configure the panel.
 
 
-Choices: window, background, clipboard, os-window, overlay, overlay-main, primary, tab
+
+Choices: window, background, clipboard, os-panel, os-window, overlay, overlay-main, primary, tab
 .TP
-.BI "--dont-take-focus, --keep-focus" 
+.BI "--dont-take-focus, --keep-focus" " [=no]"
 Keep the focus on the currently active window instead of switching to the newly opened window.
 .TP
 .BI "--cwd" 
-The working directory for the newly launched child. Use the special value current to use the working directory of the currently active window. The special value last_reported uses the last working directory reported by the shell (needs shell_integration to work). The special value oldest works like current but uses the working directory of the oldest foreground process associated with the currently active window rather than the newest foreground process. Finally, the special value root refers to the process that was originally started when the window was created.
+The working directory for the newly launched child. Use the special value current to use the working directory of the 
+.B \-\-source\-window The special value last_reported uses the last working directory reported by the shell (needs shell_integration to work). The special value oldest works like current but uses the working directory of the oldest foreground process associated with the currently active window rather than the newest foreground process. Finally, the special value root refers to the process that was originally started when the window was created.
+
+When opening in the same working directory as the current window causes the new window to connect to a remote host, you can use the 
+.B \-\-hold\-after\-ssh flag to prevent the new window from closing when the connection is terminated.
 .TP
 .BI "--env" 
 Environment variables to set in the child process. Can be specified multiple times to set different environment variables. Syntax: name=value. Using name= will set to empty string and just name will remove the environment variable.
@@ -59,13 +69,18 @@ Environment variables to set in the child process. Can be specified multiple tim
 .BI "--var" 
 User variables to set in the created window. Can be specified multiple times to set different user variables. Syntax: name=value. Using name= will set to empty string.
 .TP
-.BI "--hold" 
-Keep the window open even after the command being executed exits, at a shell prompt.
+.BI "--hold" " [=no]"
+Keep the window open even after the command being executed exits, at a shell prompt. The shell will be run after the launched command exits.
 .TP
 .BI "--location" " [=default]"
-Where to place the newly created window when it is added to a tab which already has existing windows in it. after and before place the new window before or after the active window. neighbor is a synonym for after. Also applies to creating a new tab, where the value of after will cause the new tab to be placed next to the current tab instead of at the end. The values of vsplit, hsplit and split are only used by the splits layout and control if the new window is placed in a vertical, horizontal or automatic split with the currently active window. The default is to place the window in a layout dependent manner, typically, after the currently active window.
+Where to place the newly created window when it is added to a tab which already has existing windows in it. after and before place the new window before or after the active window. neighbor is a synonym for after. Also applies to creating a new tab, where the value of after will cause the new tab to be placed next to the current tab instead of at the end. The values of vsplit, hsplit and split are only used by the splits layout and control if the new window is placed in a vertical, horizontal or automatic split with the currently active window. The default is to place the window in a layout dependent manner, typically, after the currently active window. See 
+.B \-\-next\-to to use a window other than the currently active window.
 
 Choices: default, after, before, first, hsplit, last, neighbor, split, vsplit
+.TP
+.BI "--next-to" 
+A match expression to select the window next to which the new window is created. See search_syntax for the syntax for specifying windows. If not specified defaults to the active window. When used via remote control and a target tab is specified this option is ignored unless the matched window is in the specified tab. When using 
+.B \-\-type of tab, the tab will be created in the OS Window containing the matched window.
 .TP
 .BI "--os-window-class" 
 Set the WM_CLASS property on X11 and the application id property on Wayland for the newly created OS window when using 
@@ -77,7 +92,8 @@ Set the WM_NAME property on X11 for the newly created OS Window when using
 .B \-\-os\-window\-class.
 .TP
 .BI "--os-window-title" 
-Set the title for the newly created OS window. This title will override any titles set by programs running in kitty. The special value current will use the title of the current OS window, if any.
+Set the title for the newly created OS window. This title will override any titles set by programs running in kitty. The special value current will copy the title from the OS Window containing the 
+.B \-\-source\-window.
 .TP
 .BI "--os-window-state" " [=normal]"
 The initial state for the newly created OS Window.
@@ -109,8 +125,12 @@ Change colors in the newly launched window. You can either specify a path to a
 .BI "--spacing" 
 Set the margin and padding for the newly created window. For example: margin=20 or padding\-left=10 or margin\-h=30. The shorthand form sets all values, the *\-h and *\-v variants set horizontal and vertical values. Can be specified multiple times. Note that this is ignored for overlay windows as these use the settings from the base window.
 .TP
+.BI "--hold-after-ssh" " [=no]"
+When using 
+.B \-\-cwd=current or similar from a window that is running the ssh kitten, the new window will run a local shell after disconnecting from the remote host, when this option is specified.
+.TP
 .BI "--max-file-size" " [=8]"
 The maximum allowed size (in MB) of files to edit. Since the file data has to be base64 encoded and transmitted over the tty device, overly large files will not perform well.
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command

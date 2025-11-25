@@ -1,17 +1,17 @@
-.TH "kitten-@-set-font-size" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-@-set-font-size" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-@-set-font-size \- Set the font size in the active top\-level OS window
 .SH Usage
 .SY "kitten @ set-font-size  FONT_SIZE"
 .YS
 .SH Description
-Sets the font size to the specified size, in pts. Note that in kitty all sub\-windows in the same OS window must have the same font size. A value of zero resets the font size to default. Prefixing the value with a + or \- increments the font size by the specified amount. Use \-\- before using \- to have it not mistaken for a option. For example: kitten @ set\-font\-size \-\- \-2
+Sets the font size to the specified size, in pts. Note that in kitty all sub\-windows in the same OS window must have the same font size. A value of zero resets the font size to default. Prefixing the value with a +, \-, * or / changes the font size by the specified amount. Use \-\- before using \- to have it not mistaken for a option. For example: kitten @ set\-font\-size \-\- \-2
 .SH Options
 .TP
-.BI "--all, -a" 
+.BI "--all, -a" " [=no]"
 By default, the font size is only changed in the active OS window, this option will cause it to be changed in all OS windows. It also changes the font size for any newly created OS Windows in the future.
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command
 .SH Global options
 .TP
@@ -28,7 +28,7 @@ A password to use when contacting kitty. This will cause kitty to ask the user f
 .B \-\-use\-password as always.
 .TP
 .BI "--password-file" " [=rc\-pass]"
-A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Used if no 
+A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Use fd:num to read from the file descriptor num. Used if no 
 .B \-\-password is supplied. Defaults to checking for the 
 .I rc\-pass file in the kitty configuration directory.
 .TP

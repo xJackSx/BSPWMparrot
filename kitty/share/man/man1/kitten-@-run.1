@@ -1,4 +1,4 @@
-.TH "kitten-@-run" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-@-run" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-@-run \- Run a program on the computer in which kitty is running and get the output
 .SH Usage
@@ -11,7 +11,7 @@ Run the specified program on the computer in which kitty is running. When STDIN 
 .BI "--env" 
 Environment variables to set in the child process. Can be specified multiple times to set different environment variables. Syntax: name=value. Using name= will set to empty string and just name will remove the environment variable.
 .TP
-.BI "--allow-remote-control" 
+.BI "--allow-remote-control" " [=no]"
 The executed program will have privileges to run remote control commands in kitty.
 .TP
 .BI "--remote-control-password" 
@@ -33,7 +33,7 @@ This password will be in effect for this window only. Note that any passwords yo
 This option only takes effect if 
 .B \-\-allow\-remote\-control is also specified. Can be specified multiple times to create multiple passwords. This option was added to kitty in version 0.26.0
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command
 .SH Global options
 .TP
@@ -50,7 +50,7 @@ A password to use when contacting kitty. This will cause kitty to ask the user f
 .B \-\-use\-password as always.
 .TP
 .BI "--password-file" " [=rc\-pass]"
-A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Used if no 
+A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Use fd:num to read from the file descriptor num. Used if no 
 .B \-\-password is supplied. Defaults to checking for the 
 .I rc\-pass file in the kitty configuration directory.
 .TP

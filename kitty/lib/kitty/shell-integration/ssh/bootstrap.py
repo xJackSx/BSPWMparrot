@@ -212,7 +212,10 @@ def get_data():
     data = base64.standard_b64decode(data)
     with temporary_directory(dir=HOME, prefix='.kitty-ssh-kitten-untar-') as tdir, tarfile.open(fileobj=io.BytesIO(data)) as tf:
         try:
-            tf.extractall(tdir, filter='data')
+            # We have to use fully_trusted as otherwise it refuses to extract,
+            # for example, symlinks that point to absolute paths outside
+            # tdir.
+            tf.extractall(tdir, filter='fully_trusted')
         except TypeError:
             tf.extractall(tdir)
         with open(tdir + '/data.sh') as f:
@@ -229,6 +232,15 @@ def get_data():
             move(tdir + '/root', '/')
 
 
+def exec_with_better_error(*a):
+    try:
+        os.execlp(*a)
+    except OSError as err:
+        if err.errno == errno.ENOENT:
+            raise SystemExit('The program: "' + a[0] + '" was not found')
+        raise
+
+
 def exec_zsh_with_integration():
     zdotdir = os.environ.get('ZDOTDIR') or ''
     if not zdotdir:
@@ -240,7 +252,7 @@ def exec_zsh_with_integration():
     for q in ('.zshrc', '.zshenv', '.zprofile', '.zlogin'):
         if os.path.exists(os.path.join(zdotdir, q)):
             os.environ['ZDOTDIR'] = shell_integration_dir + '/zsh'
-            os.execlp(login_shell, os.path.basename(login_shell), '-l')
+            exec_with_better_error(login_shell, os.path.basename(login_shell), '-l')
     os.environ.pop('KITTY_ORIG_ZDOTDIR', None)  # ensure this is not propagated
 
 
@@ -250,7 +262,7 @@ def exec_fish_with_integration():
     else:
         os.environ['XDG_DATA_DIRS'] = shell_integration_dir + ':' + os.environ['XDG_DATA_DIRS']
     os.environ['KITTY_FISH_XDG_DATA_DIR'] = shell_integration_dir
-    os.execlp(login_shell, os.path.basename(login_shell), '-l')
+    exec_with_better_error(login_shell, os.path.basename(login_shell), '-l')
 
 
 def exec_bash_with_integration():
@@ -259,7 +271,7 @@ def exec_bash_with_integration():
     if not os.environ.get('HISTFILE'):
         os.environ['HISTFILE'] = os.path.join(HOME, '.bash_history')
         os.environ['KITTY_BASH_UNEXPORT_HISTFILE'] = '1'
-    os.execlp(login_shell, os.path.basename('login_shell'), '--posix')
+    exec_with_better_error(login_shell, os.path.basename('login_shell'), '--posix')
 
 
 def exec_with_shell_integration():
@@ -275,8 +287,9 @@ def exec_with_shell_integration():
 def install_kitty_bootstrap():
     kitty_remote = os.environ.pop('KITTY_REMOTE', '')
     kitty_exists = shutil.which('kitty')
+    kitty_dir = os.path.join(data_dir, 'kitty', 'bin')
+    os.environ['SSH_KITTEN_KITTY_DIR'] = kitty_dir
     if kitty_remote == 'yes' or (kitty_remote == 'if-needed' and not kitty_exists):
-        kitty_dir = os.path.join(data_dir, 'kitty', 'bin')
         if kitty_exists:
             os.environ['PATH'] = kitty_dir + os.pathsep + os.environ['PATH']
         else:
@@ -307,12 +320,12 @@ def main():
     if exec_cmd:
         os.environ.pop('KITTY_SHELL_INTEGRATION', None)
         cmd = base64.standard_b64decode(exec_cmd).decode('utf-8')
-        os.execlp(login_shell, os.path.basename(login_shell), '-c', cmd)
+        exec_with_better_error(login_shell, os.path.basename(login_shell), '-c', cmd)
     TEST_SCRIPT  # noqa
     if ksi and 'no-rc' not in ksi:
         exec_with_shell_integration()
     os.environ.pop('KITTY_SHELL_INTEGRATION', None)
-    os.execlp(login_shell, '-' + os.path.basename(login_shell))
+    exec_with_better_error(login_shell, '-' + os.path.basename(login_shell))
 
 
 main()

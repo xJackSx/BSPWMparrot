@@ -1,4 +1,4 @@
-.TH "kitten-ask" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-ask" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-ask \- Ask the user for input
 .SH Usage
@@ -11,7 +11,7 @@ Ask the user for input
 .BI "--type, -t" " [=line]"
 Type of input. Defaults to asking for a line of text.
 
-Choices: line, choices, password, yesno
+Choices: line, choices, file, password, yesno
 .TP
 .BI "--message, -m" 
 The message to display to the user. If not specified a default message is shown.
@@ -37,5 +37,5 @@ The key to be pressed to unhide hidden text
 .BI "--hidden-text-placeholder" 
 The text in the message to be replaced by hidden text. The hidden text is read via STDIN.
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command

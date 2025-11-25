@@ -1,0 +1,18 @@
+.TH "kitten-choose_fonts" "1" "Oct 29, 2024" "0.36.4" "kitten Manual"
+.SH Name
+kitten-choose_fonts \- Choose the fonts used in kitty
+.SH Usage
+.SY "kitten choose_fonts "
+.YS
+.SH Options
+.TP
+.BI "--reload-in" " [=parent]"
+By default, this kitten will signal only the parent kitty instance it is running in to reload its config, after making changes. Use this option to instead either not reload the config at all or in all running kitty instances.
+
+Choices: parent, all, none
+.TP
+.BI "--config-file-name" " [=kitty.conf]"
+The name or path to the config file to edit. Relative paths are interpreted with respect to the kitty config directory. By default the kitty config file, kitty.conf is edited. This is most useful if you add include fonts.conf to your kitty.conf and then have the kitten operate only on fonts.conf, allowing kitty.conf to remain unchanged.
+.TP
+.BI "--help, -h" 
+Show help for this command

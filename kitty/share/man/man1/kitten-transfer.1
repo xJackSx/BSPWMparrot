@@ -1,4 +1,5 @@
-.\" Man page generated from reStructuredText.
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
 .
 .
 .nr rst2man-indent-level 0
@@ -27,7 +28,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "kitten-transfer" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-transfer" 1 "Nov 03, 2025" "0.44.0" "kitty"
 .SH Name
 kitten-transfer \- Transfer files easily over the TTY device
 .SH Overview
@@ -40,18 +41,18 @@ This means that file transfer works over nested SSH sessions, serial links,
 etc. Anywhere you have a terminal device, you can transfer files.
 .sp
 This kitten supports transferring entire directory trees, preserving soft and
-hard links, file permissions, times, etc. It even supports the \X'tty: link https://en.wikipedia.org/wiki/Rsync'\fI\%rsync\fP\X'tty: link' protocol
+hard links, file permissions, times, etc. It even supports the rsync \%<https://\:en\:.wikipedia\:.org/\:wiki/\:Rsync> protocol
 to transfer only changes to large files.
 .sp
-\fBSEE ALSO:\fP
+\fBSee also:\fP
 .INDENT 0.0
 .INDENT 3.5
-See the \fI\%Remote files\fP kitten
+See the Remote files \%<> kitten
 .UNINDENT
 .UNINDENT
 .SH Basic usage
 .sp
-Simply ssh into a remote computer using the \fI\%ssh kitten\fP and run the this kitten
+Simply ssh into a remote computer using the ssh kitten \%<> and run the this kitten
 (which the ssh kitten makes available for you on the remote computer
 automatically). Some illustrative examples are below. To copy a file from a
 remote computer:
@@ -83,13 +84,13 @@ To copy a file from your local computer to the remote computer:
 .sp
 For more detailed usage examples, see the command line interface section below.
 .sp
-\fBNOTE:\fP
+\fBNote:\fP
 .INDENT 0.0
 .INDENT 3.5
 If you dont want to use the ssh kitten, you can install the kitten binary on
 the remote machine yourself, it is a standalone, statically compiled binary
-available from the \X'tty: link https://github.com/kovidgoyal/kitty/releases'\fI\%kitty releases page\fP\X'tty: link'\&. Or you can write your own
-script/program to use the underlying \fI\%file transfer protocol\fP\&.
+available from the kitty releases page \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:releases>\&. Or you can write your own
+script/program to use the underlying file transfer protocol \%<>\&.
 .UNINDENT
 .UNINDENT
 .SH Avoiding the confirmation prompt
@@ -100,13 +101,13 @@ read/write files on your computer without your permission. If the remote machine
 is trusted, then you can disable the confirmation prompt by:
 .INDENT 0.0
 .IP 1. 3
-Setting the \X'tty: link #opt-kitty.file_transfer_confirmation_bypass'\fI\%file_transfer_confirmation_bypass\fP\X'tty: link' option to some password.
+Setting the \fBfile_transfer_confirmation_bypass\fP \%<#\:opt-kitty\:.file_transfer_confirmation_bypass> option to some password.
 .IP 2. 3
-When invoking the kitten use the \fI\%\-\-permissions\-bypass\fP to supply the password you set
+When invoking the kitten use the \fB\-\-permissions\-bypass\fP to supply the password you set
 in step one.
 .UNINDENT
 .sp
-\fBWARNING:\fP
+\fBWarning:\fP
 .INDENT 0.0
 .INDENT 3.5
 Using a password to bypass confirmation means any software running
@@ -116,19 +117,19 @@ gain full access to your computer.
 .UNINDENT
 .SH Delta transfers
 .sp
-This kitten has the ability to use the \X'tty: link https://en.wikipedia.org/wiki/Rsync'\fI\%rsync\fP\X'tty: link' protocol to only transfer the
-differences between files. To turn it on use the \fI\%\-\-transmit\-deltas\fP option. Note that this will
+This kitten has the ability to use the rsync \%<https://\:en\:.wikipedia\:.org/\:wiki/\:Rsync> protocol to only transfer the
+differences between files. To turn it on use the \fB\-\-transmit\-deltas\fP option. Note that this will
 actually be slower when transferring small files or on a very fast network, because
 of round trip overhead, so use with care.
 .SH Source code for transfer
 .sp
-The source code for this kitten is \X'tty: link https://github.com/kovidgoyal/kitty/tree/master/kittens/transfer'\fI\%available on GitHub\fP\X'tty: link'\&.
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:transfer>\&.
 .SH Command line interface
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-kitty +kitten transfer [options] source_files_or_directories destination_path
+kitten transfer [options] source_files_or_directories destination_path
 .EE
 .UNINDENT
 .UNINDENT
@@ -206,7 +207,7 @@ Note that when copying multiple files or directories, the destination
 must be an existing directory on the receiving computer. Relative file
 paths are resolved with respect to the current directory on the computer
 running the kitten and the home directory on the other computer. It is
-a good idea to use the \fI\%\-\-confirm\-paths\fP command line flag to verify
+a good idea to use the \fB\-\-confirm\-paths\fP command line flag to verify
 the kitten will copy the files you expect it to.
 .SS Options
 .INDENT 0.0
@@ -233,16 +234,16 @@ Choices: \fBalways\fP, \fBauto\fP, \fBnever\fP
 .INDENT 0.0
 .TP
 .B \-\-permissions\-bypass <PERMISSIONS_BYPASS>, \-p <PERMISSIONS_BYPASS>
-The password to use to skip the transfer confirmation popup in kitty. Must match the password set for the \X'tty: link #opt-kitty.file_transfer_confirmation_bypass'\fI\%file_transfer_confirmation_bypass\fP\X'tty: link' option in \fBkitty.conf\fP\&. Note that leading and trailing whitespace is removed from the password. A password starting with \fB\&.\fP, \fB/\fP or \fB~\fP characters is assumed to be a file name to read the password from. A value of \fB\-\fP means read the password from STDIN. A password that is purely a number less than 256 is assumed to be the number of a file descriptor from which to read the actual password.
+The password to use to skip the transfer confirmation popup in kitty. Must match the password set for the \fBfile_transfer_confirmation_bypass\fP \%<#\:opt-kitty\:.file_transfer_confirmation_bypass> option in \fBkitty.conf\fP\&. Note that leading and trailing whitespace is removed from the password. A password starting with \fB\&.\fP, \fB/\fP or \fB~\fP characters is assumed to be a file name to read the password from. A value of \fB\-\fP means read the password from STDIN. A password that is purely a number less than 256 is assumed to be the number of a file descriptor from which to read the actual password.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-confirm\-paths, \-c
+.B \-\-confirm\-paths [=no], \-c [=no]
 Before actually transferring files, show a mapping of local file names to remote file names and ask for confirmation.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-transmit\-deltas, \-x
+.B \-\-transmit\-deltas [=no], \-x [=no]
 If a file on the receiving side already exists, use the rsync algorithm to update it to match the file on the sending side, potentially saving lots of bandwidth and also automatically resuming partial transfers. Note that this will actually degrade performance on fast links or with small files, so use with care.
 .UNINDENT
 .SH Author
@@ -250,6 +251,5 @@ If a file on the receiving side already exists, use the rsync algorithm to updat
 Kovid Goyal
 .SH Copyright
 
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+2025, Kovid Goyal
+.\" End of generated man page.

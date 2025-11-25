@@ -1,4 +1,5 @@
-.\" Man page generated from reStructuredText.
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
 .
 .
 .nr rst2man-indent-level 0
@@ -27,13 +28,13 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "kitten-hints" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-hints" 1 "Nov 03, 2025" "0.44.0" "kitty"
 .SH Name
 kitten-hints \- Select text from screen with keyboard
 .SH Overview
 .sp
 \fIkitty\fP has a \fIhints mode\fP to select and act on arbitrary text snippets
-currently visible on the screen.  For example, you can press \X'tty: link #shortcut-kitty.Open-URL'\fI\%ctrl+shift+e\fP\X'tty: link'
+currently visible on the screen.  For example, you can press \fBctrl+shift+e\fP \%<#\:shortcut-kitty\:.Open-URL>
 to choose any URL visible on the screen and then open it using your default web
 browser.
 .INDENT 0.0
@@ -42,12 +43,12 @@ URL hints mode (images not supported)
 .UNINDENT
 .UNINDENT
 .sp
-Similarly, you can press \X'tty: link #shortcut-kitty.Insert-selected-path'\fI\%ctrl+shift+p>f\fP\X'tty: link' to select anything that
+Similarly, you can press \fBctrl+shift+p>f\fP \%<#\:shortcut-kitty\:.Insert-selected-path> to select anything that
 looks like a path or filename and then insert it into the terminal, very useful
 for picking files from the output of a \fBgit\fP or \fBls\fP command
 and adding them to the command line for the next command.
 .sp
-You can also press \X'tty: link #shortcut-kitty.Open-the-selected-file-at-the-selected-line'\fI\%ctrl+shift+p>n\fP\X'tty: link' to select anything that looks like a
+You can also press \fBctrl+shift+p>n\fP \%<#\:shortcut-kitty\:.Open-the-selected-file-at-the-selected-line> to select anything that looks like a
 path or filename followed by a colon and a line number and open the file in
 your default editor at the specified line number (opening at line number will
 work only if your editor supports the +linenum command line syntax or is a
@@ -62,17 +63,17 @@ map ctrl+g kitten hints \-\-type=linenum \-\-linenum\-action=tab nvim +{line} {p
 .UNINDENT
 .UNINDENT
 .sp
-will open the selected file in a new tab inside \X'tty: link https://neovim.io/'\fI\%Neovim\fP\X'tty: link'
-when you press \fBCtrl+G\fP\&.
+will open the selected file in a new tab inside Neovim \%<https://\:neovim\:.io/>
+when you press \fBCtrl\fP+\fBG\fP\&.
 .sp
-Pressing \X'tty: link #shortcut-kitty.Open-the-selected-hyperlink'\fI\%ctrl+shift+p>y\fP\X'tty: link' will open \X'tty: link #term-hyperlinks'\fI\%hyperlinks\fP\X'tty: link', i.e. a URL
+Pressing \fBctrl+shift+p>y\fP \%<#\:shortcut-kitty\:.Open-the-selected-hyperlink> will open hyperlinks \%<#\:term-hyperlinks>, i.e. a URL
 that has been marked as such by the program running in the terminal,
 for example, by \fBls \-\-hyperlink=auto\fP\&. If \fBls\fP comes with your OS
-does not support hyperlink, you may need to install \X'tty: link https://www.gnu.org/software/coreutils/'\fI\%GNU Coreutils\fP\X'tty: link'\&.
+does not support hyperlink, you may need to install GNU Coreutils \%<https://\:www\:.gnu\:.org/\:software/\:coreutils/>\&.
 .sp
-You can also \fI\%customize what actions are taken for different types of URLs\fP\&.
+You can also customize what actions are taken for different types of URLs \%<>\&.
 .sp
-\fBNOTE:\fP
+\fBNote:\fP
 .INDENT 0.0
 .INDENT 3.5
 If there are more hints than letters, hints will use multiple
@@ -89,7 +90,7 @@ select it instead of typing the hint character.
 The hints kitten is very powerful to see more detailed help on its various
 options and modes of operation, see below. You can use these options to
 create mappings in \fBkitty.conf\fP to select various different text
-snippets. See \X'tty: link #shortcut-kitty.Insert-selected-path'\fI\%insert_selected_path\fP\X'tty: link' for examples.
+snippets. See \fBinsert_selected_path\fP \%<#\:shortcut-kitty\:.Insert-selected-path> for examples.
 .SH Completely customizing the matching and actions of the kitten
 .sp
 The hints kitten supports writing simple Python scripts that can be used to
@@ -97,7 +98,7 @@ completely customize how it finds matches and what happens when a match is
 selected. This allows the hints kitten to provide the user interface, while you
 can provide the logic for finding matches and performing actions on them. This
 is best illustrated with an example. Create the file \fBcustom\-hints.py\fP in
-the \X'tty: link #confloc'\fI\%kitty config directory\fP\X'tty: link' with the following contents:
+the kitty config directory \%<#\:confloc> with the following contents:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -149,13 +150,13 @@ When you press the \fBF1\fP key you will be able to select a word to
 look it up in the Google dictionary.
 .SH Source code for hints
 .sp
-The source code for this kitten is \X'tty: link https://github.com/kovidgoyal/kitty/tree/master/kittens/hints'\fI\%available on GitHub\fP\X'tty: link'\&.
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:hints>\&.
 .SH Command line interface
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-kitty +kitten hints [options]
+kitten hints [options]
 .EE
 .UNINDENT
 .UNINDENT
@@ -181,10 +182,10 @@ copy the match to the primary selection (on systems that support primary selecti
 copy the match to the specified buffer, e.g. \fB@a\fP
 .TP
 .B \fBdefault\fP
-run the default open program. Note that when using the hyperlink \fB\-\-type\fP the default is to use the kitty \fI\%hyperlink handling\fP facilities.
+run the default open program. Note that when using the hyperlink \fB\-\-type\fP the default is to use the kitty hyperlink handling \%<> facilities.
 .TP
 .B \fBlaunch\fP
-run \fI\%The launch command\fP to open the program in a new kitty tab, window, overlay, etc. For example:
+run The launch command \%<> to open the program in a new kitty tab, window, overlay, etc. For example:
 .INDENT 7.0
 .INDENT 3.5
 .sp
@@ -200,39 +201,39 @@ Can be specified multiple times to run multiple programs.
 .INDENT 0.0
 .TP
 .B \-\-type <TYPE>
-The type of text to search for. A value of \fBlinenum\fP is special, it looks for error messages using the pattern specified with \fI\%\-\-regex\fP, which must have the named groups: \fBpath\fP and \fBline\fP\&. If not specified, will look for \fBpath:line\fP\&. The \fI\%\-\-linenum\-action\fP option controls where to display the selected error message, other options are ignored.
+The type of text to search for. A value of \fBlinenum\fP is special, it looks for error messages using the pattern specified with \fB\-\-regex\fP, which must have the named groups: \fBpath\fP and \fBline\fP\&. If not specified, will look for \fBpath:line\fP\&. The \fB\-\-linenum\-action\fP option controls where to display the selected error message, other options are ignored.
 Default: \fBurl\fP
 Choices: \fBhash\fP, \fBhyperlink\fP, \fBip\fP, \fBline\fP, \fBlinenum\fP, \fBpath\fP, \fBregex\fP, \fBurl\fP, \fBword\fP
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-regex <REGEX>
-The regular expression to use when option \fI\%\-\-type\fP is set to \fBregex\fP, in Perl 5 syntax. If you specify a numbered group in the regular expression, only the group will be matched. This allow you to match text ignoring a prefix/suffix, as needed. The default expression matches lines. To match text over multiple lines, things get a little tricky, as line endings are a sequence of zero or more null bytes followed by either a carriage return or a newline character. To have a pattern match over line endings you will need to match the character set \fB[\e0\er\en]\fP\&. The newlines and null bytes are automatically stripped from the returned text. If you specify named groups and a \fI\%\-\-program\fP, then the program will be passed arguments corresponding to each named group of the form \fBkey=value\fP\&.
-Default: \fB(?m)^s*(.+)s*$\fP
+The regular expression to use when option \fB\-\-type\fP is set to \fBregex\fP, in Perl 5 syntax. If you specify a numbered group in the regular expression, only the group will be matched. This allows you to match text ignoring a prefix/suffix, as needed. The default expression matches lines. To match text over multiple lines, things get a little tricky, as line endings are a sequence of zero or more null bytes followed by either a carriage return or a newline character. To have a pattern match over line endings you will need to match the character set \fB[\e0\er\en]\fP\&. The newlines and null bytes are automatically stripped from the returned text. If you specify named groups and a \fB\-\-program\fP, then the program will be passed arguments corresponding to each named group of the form \fBkey=value\fP\&.
+Default: \fB(?m)^\es*(.+?)\es*$\fP
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-linenum\-action <LINENUM_ACTION>
-Where to perform the action on matched errors. \fBself\fP means the current window, \fBwindow\fP a new kitty window, \fBtab\fP a new tab, \fBos_window\fP a new OS window and \fBbackground\fP run in the background. The actual action is whatever arguments are provided to the kitten, for example: \fBkitten hints \-\-type=linenum \-\-linenum\-action=tab vim +{line} {path}\fP will open the matched path at the matched line number in vim in a new kitty tab. Note that in order to use \fI\%\-\-program\fP to copy or paste the provided arguments, you need to use the special value \fBself\fP\&.
+Where to perform the action on matched errors. \fBself\fP means the current window, \fBwindow\fP a new kitty window, \fBtab\fP a new tab, \fBos_window\fP a new OS window and \fBbackground\fP run in the background. \fBremote\-control\fP is like background but the program can use kitty remote control without needing to turn on remote control globally. The actual action is whatever arguments are provided to the kitten, for example: \fBkitten hints \-\-type=linenum \-\-linenum\-action=tab vim +{line} {path}\fP will open the matched path at the matched line number in vim in a new kitty tab. Note that in order to use \fB\-\-program\fP to copy or paste the provided arguments, you need to use the special value \fBself\fP\&.
 Default: \fBself\fP
-Choices: \fBbackground\fP, \fBos_window\fP, \fBself\fP, \fBtab\fP, \fBwindow\fP
+Choices: \fBbackground\fP, \fBos_window\fP, \fBremote\-control\fP, \fBself\fP, \fBtab\fP, \fBwindow\fP
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-url\-prefixes <URL_PREFIXES>
-Comma separated list of recognized URL prefixes. Defaults to the list of prefixes defined by the \X'tty: link #opt-kitty.url_prefixes'\fI\%url_prefixes\fP\X'tty: link' option in \fBkitty.conf\fP\&.
+Comma separated list of recognized URL prefixes. Defaults to the list of prefixes defined by the \fBurl_prefixes\fP \%<#\:opt-kitty\:.url_prefixes> option in \fBkitty.conf\fP\&.
 Default: \fBdefault\fP
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-url\-excluded\-characters <URL_EXCLUDED_CHARACTERS>
-Characters to exclude when matching URLs. Defaults to the list of characters defined by the \X'tty: link #opt-kitty.url_excluded_characters'\fI\%url_excluded_characters\fP\X'tty: link' option in \fBkitty.conf\fP\&. The syntax for this option is the same as for \X'tty: link #opt-kitty.url_excluded_characters'\fI\%url_excluded_characters\fP\X'tty: link'\&.
+Characters to exclude when matching URLs. Defaults to the list of characters defined by the \fBurl_excluded_characters\fP \%<#\:opt-kitty\:.url_excluded_characters> option in \fBkitty.conf\fP\&. The syntax for this option is the same as for \fBurl_excluded_characters\fP \%<#\:opt-kitty\:.url_excluded_characters>\&.
 Default: \fBdefault\fP
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-word\-characters <WORD_CHARACTERS>
-Characters to consider as part of a word. In addition, all characters marked as alphanumeric in the Unicode database will be considered as word characters. Defaults to the \X'tty: link #opt-kitty.select_by_word_characters'\fI\%select_by_word_characters\fP\X'tty: link' option from \fBkitty.conf\fP\&.
+Characters to consider as part of a word. In addition, all characters marked as alphanumeric in the Unicode database will be considered as word characters. Defaults to the \fBselect_by_word_characters\fP \%<#\:opt-kitty\:.select_by_word_characters> option from \fBkitty.conf\fP\&.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -242,7 +243,7 @@ Default: \fB3\fP
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-multiple
+.B \-\-multiple [=no]
 Select multiple matches and perform the action on all of them together at the end. In this mode, press \fBEsc\fP to finish selecting.
 .UNINDENT
 .INDENT 0.0
@@ -254,7 +255,7 @@ Default: \fBauto\fP
 .INDENT 0.0
 .TP
 .B \-\-add\-trailing\-space <ADD_TRAILING_SPACE>
-Add trailing space after matched text. Defaults to \fBauto\fP, which adds the space when used together with \fI\%\-\-multiple\fP\&.
+Add trailing space after matched text. Defaults to \fBauto\fP, which adds the space when used together with \fB\-\-multiple\fP\&.
 Default: \fBauto\fP
 Choices: \fBalways\fP, \fBauto\fP, \fBnever\fP
 .UNINDENT
@@ -267,11 +268,11 @@ Default: \fB1\fP
 .INDENT 0.0
 .TP
 .B \-\-alphabet <ALPHABET>
-The list of characters to use for hints. The default is to use numbers and lowercase English alphabets. Specify your preference as a string of characters. Note that you need to specify the \fI\%\-\-hints\-offset\fP as zero to use the first character to highlight the first match, otherwise it will start with the second character by default.
+The list of characters to use for hints. The default is to use numbers and lowercase English alphabets. Specify your preference as a string of characters. Note that you need to specify the \fB\-\-hints\-offset\fP as zero to use the first character to highlight the first match, otherwise it will start with the second character by default.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-ascending
+.B \-\-ascending [=no]
 Make the hints increase from top to bottom, instead of decreasing from top to bottom.
 .UNINDENT
 .INDENT 0.0
@@ -289,13 +290,13 @@ Default: \fBgreen\fP
 .INDENT 0.0
 .TP
 .B \-\-hints\-text\-color <HINTS_TEXT_COLOR>
-The foreground color for text pointed to by the hints. You can use color names or hex values. For the eight basic named terminal colors you can also use the \fBbright\-\fP prefix to get the bright variant of the color.
-Default: \fBbright\-gray\fP
+The foreground color for text pointed to by the hints. You can use color names or hex values. For the eight basic named terminal colors you can also use the \fBbright\-\fP prefix to get the bright variant of the color. The default is to pick a suitable color automatically.
+Default: \fBauto\fP
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-customize\-processing <CUSTOMIZE_PROCESSING>
-Name of a python file in the kitty config directory which will be imported to provide custom implementations for pattern finding and performing actions on selected matches. You can also specify absolute paths to load the script from elsewhere. See \X'tty: link https://sw.kovidgoyal.net/kitty/kittens/hints/'\fI\%https://sw.kovidgoyal.net/kitty/kittens/hints/\fP\X'tty: link' for details.
+Name of a python file in the kitty config directory which will be imported to provide custom implementations for pattern finding and performing actions on selected matches. You can also specify absolute paths to load the script from elsewhere. See \%<https://\:sw\:.kovidgoyal\:.net/\:kitty/\:kittens/\:hints/> for details.
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -303,11 +304,11 @@ Name of a python file in the kitty config directory which will be imported to pr
 The title for the hints window, default title is based on the type of text being hinted.
 .UNINDENT
 .sp
-\fBNOTE:\fP
+\fBNote:\fP
 .INDENT 0.0
 .INDENT 3.5
 To avoid having to specify the same command line options on every
-invocation, you can use the \X'tty: link #opt-kitty.action_alias'\fI\%action_alias\fP\X'tty: link' option in
+invocation, you can use the \fBaction_alias\fP \%<#\:opt-kitty\:.action_alias> option in
 \fBkitty.conf\fP, creating aliases that have common sets of options.
 For example:
 .INDENT 0.0
@@ -326,6 +327,5 @@ map f1 myhints \-\-customize\-processing custom\-hints.py
 Kovid Goyal
 .SH Copyright
 
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+2025, Kovid Goyal
+.\" End of generated man page.

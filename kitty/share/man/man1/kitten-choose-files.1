@@ -1,0 +1,613 @@
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "kitten-choose-files" 1 "Nov 03, 2025" "0.44.0" "kitty"
+.SH Name
+kitten-choose-files \- Choose files, fast
+.SH Overview
+.sp
+Added in version 0.43.0.
+
+.sp
+The choose\-files kitten is designed to allow you to select files, very fast,
+with just a few key strokes. It operates like fzf \%<https://\:github\:.com/\:junegunn/\:fzf/> and similar fuzzy finders, except that
+it is specialised for finding files. As such it supports features such as
+filtering by file type, file type icons, content previews and
+so on, out of the box. It can be used as a drop in (but much more efficient and
+keyboard friendly) replacement for the File open and save
+dialog boxes common to GUI programs. On Linux, with the help of the
+desktop\-ui \%<> kitten, you can even convince
+most GUI programs on your computer to use this kitten instead of regular file
+dialogs.
+.sp
+Simply run it as:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten choose\-files
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+to select a single file from the tree rooted at the current working directory.
+Type a few letters from the filename and once it becomes the top selection,
+press \fBEnter\fP\&. You can change the current directory by instead selecting a
+directory and pressing the \fBTab\fP key. \fBShift\fP+\fBTab\fP goes up one
+directory level.
+.SH Creating shortcuts to favorite/frequently used directories
+.sp
+You can create keyboard shortcuts to quickly switch to any directory in
+\fBchoose\-files.conf\fP\&. For example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map ctrl+t cd /tmp
+map alt+p  cd ~/my/project
+.EE
+.UNINDENT
+.UNINDENT
+.SH Selecting multiple files
+.sp
+When you wish to select multiple files, start the kitten with \fB\-\-mode\fP\fB=files\fP\&. Then instead of pressing
+\fBEnter\fP, press \fBShift\fP+\fBEnter\fP instead and the file will be added to the list
+of selections. You can also hold the \fBCtrl\fP key and click on files to add
+them to the selections. Similarly, you can hold the \fBAlt\fP key and click to
+select ranges of files (similar to using \fBShift\fP+\fBclick\fP in a GUI app).
+Press \fBEnter\fP on the last selected file to finish. The list of selected
+files is displayed at the bottom of the kitten and you can click on them
+to deselect a file. Similarly, pressing \fBShift\fP+\fBEnter\fP will un\-select a
+previously selected file.
+.SH Hidden and ignored files
+.sp
+By default, the kitten does not process hidden files and directories (whose
+names start with a period). This can be \fBchanged in the configuration\fP
+and also at runtime via the clickable link to the right of the search input.
+.sp
+Similarly, the kitten respects both \fB\&.gitignore\fP and \fB\&.ignore\fP
+files, by default. This can also be changed both \fBin configuration\fP or at runtime. Note that
+\fB\&.gitignore\fP files are only respected if there is also a \fB\&.git\fP
+directory present. The kitten also supports the global \fB\&.gitignore\fP file,
+though it applies only inside git working trees. You can specify \fBglobal ignore
+patterns\fP, that apply everywhere in \fBchoose\-files.conf\fP\&.
+.SH Selecting non-existent files (save file names)
+.sp
+This kitten can also be used to select non\-existent files, that is a new file
+for a Save file type of dialog using \fB\-\-mode\fP\fB=save\-file\fP\&. Once you have changed to the directory
+you want the file to be in (using the \fBTab\fP key),
+press \fBCtrl\fP+\fBEnter\fP and you will be able to type in the file name.
+.SH Selecting directories
+.sp
+This kitten can also be used to select directories,
+for an Open directory type of dialog using \fB\-\-mode\fP\fB=dir\fP\&. Once you have changed to the directory
+you want, press \fBCtrl\fP+\fBEnter\fP to accept it. Or if you are in a parent
+directory you can select a descendant directory by pressing \fBEnter\fP, the
+same as you would for selecting a file to open.
+.SH Configuration
+.sp
+You can configure various aspects of the kitten\(aqs operation by creating a
+\fBchoose\-files.conf\fP in your kitty config folder \%<#\:confloc>\&.
+See below for the supported configuration directives.
+.SH Filesystem scanning
+.INDENT 0.0
+.TP
+.B show_hidden
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+show_hidden last
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Whether to show hidden files. The default value of \fBlast\fP means remember the last
+used value. This setting can be toggled withing the program.
+.INDENT 0.0
+.TP
+.B sort_by_last_modified
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+sort_by_last_modified last
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Whether to sort the list of entries by last modified, instead of name. Note that sorting only applies
+before any query is entered. Once a query is entered entries are sorted by their matching score.
+The default value of \fBlast\fP means remember the last
+used value. This setting can be toggled withing the program.
+.INDENT 0.0
+.TP
+.B respect_ignores
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+respect_ignores last
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Whether to respect .gitignore and .ignore files and the \fBignore\fP setting.
+The default value of \fBlast\fP means remember the last used value.
+This setting can be toggled withing the program.
+.INDENT 0.0
+.TP
+.B ignore
+.UNINDENT
+.sp
+An ignore pattern to ignore matched files. Uses the same sytax as \fB\&.gitignore\fP files (see \fBman gitignore\fP).
+Anchored patterns match with respect to whatever directory is currently being displayed.
+Can be specified multiple times to use multiple patterns. Note that every pattern
+has to be checked against every file, so use sparingly.
+.SH Appearance
+.INDENT 0.0
+.TP
+.B show_preview
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+show_preview last
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Whether to show a preview of the current file/directory. The default value of \fBlast\fP means remember the last
+used value. This setting can be toggled withing the program.
+.INDENT 0.0
+.TP
+.B pygments_style
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+pygments_style default
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+The pygments color scheme to use for syntax highlighting of file previews. See pygments builtin styles \%<https://\:pygments\:.org/\:styles/> for a list of schemes.
+This sets the colors used for light color schemes, use \fBdark_pygments_style\fP to change the
+colors for dark color schemes.
+.INDENT 0.0
+.TP
+.B dark_pygments_style
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+dark_pygments_style github\-dark
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+The pygments color scheme to use for syntax highlighting with dark colors. See pygments builtin styles \%<https://\:pygments\:.org/\:styles/> for a list of schemes.
+This sets the colors used for dark color schemes, use \fBpygments_style\fP to change the
+colors for light color schemes.
+.INDENT 0.0
+.TP
+.B cache_size
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+cache_size 0.5
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+The maximum size of the disk cache, in gigabytes, used for previews. Zero or negative values
+mean no limit.
+.INDENT 0.0
+.TP
+.B syntax_aliases
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+syntax_aliases pyj:py pyi:py recipe:py
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+File extension aliases for syntax highlight. For example, to syntax highlight
+\fBfile.xyz\fP as \fBfile.abc\fP use a setting of \fBxyz:abc\fP\&.
+Multiple aliases must be separated by spaces.
+.SH Keyboard shortcuts
+.INDENT 0.0
+.TP
+.B Quit
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map esc quit
+map ctrl+c quit
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Accept current result
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map enter accept
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Select current result
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map shift+enter select
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+When selecting multiple files, this will add the current file to the list of selected files.
+You can also toggle the selected status of a file by holding down the \fBCtrl\fP key and clicking on
+it. Similarly, the \fBAlt\fP key can be held to click and extend the range of selected files.
+.INDENT 0.0
+.TP
+.B Type file name
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map ctrl+enter typename
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Type a file name/path rather than filtering the list of existing files.
+Useful when specifying a file or directory name for saving that does not yet exist.
+When choosing existing directories, will accept the directory whoose
+contents are being currently displayed as the choice.
+Does not work when selecting files to open rather than to save.
+.INDENT 0.0
+.TP
+.B Next result
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map down next 1
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Previous result
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map up next \-1
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Left result
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map left next left
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Right result
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map right next right
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B First result on screen
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map home next first_on_screen
+map ctrl+home next first
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Last result on screen
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map end next last_on_screen
+map ctrl+end next last
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Change to currently selected dir
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map tab cd .
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Change to parent directory
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map shift+tab cd ..
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Change to root directory
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map ctrl+/ cd /
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Change to home directory
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map ctrl+~ cd ~
+map ctrl+\(ga cd ~
+map ctrl+shift+\(ga cd ~
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Change to temp directory
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map ctrl+t cd /tmp
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Next filter
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map ctrl+f 1
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Previous filter
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map alt+f \-1
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Toggle showing dotfiles
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map alt+h toggle dotfiles
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Toggle showing ignored files
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map alt+i toggle ignorefiles
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Toggle sorting by dates
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map alt+d toggle sort_by_dates
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Toggle showing preview
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map alt+p toggle preview
+.EE
+.UNINDENT
+.UNINDENT
+.SH Source code for choose_files
+.sp
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:choose_files>\&.
+.SH Command line interface
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten choose_files [options] [directory to start choosing files in]
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Select one or more files, quickly, using fuzzy finding, by typing just a few characters from
+the file name. Browse matching files, using the arrow keys to navigate matches and press \fBEnter\fP
+to select. The \fBTab\fP key can be used to change to a sub\-folder. See the online docs \%<>
+for full details.
+.SS Options
+.INDENT 0.0
+.TP
+.B \-\-mode <MODE>
+The type of object(s) to select
+Default: \fBfile\fP
+Choices: \fBdir\fP, \fBdirs\fP, \fBfile\fP, \fBfiles\fP, \fBsave\-dir\fP, \fBsave\-file\fP, \fBsave\-files\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-file\-filter <FILE_FILTER>
+A list of filters to restrict the displayed files. Can be either mimetypes, or glob style patterns. Can be specified multiple times. The syntax is \fBtype:expression:Descriptive Name\fP\&. For example: \fBmime:image/png:Images\fP and \fBmime:image/gif:Images\fP and \fBglob:*.[tT][xX][Tt]:Text files\fP\&. Note that glob patterns are case\-sensitive. The mimetype specification is treated as a glob expressions as well, so you can, for example, use \fBmime:text/*\fP to match all text files. The first filter in the list will be applied by default. Use a filter such as \fBglob:*:All\fP to match all files. Note that filtering only appies to files, not directories.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-suggested\-save\-file\-name <SUGGESTED_SAVE_FILE_NAME>
+A suggested name when picking a save file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-suggested\-save\-file\-path <SUGGESTED_SAVE_FILE_PATH>
+Path to an existing file to use as the save file.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-title <TITLE>
+Window title to use for this chooser
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-display\-title [=no]
+Show the window title at the top, useful when this kitten is used in an OS window without a title bar.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-override <OVERRIDE>, \-o <OVERRIDE>
+Override individual configuration options, can be specified multiple times. Syntax: name=value\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-config <CONFIG>
+Specify a path to the configuration file(s) to use. All configuration files are merged onto the builtin \fBchoose\-files.conf\fP, overriding the builtin values. This option can be specified multiple times to read multiple configuration files in sequence, which are merged. Use the special value \fBNONE\fP to not load any config file.
+.sp
+If this option is not specified, config files are searched for in the order: \fB$XDG_CONFIG_HOME/kitty/choose\-files.conf\fP, \fB~/.config/kitty/choose\-files.conf\fP, \fB$XDG_CONFIG_DIRS/kitty/choose\-files.conf\fP\&. The first one that exists is used as the config file.
+.sp
+If the environment variable \fBKITTY_CONFIG_DIRECTORY\fP \%<#\:envvar-KITTY_CONFIG_DIRECTORY> is specified, that directory is always used and the above searching does not happen.
+.sp
+If \fB/etc/xdg/kitty/choose\-files.conf\fP exists, it is merged before (i.e. with lower priority) than any user config files. It can be used to specify system\-wide defaults for all users. You can use either \fB\-\fP or \fB/dev/stdin\fP to read the config from STDIN.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-write\-output\-to <WRITE_OUTPUT_TO>
+Path to a file to which the output is written in addition to STDOUT.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-output\-format <OUTPUT_FORMAT>
+The format in which to write the output.
+Default: \fBtext\fP
+Choices: \fBjson\fP, \fBtext\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-write\-pid\-to <WRITE_PID_TO>
+Path to a file to which to write the process ID (PID) of this process to.
+.UNINDENT
+.SH Author
+
+Kovid Goyal
+.SH Copyright
+
+2025, Kovid Goyal
+.\" End of generated man page.

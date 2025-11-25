@@ -1,4 +1,5 @@
-.\" Man page generated from reStructuredText.
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
 .
 .
 .nr rst2man-indent-level 0
@@ -27,13 +28,13 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "kitten-themes" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-themes" 1 "Nov 03, 2025" "0.44.0" "kitty"
 .SH Name
 kitten-themes \- Manage kitty color schemes easily
 .SH Overview
 .sp
 The themes kitten allows you to easily change color themes, from a collection of
-over three hundred pre\-built themes available at \X'tty: link https://github.com/kovidgoyal/kitty-themes'\fI\%kitty\-themes\fP\X'tty: link'\&. To use it, simply run:
+over three hundred pre\-built themes available at kitty\-themes \%<https://\:github\:.com/\:kovidgoyal/\:kitty-themes>\&. To use it, simply run:
 .INDENT 0.0
 .INDENT 3.5
 .sp
@@ -63,10 +64,56 @@ to \fB~/.config/kitty/current\-theme.conf\fP and adds an include for
 existing color settings in \fBkitty.conf\fP so they do not interfere.
 .sp
 Once that\(aqs done, the kitten sends kitty a signal to make it reload its config.
+.sp
+\fBNote:\fP
+.INDENT 0.0
+.INDENT 3.5
+If you want to have some color settings in your \fBkitty.conf\fP that the
+theme kitten does not override, move them into a separate conf file and
+\fBinclude\fP it into kitty.conf. The include should be placed after the
+inclusion of \fBcurrent\-theme.conf\fP so that the settings in it override
+conflicting settings from \fBcurrent\-theme.conf\fP\&.
+.UNINDENT
+.UNINDENT
+.SH Change color themes automatically when the os switches between light and dark
+.sp
+Added in version 0.38.0.
+
+.sp
+You can have kitty automatically change its color theme when the OS switches
+between dark, light and no\-preference modes. In order to do this, run the theme
+kitten as normal and at the final screen select the option to save your chosen
+theme as either light, dark, or no\-preference. Repeat until you have chosen
+a theme for each of the three modes. Then, once you restart kitty, it will
+automatically use your chosen themes depending on the OS color scheme.
+.sp
+This works by creating three files: \fBdark\-theme.auto.conf\fP,
+\fBlight\-theme.auto.conf\fP and \fBno\-preference\-theme.auto.conf\fP in the
+kitty config directory. When these files exist, kitty queries the OS for its color scheme
+and uses the appropriate file. Note that the colors in these files override all other
+colors, and also all background image settings,
+even those specified using the \fBkitty \-\-override\fP \%<#\:cmdoption-kitty-override> command line flag.
+kitty will also automatically change colors when the OS color scheme changes,
+for example, during night/day transitions.
+.sp
+When using these colors, you can still dynamically change colors, but the next
+time the OS changes its color mode, any dynamic changes will be overridden.
+.sp
+\fBNote:\fP
+.INDENT 0.0
+.INDENT 3.5
+On the GNOME desktop, the desktop reports the color preference as no\-preference
+when the \(dqDark style\(dq is not enabled. So use \fBno\-preference\-theme.auto.conf\fP to
+select colors for light mode on GNOME. You can manually enable light style
+with \fBgsettings set org.gnome.desktop.interface color\-scheme prefer\-light\fP
+in which case GNOME will report the color scheme as light and kitty will use
+\fBlight\-theme.auto.conf\fP\&.
+.UNINDENT
+.UNINDENT
 .SH Using your own themes
 .sp
 You can also create your own themes as \fB\&.conf\fP files. Put them in the
-\fBthemes\fP sub\-directory of the \X'tty: link #confloc'\fI\%kitty config directory\fP\X'tty: link',
+\fBthemes\fP sub\-directory of the kitty config directory \%<#\:confloc>,
 usually, \fB~/.config/kitty/themes\fP\&. The kitten will automatically add them
 to the list of themes. You can use this to modify the builtin themes, by giving
 the conf file the name \fBSome theme name.conf\fP to override the builtin
@@ -76,12 +123,12 @@ choose that theme once for your changes to be applied.
 .SH Contributing new themes
 .sp
 If you wish to contribute a new theme to the kitty theme repository, start by
-going to the \X'tty: link https://github.com/kovidgoyal/kitty-themes'\fI\%kitty\-themes\fP\X'tty: link'
-repository. \X'tty: link https://docs.github.com/en/get-started/quickstart/fork-a-repo'\fI\%Fork it\fP\X'tty: link', and use the
+going to the kitty\-themes \%<https://\:github\:.com/\:kovidgoyal/\:kitty-themes>
+repository. Fork it \%<https://\:docs\:.github\:.com/\:en/\:get-started/\:quickstart/\:fork-a-repo>, and use the
 file \fBtemplate.conf\fP as a
 template when creating your theme. Once you are satisfied with how it looks,
-\X'tty: link https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request'\fI\%submit a pull request\fP\X'tty: link'
-to have your theme merged into the \X'tty: link https://github.com/kovidgoyal/kitty-themes'\fI\%kitty\-themes\fP\X'tty: link' repository, which will make it
+submit a pull request \%<https://\:docs\:.github\:.com/\:en/\:pull-requests/\:collaborating-with-pull-requests/\:proposing-changes-to-your-work-with-pull-requests/\:creating-a-pull-request>
+to have your theme merged into the kitty\-themes \%<https://\:github\:.com/\:kovidgoyal/\:kitty-themes> repository, which will make it
 available in this kitten automatically.
 .SH Changing the theme non-interactively
 .sp
@@ -100,13 +147,13 @@ Will change the theme to \fBDimmed Monokai\fP in all running kitty instances. Se
 below for more details on non\-interactive operation.
 .SH Source code for themes
 .sp
-The source code for this kitten is \X'tty: link https://github.com/kovidgoyal/kitty/tree/master/kittens/themes'\fI\%available on GitHub\fP\X'tty: link'\&.
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:themes>\&.
 .SH Command line interface
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-kitty +kitten themes [options] [theme name to switch to]
+kitten themes [options] [theme name to switch to]
 .EE
 .UNINDENT
 .UNINDENT
@@ -128,7 +175,7 @@ Choices: \fBall\fP, \fBnone\fP, \fBparent\fP
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-dump\-theme
+.B \-\-dump\-theme [=no]
 When running non\-interactively, dump the specified theme to STDOUT instead of changing kitty.conf.
 Default: \fBfalse\fP
 .UNINDENT
@@ -143,6 +190,5 @@ Default: \fBkitty.conf\fP
 Kovid Goyal
 .SH Copyright
 
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+2025, Kovid Goyal
+.\" End of generated man page.

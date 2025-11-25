@@ -1,0 +1,192 @@
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "kitten-notify" 1 "Nov 03, 2025" "0.44.0" "kitty"
+.SH Name
+kitten-notify \- Send notifications to the user
+.SH Overview
+.sp
+Show pop\-up system notifications.
+.sp
+Added in version 0.36.0: The notify kitten
+
+.sp
+The \fBnotify\fP kitten can be used to show pop\-up system notifications
+from the shell. It even works over SSH. Using it is as simple as:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten notify \(dqGood morning\(dq Hello world, it is a nice day!
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+To add an icon, use:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten notify \-\-icon\-path /path/to/some/image.png \(dqGood morning\(dq Hello world, it is a nice day!
+kitten notify \-\-icon firefox \(dqGood morning\(dq Hello world, it is a nice day!
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+To be informed when the notification is activated:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten notify \-\-wait\-for\-completion \(dqGood morning\(dq Hello world, it is a nice day!
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Then, the kitten will wait till the notification is either closed or activated.
+If activated, a \fB0\fP is printed to \fBSTDOUT\fP\&. You can press the
+\fBEsc\fP or \fBCtrl\fP+\fBc\fP keys to abort, closing the notification.
+.sp
+To add buttons to the notification:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten notify \-\-wait\-for\-completion \-\-button One \-\-button Two \(dqGood morning\(dq Hello world, it is a nice day!
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+\fBTip:\fP
+.INDENT 0.0
+.INDENT 3.5
+Learn about the underlying Desktop notifications \%<> escape code protocol.
+.UNINDENT
+.UNINDENT
+.SH Source code for notify
+.sp
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:notify>\&.
+.SH Command line interface
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten notify [options] TITLE [BODY ...]
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Send notifications to the user that are displayed to them via the
+desktop environment\(aqs notifications service. Works over SSH as well.
+.sp
+To update an existing notification, specify the identifier of the notification
+with the \-\-identifier option. The value should be the same as the identifier specified for
+the notification you wish to update.
+.sp
+If no title is specified and an identifier is specified using the \-\-identifier
+option, then instead of creating a new notification, an existing notification
+with the specified identifier is closed.
+.SS Options
+.INDENT 0.0
+.TP
+.B \-\-icon <ICON>, \-n <ICON>
+The name of the icon to use for the notification. An icon with this name will be searched for on the computer running the terminal emulator. Can be specified multiple times, the first name that is found will be used. Standard names: error, file\-manager, help, info, question, system\-monitor, text\-editor, warn, warning
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-icon\-path <ICON_PATH>, \-p <ICON_PATH>
+Path to an image file in PNG/JPEG/GIF formats to use as the icon. If both name and path are specified then first the name will be looked for and if not found then the path will be used.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-app\-name <APP_NAME>, \-a <APP_NAME>
+The application name for the notification.
+Default: \fBkitten\-notify\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-button <BUTTON>, \-b <BUTTON>
+Add a button with the specified text to the notification. Can be specified multiple times for multiple buttons. If \-\-wait\-till\-closed is used then the kitten will print the button number to STDOUT if the user clicks a button. 1 for the first button, 2 for the second button and so on.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-urgency <URGENCY>, \-u <URGENCY>
+The urgency of the notification.
+Default: \fBnormal\fP
+Choices: \fBcritical\fP, \fBlow\fP, \fBnormal\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-expire\-after <EXPIRE_AFTER>, \-e <EXPIRE_AFTER>
+The duration, for the notification to appear on screen. The default is to use the policy of the OS notification service. A value of \fBnever\fP means the notification should never expire, however, this may or may not work depending on the policies of the OS notification service. Time is specified in the form NUMBER[SUFFIX] where SUFFIX can be \fBs\fP for seconds, \fBm\fP for minutes, \fBh\fP for hours or \fBd\fP for days. Non\-integer numbers are allowed. If not specified, seconds is assumed. The notification is guaranteed to be closed automatically after the specified time has elapsed. The notification could be closed before by user action or OS policy.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-sound\-name <SOUND_NAME>, \-s <SOUND_NAME>
+The name of the sound to play with the notification. \fBsystem\fP means let the notification system use whatever sound it wants. \fBsilent\fP means prevent any sound from being played. Any other value is passed to the desktop\(aqs notification system which may or may not honor it.
+Default: \fBsystem\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-type <TYPE>, \-t <TYPE>
+The notification type. Can be any string, it is used by users to create filter rules for notifications, so choose something descriptive of the notification\(aqs purpose.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-identifier <IDENTIFIER>, \-i <IDENTIFIER>
+The identifier of this notification. If a notification with the same identifier is already displayed, it is replaced/updated.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-print\-identifier [=no], \-P [=no]
+Print the identifier for the notification to STDOUT. Useful when not specifying your own identifier via the \-\-identifier option.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-wait\-for\-completion [=no], \-\-wait\-till\-closed [=no], \-w [=no]
+Wait until the notification is closed. If the user activates the notification, \(dq0\(dq is printed to STDOUT before quitting. If a button on the notification is pressed the number corresponding to the button is printed to STDOUT. Press the Esc or Ctrl+C keys to close the notification manually.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-only\-print\-escape\-code [=no]
+Only print the escape code to STDOUT. Useful if using this kitten as part of a larger application. If this is specified, the \-\-wait\-till\-closed option will be used for escape code generation, but no actual waiting will be done.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-icon\-cache\-id <ICON_CACHE_ID>, \-g <ICON_CACHE_ID>
+Identifier to use when caching icons in the terminal emulator. Using an identifier means that icon data needs to be transmitted only once using \-\-icon\-path. Subsequent invocations will use the cached icon data, at least until the terminal instance is restarted. This is useful if this kitten is being used inside a larger application, with \-\-only\-print\-escape\-code.
+.UNINDENT
+.SH Author
+
+Kovid Goyal
+.SH Copyright
+
+2025, Kovid Goyal
+.\" End of generated man page.

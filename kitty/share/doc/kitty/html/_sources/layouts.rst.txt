@@ -179,16 +179,24 @@ define a few extra key bindings in :file:`kitty.conf`::
     map ctrl+up neighboring_window up
     map ctrl+down neighboring_window down
 
+    # Set the bias of the split containing the currently focused window. The
+    # currently focused window will take up the specified percent of its parent
+    # window's size.
+    map ctrl+. layout_action bias 80
+
+
 Windows can be resized using :ref:`window_resizing`. You can swap the windows
 in a split using the ``rotate`` action with an argument of ``180`` and rotate
 and swap with an argument of ``270``.
 
 This layout takes one option, ``split_axis`` that controls whether new windows
-are placed into vertical or horizontal splits when a :option:`--location <launch
---location>` is not specified. A value of ``horizontal`` (same as
-``--location=vsplit``) means when a new split is created the two windows will be
-placed side by side and a value of ``vertical`` (same as ``--location=hsplit``)
-means the two windows will be placed one on top of the other. By default::
+are placed into vertical or horizontal splits when a :option:`--location
+<launch --location>` is not specified. A value of ``horizontal`` (same as
+``--location=vsplit``) means when a new split is created the two windows will
+be placed side by side and a value of ``vertical`` (same as
+``--location=hsplit``) means the two windows will be placed one on top of the
+other. A value of ``auto`` means the axis of the split is chosen automatically
+(same as ``--location=split``). By default::
 
     enabled_layouts splits:split_axis=horizontal
 

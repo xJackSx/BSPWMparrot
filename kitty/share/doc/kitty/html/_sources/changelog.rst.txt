@@ -9,6 +9,90 @@ To update |kitty|, :doc:`follow the instructions <binary>`.
 Recent major new features
 ---------------------------
 
+Sessions [0.43]
+~~~~~~~~~~~~~~~~
+
+kitty has long had support for :doc:`sessions`, aka simple text files where you
+can define what tabs, windows and programs you wish to run in kitty. Now in
+addition to that kitty has the ability to :ref:`create and switch between
+sessions <goto_session>` with a single keypress and also to manually setup some
+tabs/windows in kitty and :ref:`save it as a session file <complex_sessions>`,
+for seamless and intuitive session file creation.
+
+A scrollbar for the kitty scrollback [0.43]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A long requested feature, kitty has finally :pull:`gotten a scrollbar <8945>`
+that can be used with the mouse for browsing its scrollback. The bar appear
+automatically when you start scrolling backwards and is :opt:`extensively
+configurable <scrollbar>` in kitty.conf. Note that the old ``scrollback_indicator_opacity``
+option is deprecated.
+
+Multiple cursors [0.43]
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+kitty has pioneered a new :doc:`escape code protocol
+<multiple-cursors-protocol>` that allows terminal applications to use multiple
+cursors, rendered natively. These are typically used in editors to make the
+same edit at multiple locations. Now terminal based editors can use properly
+rendered native cursors, just like their GUI cousins, at last.
+
+Access kitty with a single keypress [0.42]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. include:: quake-screenshots.rst
+
+kitty now has a Quake like floating, translucent terminal window, so you can access
+all that kitty goodness instantly with a single keypress.
+
+See the screenshots on the side and head over to the :doc:`kitten page for details
+on how to set it up </kittens/quick-access-terminal>`.
+
+
+Multiple sized text [0.40]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+kitty is the first major terminal to introduce the concept of multiple sized
+text. Terminal programs running in kitty can now opt-in to use and display text
+in multiple font sizes both larger and smaller than the base font size. This is
+done in a backwards compatible, opt-in way that does not affect how traditional
+terminal programs work at all. For details on the new feature and how to use
+it, see :doc:`text-sizing-protocol`.
+
+Cursor trails [0.37]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Show an animated trail when the text cursor makes large jumps making it easy
+to follow cursor movements. Inspired by the similar feature in neovide, but
+works with terminal multiplexers and kitty windows as well. See :pull:`the pull
+request <7970>` for a demonstration video. This feature is optional and must be
+turned on by the :opt:`cursor_trail` option in :file:`kitty.conf`.
+
+
+Variable font support [0.36]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Terminal aficionados spend all day staring at text, so getting text
+rendering just right is very important. In that spirit, kitty now supports
+`OpenType Variable fonts <https://en.wikipedia.org/wiki/Variable_font>`__.
+These allow precise customisation of font characteristics, such as weight and
+spacing. Not only that, kitty now has a new :doc:`choose-fonts
+<kittens/choose-fonts>` kitten that provides a UI for choosing fonts with
+support for font features, variable fonts and previews of how the font will
+look. This is in addition to its existing best-in-class font customization
+abilities, such as: :opt:`symbol_map`, :opt:`text_composition_strategy`,
+:opt:`font_features` and :opt:`modify_font`. kitty knows text rendering is
+important, and goes the extra mile for it.
+
+Desktop notifications [0.36]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+|kitty| now has a :doc:`notify </kittens/notify>` kitten that can be used to
+display desktop notifications from the command line, even over SSH. It has
+support for icons, buttons, updating notifications, waiting till
+the notification is closed, etc. The underlying :doc:`desktop-notifications`
+protocol has been expanded to support all these features.
+
 Wayland goodies [0.34]
 ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -50,6 +134,669 @@ consumption to do the same tasks.
 Detailed list of changes
 -------------------------------------
 
+0.44.0 [2025-11-03]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Allow kitty to read a specified set of environment variables from your
+  login shell at startup using the :opt:`env` directive in kitty.conf
+  (:iss:`9042`)
+
+- A new option :opt:`draw_window_borders_for_single_window` to force kitty to
+  always draw a window border even when only a single window is present
+  (:pull:`9112`)
+
+- Fix a regression in 0.43.0 that caused a black flicker when closing a tab in
+  the presence of a background image (:iss:`9060`)
+
+- Further improvements to rounded corner rendering, especially at low DPI
+  (:pull:`9091`)
+
+- Splits layout: Fix a bug that could cause a corrupted layout in some
+  circumstances (:iss:`9059`)
+
+- Fix a regression in the previous release that broke ``goto_session -1``
+
+- Fix rendering broken on ancient GPU drivers that do not support rendering to 16 bit textures (:iss:`9068`)
+
+- Fix tab bar sometimes showing incorrect tabs when it is filtered to show only
+  tabs from the current session (:iss:`9079`)
+
+- macOS: Workaround for bug in macOS Tahoe that caused OS Windows that are
+  fullscreen to crash kitty when returning from sleep on some machines (:iss:`8983`)
+
+- Graphics: Fix animated images sometimes not auto playing or auto playing at the wrong start frame if the same image id is used for a subsequent image
+
+- Fix a regression in 0.43.0 that caused high CPU usage when :opt:`disable_ligatures` was set to ``cursor`` and the tab bar was visible (:iss:`9071`)
+
+- macOS: Handle dropping of file promises into kitty in addition to file paths (:pull:`9084`)
+
+- macOS: Fix indeterminate progress bar displayed on dock icon increasing speed when indeterminate progress is set without being cleared first (:iss:`9114`)
+
+- macOS: Performance and power usage improvements of about 5-10% (:pull:`9131`)
+
+- macOS: Add an item to the global menu to Cycle through OS windows
+
+- macOS: Quick access terminal: Fix a crash when changing font size (:iss:`9178`)
+
+- Wayland: Fix ``center-sized`` panels not working on smithay based compositors (:pull:`9117`)
+
+- Wayland: Fix scrolling using some mouse wheels that produce "VALUE120" based
+  scroll events too fast on some compositors (:pull:`9128`)
+
+- Automatic color scheme switching: Fix title bar color not being updated (:iss:`9167`)
+
+- Add support for Unicode 17
+
+- Fix a regression in 0.43.0 that caused :opt:`tab_bar_margin_width` to be
+  doubled on the right edge of the tab bar (:iss:`9154`)
+
+- Session files: Add a new ``focus_tab`` command to specify which tab should be
+  active when a session is loaded. Accepts either a plain number (0-based index)
+  or a match expression for flexible tab selection, allowing sessions to preserve
+  the active tab state (:doc:`sessions`)
+
+- :ac:`save_as_session`: Add ``--base-dir`` option to specify a base directory
+  for saving session files with relative paths, useful when the current working
+  directory is not the desired location (:doc:`sessions`)
+
+- Add ``state:focused_os_window`` match query to select all windows in the
+  currently focused OS window (:ref:`search_syntax`)
+
+- Session saving now preserves visual tab order and active tab rather than tab
+  activation history as this is generally more important. In the future may
+  have it save tab history as well (:pull:`9163`)
+
+0.43.1 [2025-10-01]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- ssh kitten: Allow specifying a password and/or TOTP authentication secret to
+  automate interactive logins in scenarios where public key authentication is
+  not supported (:pull:`9020`)
+
+- macOS: Fix a bug where the color of a transparent titlebar was off when
+  running in the release build versus the build from source. Also fix using a
+  transparent titlebar causing the background opacity to be doubled.
+
+- Fix a regression in the previous release that caused the incorrect tab to be
+  active when loading a session (:iss:`9025`)
+
+- macOS: Workaround for bug in macOS Tahoe that caused closed OS Windows to
+  remain as invisible rectangles that intercept mouse events (:iss:`8952`)
+
+- macOS: Fix a regression in the previous release that broke automatic
+  switching of dark/light mode when setting :opt:`macos_titlebar_color` to an
+  arbitrary color (:iss:`9034`)
+
+- :ac:`goto_session`: Add ``--sort-by=alphabetical`` to have the interactive session
+  picker list the sessions in a fixed order rather than by most recent
+  (:disc:`9033`)
+
+- Fix a regression in the previous release that caused the cursor trail to not
+  be hidden properly (:iss:`9039`)
+
+- Session files: Fix a regression in the previous release that broke matching on
+  windows in the current tab (:iss:`9037`)
+
+- Fix a regression in the previous release that broke clearing screen lines
+  when in margin mode (:iss:`9049`)
+
+
+0.43.0 [2025-09-28]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- New support for creating and switching to :doc:`sessions` easily, allowing
+  users to define and use sessions/projects efficiently (:iss:`8911`)
+
+- Add a configurable :opt:`scrollbar` for the kitty scrollback (:pull:`8945`)
+
+- A new protocol for :doc:`multiple cursors <multiple-cursors-protocol>` in the terminal (:iss:`8927`)
+
+- macOS: Allow the window title bar to be semi-transparent when
+  :opt:`background_opacity` is less than one and :opt:`macos_titlebar_color` is
+  set to ``background`` (:pull:`8906`)
+
+- A new :opt:`cursor_trail_color` setting to independently control the color of
+  cursor trails (:pull:`8830`)
+
+- macOS: Add the default :kbd:`Cmd+L` mapping from Terminal.app to erase the
+  last command and its output (:disc:`6040`)
+
+- Fix :opt:`background_opacity` being non-linear especially with light color themes.
+  Note that this might require you to adjust the value of this setting to get
+  back your current look. (:iss:`8869`)
+
+- Add support for blinking text. Text marked as blinking now blinks in exact
+  rhythm with the cursor. The blinking animation and max duration are
+  controlled by :opt:`cursor_blink_interval` and
+  :opt:`cursor_stop_blinking_after`. (:pull:`8551`)
+
+- Allow using a custom python function to draw tab titles in the tab bar, see
+  :opt:`tab_title_template`
+
+- Wayland: Fix incorrect window size calculation when transitioning from
+  full screen to non-full screen with client side decorations (:iss:`8826`)
+
+- macOS: Fix hiding quick access terminal window not restoring focus to
+  previously active application (:disc:`8840`)
+
+- macOS: Fix showing the quick access terminal on a space other than the space
+  it was last active on, after full screening some application causes the quick
+  access terminal to appear on the old space (:iss:`8740`)
+
+- macOS: When toggling open the quick access terminal move it to the currently
+  active monitor (the monitor with the mouse pointer on it) (:iss:`9003`)
+
+- macOS: Fix closing an OS Window when another OS Window is minimized causing
+  the minimized window to be un-minimized (:iss:`8913`)
+
+- Allow using backspace to move the cursor onto the previous line in cooked
+  mode. This is indicated by the `bw` property in kitty's terminfo
+  (:iss:`8841`)
+
+- Watchers: A new event for global watchers corresponding to the tab bar being changed (:disc:`8842`)
+
+- Fix a regression in 0.40.0 that broke handling of the VS16 variation selector
+  when it caused a character to flow to the next line (:iss:`8848`)
+
+- Fix rendering of underlines when using larger text sizes with the space and
+  en-space characters (:iss:`8950`)
+
+- Fix updating panel configuration on visibility toggle and via remote control
+  not working (:iss:`8984`)
+
+- Improve rendering of rounded rectangles (:pull:`9000`)
+
+- Wayland: Update bundled copy of libwayland to 1.24 from 1.23.1 because the
+  just released mesa 25.2.0 breaks with libwayland < 1.24 (:iss:`8884`)
+
+- macOS: Pass the :kbd:`Cmd+C` shortcut to the application running in the
+  terminal when no text is selected (:pull:`8946`)
+
+- macOS: Workaround for bug in macOS Tahoe that caused OS Windows that are
+  fullscreen on a monitor that is disconnected while macOS is asleep to crash kitty (:iss:`8983`)
+
+
+0.42.2 [2025-07-16]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- A new :ref:`protocol extension <mouse_leave_window>` to notify terminal programs that have turned on SGR Pixel mouse reporting when the mouse leaves the window (:disc:`8808`)
+
+- clipboard kitten: Can now optionally take a password to avoid repeated
+  permission prompts when accessing the clipboard. Based on a
+  :ref:`protocol extension <clipboard_repeated_permission>`. (:iss:`8789`)
+
+- A new :option:`launch --hold-after-ssh` to not close a launched window
+  that connects directly to a remote host because of
+  :option:`launch --cwd`:code:`=current` when the connection ends (:pull:`8807`)
+
+- Fix :opt:`remember_window_position` not working because of a stupid typo (:iss:`8646`)
+
+- A new :option:`kitty --grab-keyboard` that can be used to grab the keyboard so that global shortcuts are sent to kitty instead
+
+- Remote control: Fix holding a remote control socket open causing the kitty I/O thread to go into a loop and not respond on other remote control sockets (:disc:`8670`)
+
+- hints kitten: Preserve line breaks when the hint is over a line break (:iss:`8674`)
+
+- Fix a segfault when using the :ac:`copy_ansi_to_clipboard` action (:iss:`8682`)
+
+- Fix a crash when using linear easing curves for animations (:iss:`8692`)
+
+- Graphics protocol: Add a note clarifying image update behavior on re-transmission (:iss:`8701`)
+
+- Wayland GNOME: Fix incorrect OS Window tracking because GNOME has started
+  activating windows on non-current workspaces (:iss:`8716`)
+
+- Fix a regression in 0.40.0 that broke rendering of VS15 variation selectors in some circumstances (:iss:`8731`, :iss:`8794`)
+
+- Fix a regression in 0.40.0 that broke serialization of tab characters as ANSI text (:iss:`8741`)
+
+- Fix a regression in 0.40.0 that broke erasing of characters in a line in the presence of wide characters (:iss:`8758`)
+
+- Fix a regression in 0.40.0 that broke hyperlinking of wide characters (:iss:`8796`)
+
+- Fix a regression that broke using :kbd:`esc` to exit visual select window mode (:iss:`8767`)
+
+- kitten run-shell: Fix SIGINT blocked when execing the shell (:iss:`8754`)
+
+0.42.1 [2025-05-17]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Fix ambiguous width and private use characters not being rendered when used with variable width text-sizing protocol escape codes
+
+- Quick access terminal: Restore focus to previously active window when hiding the quick access terminal window on macOS (:iss:`8627`)
+
+- Wayland: Fix an abort if the terminal program sets a window title longer than 2KB that contains CSI escape sequences and multibyte UTF-8 (:iss:`8619`)
+
+- Quick access terminal: Allow toggling the window to full screen using the standard kitty :sc:`toggle_fullscreen` shortcut (:iss:`8626`)
+
+- Quick access terminal: Allow configuring the monitor to display the panel on in Wayland/X11 (:iss:`8630`)
+
+- A new setting :opt:`remember_window_position` to optionally use the position of the last closed kitty OS Window as the position of the first kitty OS Window when running a new kitty instance (:pull:`8601`)
+
+- Panel kitten: A new ``center-sized`` value for :option:`--edge <kitty +kitten panel --edge>` to allow easily creating sized and centered panels
+
+- Wayland: The `kitty --name` flag now sets the XDG *window tag* on compositors
+  that support the `xdg-toplevel-tag <https://wayland.app/protocols/xdg-toplevel-tag-v1>`__ protocol.
+
+
+0.42.0 [2025-05-11]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- A new kitten: :doc:`quick-access-terminal </kittens/quick-access-terminal>` to :ref:`quake`
+
+- The :doc:`panel kitten </kittens/panel>` works on macOS and X11 as well as Wayland (:iss:`2590`)
+
+- **Behavior change**: Now kitty does full grapheme segmentation following the
+  Unicode 16 spec when splitting text into cells (:iss:`8533`)
+
+- **Behavior change**: The :ref:`automatic color switching functionality <auto_color_scheme>` now also controls background image settings (:iss:`8603`)
+
+- panel kitten: Allow using :option:`kitty +kitten panel --single-instance` to create multiple panels in one process (:iss:`8549`)
+
+- launch: Allow creating desktop panels such as those created by the :doc:`panel kitten </kittens/panel>` (:iss:`8549`)
+
+- Remote control: Allow modifying desktop panels and showing/hiding OS Windows
+  using the ``kitten @ resize-os-window`` command (:iss:`8550`)
+
+- Remote control launch: Allow waiting for a program launched in a new window
+  to exit and get the exit code via the `kitty +launch
+  --wait-for-child-to-exit` command line flag (:disc:`8573`)
+
+- Allow starting kitty with the OS window hidden via :option:`kitty --start-as=hidden <kitty --start-as>`, useful for single instance mode (:iss:`3466`)
+
+- Allow configuring the mouse unhide behavior when using :opt:`mouse_hide_wait` (:pull:`8508`)
+
+- diff kitten: Add half page and full page scroll vim-like bindings (:pull:`8514`)
+
+- diff kitten: Allow diffing named pipes (:iss:`8597`)
+
+- Fix a regression that caused automatic color themes to not be re-applied after config file reload (:iss:`8530`)
+
+- Wayland: When the compositor supports the `xdg-system-bell
+  <https://wayland.app/protocols/xdg-system-bell-v1>`__ protocol use it to play
+  the default bell sound
+
+- panel kitten: Allow specifying panel size in pixels in addition to cells
+
+- Fix a regression in 0.36.0 that caused using = with single letter command
+  line flags to no longer work correctly (:iss:`8556`)
+
+- Single instance: Preserve environment variables from invoking environment in
+  newly created window (:disc:`8567`)
+
+- Single instance: Reset OS Window class and name in new single instance OS
+  windows (:disc:`8567`)
+
+- macOS: Fix text color in visual window select ignoring the color theme (:iss:`8579`)
+
+- Launch action: Allow using an env var that resolves to a full command-line as the program to launch (:pull:`8613`)
+
+- :ac:`change_font_size` allow multiplying/dividing the current font size in addition to incrementing it (:iss:`8616`)
+
+- Box drawing: Improve appearance of rounder corners, giving them a uniform line width (:iss:`8299`)
+
+0.41.1 [2025-04-03]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Fix a regression in the previous release that caused rendering of emoji using
+  the VS16 variation selector to fail with some fonts (:iss:`8495`)
+
+- Fix a regression in 0.40.0 that caused tab bar margins to not be properly blanked when
+  the tab bar is at the bottom (:iss:`8494`)
+
+- Wayland: panel kitten: Fix incorrect initial font size on compositors such as Hyprland
+  that set scale late in the window creation process (:iss:`8496`)
+
+- Fix a regression in 0.40.1 that caused hyperlink underline on hover to remain
+  on screen when the screen is scrolled
+
+
+0.41.0 [2025-03-29]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- A new mode of operation for :opt:`text_fg_override_threshold` to override
+  foreground colors so as to maintain a minimum contrast between foreground and
+  background text colors. Works in a perceptual color space for best color accuracy
+  (:pull:`8420`)
+
+- A 15% improvement in throughput when processing text thanks to using a
+  multi-stage table for Unicode property lookups
+
+- :ref:`kitty +open <launch_actions>`: Ask for confirmation by default when running executables
+  to work around some badly designed programs that try to open links in
+  documents that point to executable files. Can be overridden by specifying
+  your own :file:`launch-actions.conf`.
+
+- Fix a regression in version 0.40.0 causing a crash when the underline
+  thickness of the font is zero (:iss:`8443`)
+
+- Fix a regression in version 0.40.0 causing a hang on resizing with a wide
+  character at the right edge of a line that needs to be moved onto the next
+  line (:iss:`8464`)
+
+- Fix a regression in 0.40.1 that caused copying to clipboard via OSC 52 from
+  applications that don't specify a destination in the escape code not working
+  (:iss:`8459`)
+
+- Wayland: Fix a regression in the previous release that caused crashes on
+  compositors that don't support the xdg-toplevel-icon protocol and the user has
+  set a custom kitty icon (:iss:`8471`)
+
+0.40.1 [2025-03-18]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Do not count background processes by default for :opt:`confirm_os_window_close` (:iss:`8358`)
+
+- A new option :opt:`clear_selection_on_clipboard_loss` to clear selections when they no longer reflect the contents of the clipboard
+
+- Fix a regression in the previous release that caused empty lines to be skipped when copying text from a selection (:iss:`8435`)
+
+- Fix flickering of hyperlink underline when client program continuously
+  redraws on mouse movement (:iss:`8414`)
+
+- Wayland: Allow overriding the kitty OS Window icon on compositors that implement the xdg-toplevel-icon protocol
+
+- macOS: When the program running in kitty reports progress information for a task, show a progress bar on the kitty dock icon
+
+- macOS: Fix a regression causing a crash when using :opt:`focus_follows_mouse` (:iss:`8437`)
+
+- OSC 52: Fix specifying both clipboard and primary in OSC 52 requests not supported
+
+0.40.0 [2025-03-08]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- :doc:`Allow terminal programs to use text in different font sizes <text-sizing-protocol>` (:iss:`8226`)
+
+- When rendering underlines add gaps around text descenders (parts of the text
+  that overlap with the underline). Controlled by the new option :opt:`underline_exclusion` (:iss:`8226`)
+
+- Finally fix the issue of text-width mismatches that has been plaguing the
+  terminal ecosystem for decades by allowing terminal programs to specify how
+  many cells to render a piece of text in (:iss:`8226`)
+
+- **Behavior change**: The :opt:`notify_on_cmd_finish` option now uses OS
+  Window visibility instead of focus state when set to ``invisible`` on
+  platforms that support querying OS window visibility (:iss:`8320`)
+
+- launch: Add options :option:`launch --source-window` and :option:`launch --next-to` to allow
+  specifying which window is used as the data source and destination location independently of the
+  currently active window (:iss:`8295`)
+
+- Linux: Add support for `COLRv1 <https://nabla.typearture.com/whatisCOLRV1.html>`__ fonts. These are typically emoji fonts that use vector images for emoji
+
+- Add support for the octant box-drawing characters
+
+- Speed up rendering of box drawing characters by moving the implementation to native code
+
+- When confirming if a window should be closed consider it active if it has running background processes (:iss:`8358`)
+
+- Remote control: `kitten @ scroll-window`: Allow scrolling to previous/next prompt
+
+- macOS: Fix fallback font rendering for bold/italic text not working for some symbols that are present in the Menlo regular face but not the bold/italic faces (:iss:`8282`)
+
+- XTGETTCAP: Fix response invalid for empty string capabilities (:pull:`8304`)
+
+- ssh kitten: Fix incorrect copying of data files when using the python interpreter and also fix incorrect hard link detection (:disc:`8308`)
+
+- Fix a regression in the previous release that broke setting of nullable colors
+
+- Fix a regression in 0.39.0 that caused a crash on invalid Unicode with a
+  large number of combining characters in a single cell (:iss:`8318`)
+
+- Fix ``--hold`` always restoring cursor to block shape instead of respecting the value of :opt:`cursor_shape` (:disc:`8344`)
+
+- When dragging in rectangle select mode use a crosshair mouse cursor configurable via :opt:`pointer_shape_when_dragging`
+
+- macOS: notify kitten: Fix waiting for result from desktop notification not working (:disc:`8379`)
+
+- Wayland: Fix mouse pointer position update not being sent when focus regained (:iss`8397`, :iss:`8398`)
+
+- Fix cursor blink animation when :opt:`background_opacity` is less than one (:iss:`8401`)
+
+- Wayland: panel kitten: Add a :code:`center` mode for creating panels to ease
+  creation of centered popups in Wayland (:pull:`8411`)
+
+
+0.39.1 [2025-02-01]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Splits layout: Allow setting the bias of the current split using ``layout_action bias`` (:iss:`8222`)
+
+- hints kitten: Workaround for some broken light color themes that make the hints text color too low contrast to read (:iss:`7330`)
+
+- Wayland niri: Fix 250ms delay on startup when using scale 1 (:iss:`8236`)
+
+- :ref:`Watchers <watchers>`: Add a new event ``on_color_scheme_preference_change``  (:iss:`8246`)
+
+
+0.39.0 [2025-01-16]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- :doc:`diff kitten <kittens/diff>`: Automatically use dark/light color scheme based on the color scheme of the parent terminal. Can be controlled via the new :opt:`kitten-diff.color_scheme` option. Note that this is a **default behavior change** (:iss:`8170`)
+
+- Allow dynamically generating configuration by running an arbitrary program using the new :code:`geninclude` directive in :file:`kitty.conf`
+
+- When a program running in kitty reports progress of a task display it as a percentage in the tab title. Controlled by the :opt:`tab_title_template` option
+
+- When mapping a custom kitten allow using shell escaping for the kitten path (:iss:`8178`)
+
+- Fix border colors not being changed by auto light/dark themes at startup (:iss:`8180`)
+
+- ssh kitten: Fix kitten not being on PATH when SSHing into Debian systems (:iss:`7160`)
+
+- diff kitten: Abort when run inside a terminal that does not support the kitty keyboard protocol (:iss:`8185`)
+
+- :doc:`query kitten <kittens/query_terminal>`: Add support for reporting name of the OS the terminal emulator is running on (:iss:`8201`)
+
+- macOS: Allow using the Passwords app to autofill passwords via the Edit->Autofill menu mimicking other macOS applications (:pull:`8195`)
+
+- macOS: Add menu items to the Edit menu to clear the screen and scrollback
+
+- Fix the :ac:`clear_terminal scrollback <clear_terminal>` action also clearing screen, not just the scrollback
+
+- When reloading configuration fix auto color themes not being re-applied (:iss:`8203`)
+
+0.38.1 [2024-12-26]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- macOS: Fix a regression in the previous release that broke rendering of Emoji using the VS16 variation selector (:iss:`8130`)
+
+- When automatically changing colors based on OS color preference, first reset
+  all colors to default before applying the new theme so that even colors not
+  specified in the theme are correct (:iss:`8124`)
+
+- Graphics: Fix deleted but not freed images without any placements being incorrectly freed on a subsequent delete command (:disc:`8129`)
+
+- Graphics: Fix deletion of images by id not working for images with no placements (:disc:`8129`)
+
+- Add support for `escape code protocol <https://github.com/contour-terminal/contour/blob/master/docs/vt-extensions/color-palette-update-notifications.md>`__ for notifying applications on dark/light color scheme change
+
+- Cursor trails: Fix pure vertical movement sometimes not triggering a trail and holding down a key in nvim causing the trail to be glitchy (:pull:`8152`, :pull:`8153`)
+
+- macOS: Fix mouse cursor shape not always being reset to text cursor when mouse re-enters kitty (:iss:`8155`)
+
+- clone-in-kitty: Fix :envvar:`KITTY_WINDOW_ID` being cloned and thus having incorrect value (:iss:`8161`)
+
+
+0.38.0 [2024-12-15]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Allow :ref:`specifying individual color themes <auto_color_scheme>` to use so that kitty changes colors automatically following the OS dark/light mode
+
+- :opt:`notify_on_cmd_finish`: Automatically remove notifications when the window gains focus or the next notification is shown. Clearing behavior can be configured (:pull:`8100`)
+
+- Discard OSC 9 notifications that start with :code:`4;` because some misguided software is using it for "progress reporting" (:iss:`8011`)
+
+- Wayland GNOME: Workaround bug in mutter causing double tap on titlebar to not always work (:iss:`8054`)
+
+- clipboard kitten: Fix a bug causing kitten to hang in filter mode when input data size is not divisible by 3 and larger than 8KB (:iss:`8059`)
+
+- Wayland: Fix an abort when a client program tries to set an invalid title containing interleaved escape codes and UTF-8 multi-byte characters (:iss:`8067`)
+
+- Graphics protocol: Fix delete by number not deleting newest image with the specified number (:iss:`8071`)
+
+- Fix dashed and dotted underlines not being drawn at the same y position as straight underlines at all font sizes (:iss:`8074`)
+
+- panel kitten: Allow creating floating and on-top panels with arbitrary placement and size on Wayland (:pull:`8068`)
+
+- :opt:`remote_control_password`: Fix using a password without any actions not working (:iss:`8082`)
+
+- Fix enlarging window when a long line is wrapped between the first line of the scrollback buffer and the screen inserting a spurious newline (:iss:`7033`)
+
+- When re-attaching a detached tab preserve internal layout state such as biases and orientations (:iss:`8106`)
+
+- hints/unicode_input kittens: Do not lose keypresses that are sent very rapidly via an automation tool immediately after the kitten is launched (:iss:`7089`)
+
+
+0.37.0 [2024-10-30]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- A new optional :opt:`text cursor movement animation <cursor_trail>` that
+  shows a "trail" following the movement of the cursor making it easy to follow
+  large cursor jumps (:pull:`7970`)
+
+- Custom kittens: Add :ref:`a framework <kitten_main_rc>` for easily and securely using remote control from within a kitten's :code:`main()` function
+
+- kitten icat: Fix the :option:`kitty +kitten icat --no-trailing-newline` not working when using unicode placeholders (:iss:`7948`)
+
+- :opt:`tab_title_template` allow using the 256 terminal colors for formatting (:disc:`7976`)
+
+- Fix resizing window when alternate screen is active does not preserve trailing blank output line in the main screen (:iss:`7978`)
+
+- Wayland: Fix :opt:`background_opacity` less than one causing flicker on startup when the Wayland compositor supports single pixel buffers (:iss:`7987`)
+
+- Fix background image flashing when closing a tab (:iss:`7999`)
+
+- When running a kitten that modifies the kitty config file if no config file exists create a commented out default config file and then modify it (:iss:`7991`)
+
+0.36.4 [2024-09-27]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Fix a regression in the previous release that caused window padding to be rendered opaque even when :opt:`background_opacity` is less than 1 (:iss:`7895`)
+
+- Wayland GNOME: Fix a crash when using multiple monitors with different scales and starting on or moving to the monitor with lower scale (:iss:`7894`)
+
+- macOS: Fix a regression in the previous release that caused junk to be rendered in font previews in the choose fonts kitten and crash on Intel macs (:iss:`7892`)
+
+
+0.36.3 [2024-09-25]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- The option ``second_transparent_bg`` has been removed and replaced by :opt:`transparent_background_colors` which allows setting up to seven additional colors that will be transparent, with individual opacities per color (:iss:`7646`)
+
+- Fix a regression in the previous release that broke use of the ``cd`` command in session files (:iss:`7829`)
+
+- macOS: Fix shortcuts that become entries in the global menubar being reported as removed shortcuts in the debug output
+
+- macOS: Fix :opt:`macos_option_as_alt` not working when :kbd:`caps lock` is engaged (:iss:`7836`)
+
+- Fix a regression when tinting of background images was introduced that caused window borders to have :opt:`background_opacity` applied to them (:iss:`7850`)
+
+- Fix a regression that broke writing to the clipboard using the OSC 5522 protocol (:iss:`7858`)
+
+- macOS: Fix a regression in the previous release that caused kitty to fail to run after an unclean shutdown/crash when using --single-instance (:iss:`7846`)
+
+- kitten @ ls: Fix the ``--self`` flag not working (:iss:`7864`)
+
+- Remote control: Fix ``--match state:self`` not working (:disc:`7886`)
+
+- Splits layout: Allow setting the ``split_axis`` option to ``auto`` so that all new windows have their split axis chosen automatically unless explicitly specified in the launch command (:iss:`7887`)
+
+0.36.2 [2024-09-06]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Linux: Fix a regression in 0.36.0 that caused font features defined via fontconfig to be ignored (:iss:`7773`)
+
+- :ac:`goto_tab`: Allow numbers less than ``-1`` to go to the Nth previously active tab
+
+- Wayland: Fix for upcoming explicit sync changes in Wayland compositors breaking kitty (:iss:`7767`)
+
+- Remote control: When listening on a UNIX domain socket only allow connections from processes having the same user id (:pull:`7777`)
+
+- kitten @: Fix a regression connecting to TCP sockets using plain IP addresses rather than hostnames (:iss:`7794`)
+
+- diff kitten: Fix a regression that broke diffing against remote files (:iss:`7797`)
+
+0.36.1 [2024-08-24]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Allow specifying that the :opt:`cursor shape for unfocused windows <cursor_shape_unfocused>` should remain unchanged (:pull:`7728`)
+
+- MacOS Intel: Fix a crash in the choose-fonts kitten when displaying previews of variable fonts (:iss:`7734`)
+
+- Remote control: Fix a regression causing an escape code to leak when using @ launch with ``--no-response`` over the TTY (:iss:`7752`)
+
+- OSC 52: Fix a regression in the previous release that broke handling of invalid base64 encoded data in OSC 52 requests (:iss:`7757`)
+
+- macOS: Fix a regression in the previous release that caused :option:`kitty --single-instance` to not work when using :file:`macos-launch-services-cmdline`
+
+0.36.0 [2024-08-17]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Support `OpenType Variable fonts <https://en.wikipedia.org/wiki/Variable_font>`__ (:iss:`3711`)
+
+- A new :doc:`choose-fonts </kittens/choose-fonts>` kitten that provides a UI with font previews to ease selection of fonts. Also has support for font features and variable fonts
+
+- Allow animating the blinking of the cursor. See :opt:`cursor_blink_interval` for how to configure it
+
+- Add NERD fonts builtin so that users don't have to install them to use NERD symbols in kitty. The builtin font is used only if the symbols are not available in some system font
+
+- launch command: A new :option:`launch --bias` option to adjust the size of newly created windows declaratively (:iss:`7634`)
+
+- A new option :opt:`transparent_background_colors` to make a second background color semi-transparent via :opt:`background_opacity`. Useful for things like cursor line highlight in editors (:iss:`7646`)
+
+- A new :doc:`notify </kittens/notify>` kitten to show desktop notifications
+  from the command line with support for icons, buttons and more.
+
+- Desktop notifications protocol: Add support for icons, buttons, closing of notifications, expiry of notifications, updating of notifications and querying if the terminal emulator supports the protocol (:iss:`7657`, :iss:`7658`, :iss:`7659`)
+
+- A new option :opt:`filter_notification` to filter out or perform arbitrary actions on desktop notifications based on sophisticated criteria (:iss:`7670`)
+
+- A new protocol to allow terminal applications to change colors in the terminal more robustly than with the legacy XTerm protocol (:ref:`color_control`)
+
+- Sessions: A new command ``focus_matching_window`` to shift focus to a specific window, useful when creating complex layouts with splits (:disc:`7635`)
+
+- Speed up loading of large background images by caching the decoded image data. Also allow using images in JPEG/WEBP/TIFF/GIF/BMP formats in addition to PNG
+
+- Wayland: Allow fractional scales less than one (:pull:`7549`)
+
+- Wayland: Fix specifying the output name for the panel kitten not working (:iss:`7573`)
+
+- icat kitten: Add an option :option:`kitty +kitten icat --no-trailing-newline` to leave the cursor to the right of the image (:iss:`7574`)
+
+- Speed up ``kitty --version`` and ``kitty --single-instance`` (for all subsequent instances). They are now the fastest of all terminal emulators with similar functionality
+
+- macOS: Fix rendering of the unicode hyphen (U+2010) character when using a font that does not include a glyph for it (:iss:`7525`)
+
+- macOS 15: Handle Fn modifier when detecting global shortcuts (:iss:`7582`)
+
+- Dispatch any clicks waiting for :opt:`click_interval` on key events (:iss:`7601`)
+
+- ``kitten run-shell``: Automatically add the directory containing the kitten binary to PATH if needed. Controlled via the ``--inject-self-onto-path`` option (`disc`:7668`)
+
+- Wayland: Fix an issue with mouse selections not being stopped when there are multiple OS windows (:iss:`7381`)
+
+- Splits layout: Fix the ``move_to_screen_edge`` action breaking when only a single window is present (:iss:`7621`)
+
+- Add support for in-band window resize notifications (:iss:`7642`)
+
+- Allow controlling the easing curves used for :opt:`visual_bell_duration`
+
+- New special rendering for font symbols useful in drawing commit graphs (:pull:`7681`)
+
+- diff kitten: Add bindings to jump to next and previous file (:pull:`7683`)
+
+- Wayland GNOME: Fix the font size in the OS Window title bar changing with the size of the text in the window (:disc:`7677`)
+
+- Wayland GNOME: Fix a small rendering artifact when docking a window at a screen edge or maximizing it (:iss:`7701`)
+
+- When :opt:`shell` is set to ``.`` respect the SHELL environment variable in the environment in which kitty is launched (:pull:`7714`)
+
+- macOS: Bump the minimum required macOS version to Catalina released five years ago.
+
+- Fix a regression in :opt:`notify_on_cmd_finish` that caused notifications to appear for every command after the first (:iss:`7725`)
+
+
 0.35.2 [2024-06-22]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -63,7 +810,7 @@ Detailed list of changes
 
 - Wayland labwc: Fix kitty timing out waiting for compositor to quit fucking around with scales on labwc (:iss:`7540`)
 
-- Fix :opt:`scrollback_indicator_opacity` not actually controlling the opacity (:iss:`7557`)
+- Fix ``scrollback_indicator_opacity`` not actually controlling the opacity (:iss:`7557`)
 
 - URL detection: Fix IPv6 hostnames breaking URL detection (:iss:`7565`)
 
@@ -147,7 +894,7 @@ Detailed list of changes
   using the panel kitten for all compositors that support the `requisite Wayland
   protocol <https://wayland.app/protocols/wlr-layer-shell-unstable-v1>`__ which is practically speaking all of them but GNOME (:pull:`2590`)
 
-- Show a small :opt:`scrollback indicator <scrollback_indicator_opacity>` along the right window edge when viewing
+- Show a small scrollback indicator along the right window edge when viewing
   the scrollback to keep track of scroll position (:iss:`2502`)
 
 - Wayland: Support fractional scales so that there is no wasted drawing at larger scale followed by resizing in the compositor
@@ -2012,7 +2759,7 @@ Detailed list of changes
   do not display a box around active windows
 
 - Add a new extensible escape code to allow terminal programs to trigger
-  desktop notifications. See :ref:`desktop_notifications` (:iss:`1474`)
+  desktop notifications. See :ref:`notifications_on_the_desktop` (:iss:`1474`)
 
 - Implement special rendering for various characters from the set of "Symbols
   for Legacy Computing" from the Unicode 13 standard

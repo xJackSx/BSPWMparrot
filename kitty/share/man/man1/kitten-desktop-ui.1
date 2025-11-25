@@ -1,0 +1,204 @@
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "kitten-desktop-ui" 1 "Nov 03, 2025" "0.44.0" "kitty"
+.SH Name
+kitten-desktop-ui \- kitten Documentation
+.SH Overview
+.sp
+Added in version 0.43.0.
+
+.sp
+Power users of terminals on Linux also often like to use bare bones window
+managers instead of full fledged desktop environments. This kitten helps
+provide parts of the desktop environment that are missing from such setups,
+and does so using keyboard friendly, terminal first UI components. Some of its
+features are:
+.INDENT 0.0
+.IP \(bu 2
+Replace the typical File Open/Save dialogs used in GUI programs with the
+fast and keyboard centric choose\-files \%<> kitten
+running in a semi\-transparent kitty overlay.
+.IP \(bu 2
+Allow simple command line based management of the desktop light/dark modes.
+.UNINDENT
+.SH How to install
+.sp
+\fBNote:\fP
+.INDENT 0.0
+.INDENT 3.5
+This kitten relies on the panel kitten \%<>
+under the hood to supply UI components. Check the documentation \%<#\:panel-compat>
+of that kitten to see if your window manager works with it.
+.UNINDENT
+.UNINDENT
+.sp
+First, run:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten desktop\-ui enable\-portal
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Then, set the following two environment variables, \fIsystem wide\fP, that means in
+\fB/etc/environment\fP or the equivalent for your distribution:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+QT_QPA_PLATFORMTHEME=xdgdesktopportal
+GTK_USE_PORTAL=1
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Finally, reboot. Now, when you open a file dialog in most GUI applications, it
+should open the choose\-files kitten \%<> instead
+of a normal file open dialog. You can change the current light/dark mode of
+your desktop by running:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten desktop\-ui set\-color\-scheme dark
+kitten desktop\-ui set\-color\-scheme light
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Check the current value using:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+dbus\-send \-\-session \-\-print\-reply \-\-dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read string:org.freedesktop.appearance string:color\-scheme
+.EE
+.UNINDENT
+.UNINDENT
+.SH How it works
+.sp
+Modern Linux desktops have so called portals \%<https://\:flatpak\:.github\:.io/\:xdg-desktop-portal/\:docs/\:index\:.html> that were
+invented for sandboxed applications and provide various facilities to such
+applications over DBUS, including file open dialogs, common desktop settings,
+etc. This kitten works by implementing a backend for some of these services.
+.sp
+Normal GUI applications can then be told to make use of these services, thereby
+allowing us to replace parts of the desktop experience as needed.
+.sp
+There are multiple competing implementations of the backends. Each desktop
+environment like KDE or GNOME has it\(aqs own backend and many window managers
+provide implementations for some backends as well. Service discovery and
+configuring which backend to use happens via the \fBxdg\-desktop\-portal\fP
+program, usually found at \fB/usr/lib/xdg\-desktop\-portal\fP\&.
+.sp
+It can be configured by files in \fB~/.local/share/xdg\-desktop\-portal\fP\&. See
+man portals.conf \%<https://\:man\:.archlinux\:.org/\:man/\:portals\:.conf.5>\&. The
+\fBkitten desktop\-ui enable\-portal\fP command takes care of the setup for you
+automatically. If you want to customize exactly which services to use this
+kitten for, run the command and then edit the conf file that the command says
+it has patched.
+.SH Troubleshooting
+.sp
+First, ensure that DBUS is able to auto\-start the kitten when it is needed. If
+the kitten is not already running, try the following command:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+dbus\-send \-\-session \-\-print\-reply \-\-dest=org.freedesktop.impl.portal.desktop.kitty \e
+    /net/kovidgoyal/kitty/portal org.freedesktop.DBus.Properties.GetAll \e
+    string:net.kovidgoyal.kitty.settings
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+If DBUS is able to start the kitten or if it is already running it will print
+out the version property, otherwise it will fail with an error. If it fails,
+check the file
+\fB~/.local/share/dbus\-1/services/org.freedesktop.impl.portal.desktop.kitty.service\fP
+that should have been created by the \fBenable\-portal\fP command. It\(aqs \fBExec\fP
+key must point to the full path to the kitten executable.
+.sp
+Next, check that the XDG portal system is actually using this kitten for its
+settings backend. Run:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+dbus\-send \-\-session \-\-print\-reply \-\-dest=org.freedesktop.portal.Desktop \e
+    /org/freedesktop/portal/desktop org.freedesktop.portal.Settings.Read \e
+    string:net.kovidgoyal.kitty string:status
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+If this returns a reply then the kitten is being used, as expected. If it
+returns a not found error, then some other backend is being used for settings.
+.sp
+Read the \fBportals.conf\fP man page and run:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+/usr/lib/xdg\-desktop\-portal \-r v
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+this will output a lot of debug information, which should tell you which
+backend is chosen for which service. Read the debug output carefully to
+determine why the kitten is not being selected.
+.sp
+If some GUI applications are not using the choose\-files kitten for their file
+select dialogs, then make sure the environment variables mentioned above are
+set, you can also try running the the GUI application with them set explicitly,
+as:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+QT_QPA_PLATFORMTHEME=xdgdesktopportal GTK_USE_PORTAL=1 my\-gui\-app
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Note that not all applications use portals, so if some particular application
+is failing to use the portal but others work, report the issue to that
+applications\(aq developers.
+.SH Author
+
+Kovid Goyal
+.SH Copyright
+
+2025, Kovid Goyal
+.\" End of generated man page.

@@ -1,4 +1,5 @@
-.\" Man page generated from reStructuredText.
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
 .
 .
 .nr rst2man-indent-level 0
@@ -27,45 +28,35 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "kitten-panel" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-panel" 1 "Nov 03, 2025" "0.44.0" "kitty"
 .SH Name
-kitten-panel \- Use a command line program to draw a GPU accelerated panel on your X11 desktop
+kitten-panel \- Use a command line program to draw a GPU accelerated panel on your desktop
 .SH Overview
 .sp
-You can use this kitten to draw a GPU accelerated panel on the edge of your
-screen or as the desktop wallpaper, that shows the output from an arbitrary
-terminal program.
+Draw the desktop wallpaper or docks and panels using arbitrary
+terminal programs, For example, have btop \%<https://\:github\:.com/\:aristocratos/\:btop> or cava \%<https://\:github\:.com/\:karlstav/\:cava/> be your desktop wallpaper.
 .sp
 It is useful for showing status information or notifications on your desktop
 using terminal programs instead of GUI toolkits.
-.INDENT 0.0
-.INDENT 2.5
-Screenshot, showing a sample panel (images not supported)
-.UNINDENT
-.UNINDENT
 .sp
-The screenshot above shows a sample panel that displays the current desktop and
-window title as well as miscellaneous system information such as network
-activity, CPU load, date/time, etc.
+The screenshot to the side shows some uses of the panel kitten to draw various
+desktop components such as the background, a quick access floating terminal and
+a dock panel showing system information (Linux only).
 .sp
-Added in version 0.34.0: Support for Wayland
+Added in version 0.42.0: Support for macOS, see compatibility matrix for details.
+and X11 (background and overlay).
 
 .sp
-\fBNOTE:\fP
-.INDENT 0.0
-.INDENT 3.5
-This kitten currently only works on X11 desktops and Wayland compositors
-that support the \X'tty: link https://wayland.app/protocols/wlr-layer-shell-unstable-v1#compositor-support'\fI\%wlr layer shell protocol\fP\X'tty: link'
-(which is almost all of them except the, as usual, crippled GNOME).
-.UNINDENT
-.UNINDENT
+Added in version 0.34.0: Support for Wayland. See below for which
+Wayland compositors work.
+
 .sp
 Using this kitten is simple, for example:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-kitty +kitten panel sh \-c \(aqprintf \(dq\en\en\enHello, world.\(dq; sleep 5s\(aq
+kitten panel sh \-c \(aqprintf \(dq\en\en\enHello, world.\(dq; sleep 5s\(aq
 .EE
 .UNINDENT
 .UNINDENT
@@ -73,48 +64,145 @@ kitty +kitten panel sh \-c \(aqprintf \(dq\en\en\enHello, world.\(dq; sleep 5s\(
 This will show \fBHello, world.\fP at the top edge of your screen for five
 seconds. Here, the terminal program we are running is \fBsh\fP with a script
 to print out \fBHello, world!\fP\&. You can make the terminal program as complex as
-you like, as demonstrated in the screenshot above.
+you like, as demonstrated in the screenshots.
 .sp
-If you are on Wayland, you can, for instance run:
+If you are on Wayland or macOS, you can, for instance, run:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-kitty +kitten panel \-\-edge=background htop
+kitten panel \-\-edge=background htop
 .EE
 .UNINDENT
 .UNINDENT
 .sp
-to display htop as your desktop background. Remember this works in everything
+to display \fBhtop\fP as your desktop background. Remember this works in everything
 but GNOME and also, in sway, you have to disable the background wallpaper as
 sway renders that over the panel kitten surface.
-.SH Source code for panel
 .sp
-The source code for this kitten is \X'tty: link https://github.com/kovidgoyal/kitty/tree/master/kittens/panel'\fI\%available on GitHub\fP\X'tty: link'\&.
-.SH Command line interface
+There are projects that make use of this facility to implement generalised
+panels and desktop components:
+.INDENT 0.0
+.INDENT 3.5
+.INDENT 0.0
+.IP \(bu 2
+kitty panel \%<https://\:github\:.com/\:5hubham5ingh/\:kitty-panel>
+.IP \(bu 2
+pawbar \%<https://\:github\:.com/\:codelif/\:pawbar>
+.UNINDENT
+.UNINDENT
+.UNINDENT
+.SH Controlling panels via remote control
+.sp
+You can control panels via the kitty remote control \%<> facility. Create a panel
+with remote control enabled:
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-kitty +kitten panel [options] program\-to\-run
+kitten panel \-o allow_remote_control=socket\-only \-\-lines=2 \e
+    \-\-listen\-on=unix:/tmp/panel kitten run\-shell
 .EE
 .UNINDENT
 .UNINDENT
 .sp
-Use a command line program to draw a GPU accelerated panel on your X11 desktop
-.SS Options
+Now you can control this panel using remote control, for example to show/hide
+it, use:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten @ \-\-to=unix:/tmp/panel resize\-os\-window \-\-action=toggle\-visibility
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+To move the panel to the bottom of the screen and increase its height:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten @ \-\-to=unix:/tmp/panel resize\-os\-window \-\-action=os\-panel \e
+    \-\-incremental edge=bottom lines=4
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+To create a new panel running the program top, in the same instance
+(like creating a new OS window):
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten @ \-\-to=unix:/tmp/panel launch \-\-type=os\-panel \-\-os\-panel edge=top \e
+    \-\-os\-panel lines=8 top
+.EE
+.UNINDENT
+.UNINDENT
+.SS Source code for panel
+.sp
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:panel>\&.
+.SS Command Line Interface
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitty +kitten panel [options] [cmdline\-to\-run ...]
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Use a command line program to draw a GPU accelerated panel on your desktop
+.SH Options
 .INDENT 0.0
 .TP
-.B \-\-columns <LINES>, \-\-lines <LINES>
-The number of lines shown in the panel if horizontal otherwise the number of columns shown in the panel. Ignored for background panels.
+.B \-\-lines <LINES>
+The number of lines shown in the panel. Ignored for background, centered, and vertical panels. If it has the suffix \fBpx\fP then it sets the height of the panel in pixels instead of lines.
 Default: \fB1\fP
 .UNINDENT
 .INDENT 0.0
 .TP
+.B \-\-columns <COLUMNS>
+The number of columns shown in the panel. Ignored for background, centered, and horizontal panels. If it has the suffix \fBpx\fP then it sets the width of the panel in pixels instead of columns.
+Default: \fB1\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-margin\-top <MARGIN_TOP>
+Set the top margin for the panel, in pixels. Has no effect for bottom edge panels. Only works on macOS and Wayland compositors that supports the wlr layer shell protocol.
+Default: \fB0\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-margin\-left <MARGIN_LEFT>
+Set the left margin for the panel, in pixels. Has no effect for right edge panels. Only works on macOS and Wayland compositors that supports the wlr layer shell protocol.
+Default: \fB0\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-margin\-bottom <MARGIN_BOTTOM>
+Set the bottom margin for the panel, in pixels. Has no effect for top edge panels. Only works on macOS and Wayland compositors that supports the wlr layer shell protocol.
+Default: \fB0\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-margin\-right <MARGIN_RIGHT>
+Set the right margin for the panel, in pixels. Has no effect for left edge panels. Only works on macOS and Wayland compositors that supports the wlr layer shell protocol.
+Default: \fB0\fP
+.UNINDENT
+.INDENT 0.0
+.TP
 .B \-\-edge <EDGE>
-Which edge of the screen to place the panel on. Note that some window managers (such as i3) do not support placing docked windows on the left and right edges. The value \fBbackground\fP means make the panel the \(dqdesktop wallpaper\(dq. This is only supported on Wayland, not X11 and note that when using sway if you set a background in your sway config it will cover the background drawn using this kitten.
+Which edge of the screen to place the panel on. Note that some window managers (such as i3) do not support placing docked windows on the left and right edges. The value \fBbackground\fP means make the panel the \(dqdesktop wallpaper\(dq. Note that when using sway if you set a background in your sway config it will cover the background drawn using this kitten. Additionally, there are three more values: \fBcenter\fP, \fBcenter\-sized\fP and \fBnone\fP\&. The value \fBcenter\fP anchors the panel to all sides and covers the entire display (on macOS the part of the display not covered by titlebar and dock). The panel can be shrunk and placed using the margin parameters. The value \fBnone\fP anchors the panel to the top left corner and should be placed using the margin parameters. Its size is set by \fB\-\-lines\fP and \fB\-\-columns\fP\&. The value \fBcenter\-sized\fP is just like \fBnone\fP except that the panel is centered instead of in the top left corner and the margins have no effect.
 Default: \fBtop\fP
-Choices: \fBbackground\fP, \fBbottom\fP, \fBleft\fP, \fBright\fP, \fBtop\fP
+Choices: \fBbackground\fP, \fBbottom\fP, \fBcenter\fP, \fBcenter\-sized\fP, \fBleft\fP, \fBnone\fP, \fBright\fP, \fBtop\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-layer <LAYER>
+On a Wayland compositor that supports the wlr layer shell protocol, specifies the layer on which the panel should be drawn. This parameter is ignored and set to \fBbackground\fP if \fB\-\-edge\fP is set to \fBbackground\fP\&. On macOS, maps these to appropriate NSWindow \fIlevels\fP\&.
+Default: \fBbottom\fP
+Choices: \fBbackground\fP, \fBbottom\fP, \fBoverlay\fP, \fBtop\fP
 .UNINDENT
 .INDENT 0.0
 .TP
@@ -124,34 +212,163 @@ Path to config file to use for kitty when drawing the panel.
 .INDENT 0.0
 .TP
 .B \-\-override <OVERRIDE>, \-o <OVERRIDE>
-Override individual kitty configuration options, can be specified multiple times. Syntax: name=value\&. For example: \fI\%kitty +kitten panel \-o\fP font_size=20
+default= Override individual kitty configuration options, can be specified multiple times. Syntax: name=value\&. For example: \fBkitty +kitten panel \-o\fP font_size=20
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-output\-name <OUTPUT_NAME>
-On Wayland, the panel can only be displayed on a single monitor (output) at a time. This allows you to specify which output is used, by name. If not specified the compositor will choose an output automatically, typically the last output the user interacted with or the primary monitor.
+The panel can only be displayed on a single monitor (output) at a time. This allows you to specify which output is used, by name. If not specified the compositor will choose an output automatically, typically the last output the user interacted with or the primary monitor. Use the special value \fBlist\fP to get a list of available outputs. Use \fBlistjson\fP for a json encoded output. Note that on Wayland the output can only be set at panel creation time, it cannot be changed after creation, nor is there anyway to display a single panel on all outputs. Please complain to the Wayland developers about this.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-class <CLS>
-Set the class part of the WM_CLASS window property. On Wayland, it sets the app id.
+.B \-\-app\-id <CLS>, \-\-class <CLS>
+On Wayland set the namespace of the layer shell surface. On X11 set the class part of the WM_CLASS window property.
 Default: \fBkitty\-panel\fP
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-name <NAME>
-Set the name part of the WM_CLASS property (defaults to using the value from \X'tty: link #cmdoption-kitty-app-id'\fI\%kitty \-\-class\fP\X'tty: link')
+.B \-\-name <NAME>, \-\-os\-window\-tag <NAME>
+On X11 sets the name part of the WM_CLASS property on X11, when unspecified uses the value from \fBkitty \-\-class\fP \%<#\:cmdoption-kitty-app-id> on X11.
 .UNINDENT
 .INDENT 0.0
 .TP
-.B \-\-debug\-rendering
+.B \-\-focus\-policy <FOCUS_POLICY>
+On a Wayland compositor that supports the wlr layer shell protocol, specify the focus policy for keyboard interactivity with the panel. Please refer to the wlr layer shell protocol documentation for more details. Note that different Wayland compositors behave very differently with \fBexclusive\fP, your mileage may vary. On macOS, \fBexclusive\fP and \fBon\-demand\fP are currently the same.
+Default: \fBnot\-allowed\fP
+Choices: \fBexclusive\fP, \fBnot\-allowed\fP, \fBon\-demand\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-hide\-on\-focus\-loss [=no]
+Automatically hide the panel window when it loses focus. Using this option will force \fB\-\-focus\-policy\fP to \fBon\-demand\fP\&. Note that on Wayland, depending on the compositor, this can result in the window never becoming visible.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-grab\-keyboard [=no]
+Grab the keyboard. This means global shortcuts defined in the OS will be passed to kitty instead. Useful if you want to create an OS modal window. How well this works depends on the OS/window manager/desktop environment. On Wayland it works only if the compositor implements the inhibit\-keyboard\-shortcuts protocol \%<https://\:wayland\:.app/\:protocols/\:keyboard-shortcuts-inhibit-unstable-v1>\&. On macOS Apple doesn\(aqt allow applications to grab the keyboard without special permissions, so it doesn\(aqt work.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-exclusive\-zone <EXCLUSIVE_ZONE>
+On a Wayland compositor that supports the wlr layer shell protocol, request a given exclusive zone for the panel. Please refer to the wlr layer shell documentation for more details on the meaning of exclusive and its value. If \fB\-\-edge\fP is set to anything other than \fBcenter\fP or \fBnone\fP, this flag will not have any effect unless the flag \fB\-\-override\-exclusive\-zone\fP is also set. If \fB\-\-edge\fP is set to \fBbackground\fP, this option has no effect. Ignored on X11 and macOS.
+Default: \fB\-1\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-override\-exclusive\-zone [=no]
+On a Wayland compositor that supports the wlr layer shell protocol, override the default exclusive zone. This has effect only if \fB\-\-edge\fP is set to \fBtop\fP, \fBleft\fP, \fBbottom\fP or \fBright\fP\&. Ignored on X11 and macOS.
+Default: \fBno\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-single\-instance [=no], \-1 [=no]
+If specified only a single instance of the panel will run. New invocations will instead create a new top\-level window in the existing panel instance.
+Default: \fBno\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-instance\-group <INSTANCE_GROUP>
+default= Used in combination with the \fB\-\-single\-instance\fP option. All panel invocations with the same \fB\-\-instance\-group\fP will result in new panels being created in the first panel instance within that group.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-wait\-for\-single\-instance\-window\-close [=no]
+Normally, when using \fBkitty \-\-single\-instance\fP \%<#\:cmdoption-kitty-single-instance>, kitty will open a new window in an existing instance and quit immediately. With this option, it will not quit till the newly opened window is closed. Note that if no previous instance is found, then kitty will wait anyway, regardless of this option.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-listen\-on <LISTEN_ON>
+Listen on the specified socket address for control messages. For example, \fBkitty \-\-listen\-on\fP \%<#\:cmdoption-kitty-listen-on>\fB=unix:/tmp/mykitty\fP or \fBkitty \-\-listen\-on\fP \%<#\:cmdoption-kitty-listen-on>\fB=tcp:localhost:12345\fP\&. On Linux systems, you can also use abstract UNIX sockets, not associated with a file, like this: \fBkitty \-\-listen\-on\fP \%<#\:cmdoption-kitty-listen-on>\fB=unix:@mykitty\fP\&. Environment variables are expanded and relative paths are resolved with respect to the temporary directory. To control kitty, you can send commands to it with kitten @ using the \fBkitten @ \-\-to\fP \%<#\:cmdoption-kitten-to> option to specify this address. Note that if you run kitten @ within a kitty window, there is no need to specify the \fBkitten @ \-\-to\fP \%<#\:cmdoption-kitten-to> option as it will automatically read from the environment. Note that this will be ignored unless \fBallow_remote_control\fP \%<#\:opt-kitty\:.allow_remote_control> is set to either: \fByes\fP, \fBsocket\fP or \fBsocket\-only\fP\&. This can also be specified in \fBkitty.conf\fP\&.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-toggle\-visibility [=no]
+When set and using \fB\-\-single\-instance\fP will toggle the visibility of the existing panel rather than creating a new one.
+Default: \fBno\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-move\-to\-active\-monitor [=no]
+When set and using \fB\-\-toggle\-visibility\fP to show an existing panel, the panel is moved to the active monitor (typically the monitor with the mouse on it). This works only if the underlying OS supports it. It is currently supported on macOS only.
+Default: \fBfalse\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-start\-as\-hidden [=no]
+Start in hidden mode, useful with \fB\-\-toggle\-visibility\fP\&.
+Default: \fBno\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-detach [=no]
+Detach from the controlling terminal, if any, running in an independent child process, the parent process exits immediately.
+Default: \fBno\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-detached\-log <DETACHED_LOG>
+default= Path to a log file to store STDOUT/STDERR when using \fB\-\-detach\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug\-rendering [=no]
 For internal debugging use.
 .UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug\-input [=no]
+For internal debugging use.
+.UNINDENT
+.SH How the screenshots were generated
+.sp
+The system statistics in the background were created using:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten panel \-\-edge=background \-o background_opacity=0.2 \-o background=black btop
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+This creates a kitty background window and inside it runs the btop \%<https://\:github\:.com/\:aristocratos/\:btop> program to display the statistics.
+.sp
+The floating quick access window was created by running:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten quick\-access\-terminal kitten run\-shell \e
+   zsh \-c \(aqprintf \(dq\ee]66;s=4;Quick access kitty in Hyprland\ea\en\en\en\enAlso uses kitty to draw desktop background\en\(dq\(aq
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+This starts the quick access window and inside it runs \fBkitten run\-shell\fP, which
+in turn first runs \fBzsh\fP to print out the message and then starts the users login
+shell.
+.sp
+The Linux dock panel was:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+wm bar
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+This is a custom program I wrote for my personal use. It uses kitty\(aqs kitten
+infrastructure to implement the bar in a few hundred lines of code \%<https://\:github\:.com/\:kovidgoyal/\:wm/\:blob/\:master/\:bar/\:main\:.go>\&.
+This was designed for my personal use only, but, there are public projects implementing
+general purpose panels using kitty\&.
+.SH Compatibility with various platforms
+.sp
+See the HTML documentation for the compatibility matrix.
 .SH Author
 
 Kovid Goyal
 .SH Copyright
 
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+2025, Kovid Goyal
+.\" End of generated man page.

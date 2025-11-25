@@ -1,0 +1,18 @@
+.TH "kitten-desktop-ui-set-setting" "1" "Jul 14, 2025" "0.42.1" "kitten Manual"
+.SH Name
+kitten-desktop-ui-set-setting \- Change an arbitrary setting
+.SH Usage
+.SY "kitten desktop-ui set-setting  key [value]"
+.YS
+.SH Description
+Set an arbitrary setting. If you want to set the color\-scheme use the dedicated command for it. Use this command with care as it does no validation for the type of value. The syntax for specifying values is described at: the glib docs. Leaving out the value or specifying an empty value, will delete the setting.
+.SH Options
+.TP
+.BI "--namespace, -n" " [=org.freedesktop.appearance]"
+The namespace in which to change the setting.
+.TP
+.BI "--data-type" 
+The DBUS data type signature of the value. The default is to guess from the textual representation, see the glib docs for details.
+.TP
+.BI "--help, -h" " [=no]"
+Show help for this command

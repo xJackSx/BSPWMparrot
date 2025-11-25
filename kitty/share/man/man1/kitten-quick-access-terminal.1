@@ -1,0 +1,354 @@
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
+.
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.TH "kitten-quick-access-terminal" 1 "Nov 03, 2025" "0.44.0" "kitty"
+.SH Name
+kitten-quick-access-terminal \- A quick access terminal window that you can bring up instantly with a keypress or a command.
+.SH Overview
+.sp
+Added in version 0.42.0: See here for what platforms it works on \%<#\:panel-compat>\&.
+
+.sp
+This kitten can be used to make a quick access terminal, that appears and
+disappears at a key press. To do so use the following command:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten quick\-access\-terminal
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Run this command in a terminal, and a quick access kitty window will show up at
+the top of your screen. Run it again, and the window will be hidden.
+.sp
+To make the terminal appear and disappear at a key press:
+.sp
+In Linux, simply assign the above command to a global shortcut in your
+window manager. In macOS, go to System Preferences\->Keyboard\->Keyboard Shortcuts\->Services\->General and set a shortcut
+for the Quick access to kitty entry.
+.SH Configuration
+.sp
+You can configure the appearance and behavior of the quick access window
+by creating a \fBquick\-access\-terminal.conf\fP file in your
+kitty config folder \%<#\:confloc>\&. In particular, you can use the
+\fBkitty_conf\fP option to change
+various kitty settings, just for the quick access window.
+.sp
+\fBNote:\fP
+.INDENT 0.0
+.INDENT 3.5
+This kitten uses the panel kitten \%<> under the
+hood. You can use the techniques described there \%<#\:remote-control-panel>
+for remote controlling the quick access window, remember to add
+\fBkitty_override allow_remote_control=socket\-only\fP and \fBkitty_override
+listen_on=unix:/tmp/whatever\fP to
+\fBquick\-access\-terminal.conf\fP\&.
+.UNINDENT
+.UNINDENT
+.sp
+See below for the supported configuration directives:
+.SH Window appearance
+.INDENT 0.0
+.TP
+.B lines
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+lines 25
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+The number of lines shown in the panel. Ignored for background, centered, and vertical panels. If it has the suffix \fBpx\fP then it sets the height of the panel in pixels instead of lines.
+.INDENT 0.0
+.TP
+.B columns
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+columns 80
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+The number of columns shown in the panel. Ignored for background, centered, and horizontal panels. If it has the suffix \fBpx\fP then it sets the width of the panel in pixels instead of columns.
+.INDENT 0.0
+.TP
+.B edge
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+edge top
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Which edge of the screen to place the panel on. Note that some window managers (such as i3) do not support placing docked windows on the left and right edges. The value \fBbackground\fP means make the panel the \(dqdesktop wallpaper\(dq. Note that when using sway if you set a background in your sway config it will cover the background drawn using this kitten. Additionally, there are three more values: \fBcenter\fP, \fBcenter\-sized\fP and \fBnone\fP\&. The value \fBcenter\fP anchors the panel to all sides and covers the entire display (on macOS the part of the display not covered by titlebar and dock). The panel can be shrunk and placed using the margin parameters. The value \fBnone\fP anchors the panel to the top left corner and should be placed using the margin parameters. Its size is set by \fBlines\fP and \fBcolumns\fP\&. The value \fBcenter\-sized\fP is just like \fBnone\fP except that the panel is centered instead of in the top left corner and the margins have no effect.
+.INDENT 0.0
+.TP
+.B background_opacity
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+background_opacity 0.85
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+The background opacity of the window. This works the same as the kitty
+option of the same name, it is present here as it has a different
+default value for the quick access terminal.
+.INDENT 0.0
+.TP
+.B hide_on_focus_loss
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+hide_on_focus_loss no
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Hide the window when it loses keyboard focus automatically. Using this option
+will force \fBfocus_policy\fP to \fBon\-demand\fP\&.
+.INDENT 0.0
+.TP
+.B grab_keyboard
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+grab_keyboard no
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Grab the keyboard. This means global shortcuts defined in the OS will be passed to kitty instead. Useful if
+you want to create an OS modal window. How well this
+works depends on the OS/window manager/desktop environment. On Wayland it works only if the compositor implements
+the inhibit\-keyboard\-shortcuts protocol \%<https://\:wayland\:.app/\:protocols/\:keyboard-shortcuts-inhibit-unstable-v1>\&.
+On macOS Apple doesn\(aqt allow applications to grab the keyboard without special permissions, so it doesn\(aqt work.
+.INDENT 0.0
+.TP
+.B margin_left
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+margin_left 0
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Set the left margin for the panel, in pixels. Has no effect for right edge panels. Only works on macOS and Wayland compositors that supports the wlr layer shell protocol.
+.INDENT 0.0
+.TP
+.B margin_right
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+margin_right 0
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Set the right margin for the panel, in pixels. Has no effect for left edge panels. Only works on macOS and Wayland compositors that supports the wlr layer shell protocol.
+.INDENT 0.0
+.TP
+.B margin_top
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+margin_top 0
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Set the top margin for the panel, in pixels. Has no effect for bottom edge panels. Only works on macOS and Wayland compositors that supports the wlr layer shell protocol.
+.INDENT 0.0
+.TP
+.B margin_bottom
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+margin_bottom 0
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Set the bottom margin for the panel, in pixels. Has no effect for top edge panels. Only works on macOS and Wayland compositors that supports the wlr layer shell protocol.
+.INDENT 0.0
+.TP
+.B kitty_conf
+.UNINDENT
+.sp
+Path to config file to use for kitty when drawing the window. Can be specified multiple times. By default, the normal kitty.conf is used. Relative paths are resolved with respect to the kitty config directory.
+.INDENT 0.0
+.TP
+.B kitty_override
+.UNINDENT
+.sp
+Override individual kitty configuration options, can be specified multiple times. Syntax: kitty_override name=value\&. For example: \fBkitty_override font_size=20\fP\&.
+.INDENT 0.0
+.TP
+.B app_id
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+app_id kitty\-quick\-access
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+On Wayland set the namespace of the layer shell surface. On X11 set the WM_CLASS assigned to the quick access window. (Linux only)
+.INDENT 0.0
+.TP
+.B output_name
+.UNINDENT
+.sp
+The panel can only be displayed on a single monitor (output) at a time. This allows you to specify which output is used, by name. If not specified the compositor will choose an output automatically, typically the last output the user interacted with or the primary monitor. Run \fBkitten panel \-\-output\-name list\fP to get a list of available outputs. Use \fBlistjson\fP for a json encoded output. Note that on Wayland the output can only be set at panel creation time, it cannot be changed after creation, nor is there anyway to display a single panel on all outputs. Please complain to the Wayland developers about this.
+.INDENT 0.0
+.TP
+.B start_as_hidden
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+start_as_hidden no
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Whether to start the quick access terminal hidden. Useful if you are starting it as part of system startup.
+.INDENT 0.0
+.TP
+.B focus_policy
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+focus_policy exclusive
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+On a Wayland compositor that supports the wlr layer shell protocol, specify the focus policy for keyboard interactivity with the panel. Please refer to the wlr layer shell protocol documentation for more details. Note that different Wayland compositors behave very differently with \fBexclusive\fP, your mileage may vary. On macOS, \fBexclusive\fP and \fBon\-demand\fP are currently the same.
+.SH Source code for quick_access_terminal
+.sp
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:quick_access_terminal>\&.
+.SH Command line interface
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+kitten quick_access_terminal [options] [cmdline\-to\-run ...]
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+A quick access terminal window that you can bring up instantly with a keypress or a command.
+.SS Options
+.INDENT 0.0
+.TP
+.B \-\-config <CONFIG>, \-c <CONFIG>
+Specify a path to the configuration file(s) to use. All configuration files are merged onto the builtin \fBquick\-access\-terminal.conf\fP, overriding the builtin values. This option can be specified multiple times to read multiple configuration files in sequence, which are merged. Use the special value \fBNONE\fP to not load any config file.
+.sp
+If this option is not specified, config files are searched for in the order: \fB$XDG_CONFIG_HOME/kitty/quick\-access\-terminal.conf\fP, \fB~/.config/kitty/quick\-access\-terminal.conf\fP, \fB$XDG_CONFIG_DIRS/kitty/quick\-access\-terminal.conf\fP\&. The first one that exists is used as the config file.
+.sp
+If the environment variable \fBKITTY_CONFIG_DIRECTORY\fP \%<#\:envvar-KITTY_CONFIG_DIRECTORY> is specified, that directory is always used and the above searching does not happen.
+.sp
+If \fB/etc/xdg/kitty/quick\-access\-terminal.conf\fP exists, it is merged before (i.e. with lower priority) than any user config files. It can be used to specify system\-wide defaults for all users. You can use either \fB\-\fP or \fB/dev/stdin\fP to read the config from STDIN.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-override <OVERRIDE>, \-o <OVERRIDE>
+Override individual configuration options, can be specified multiple times. Syntax: name=value\&. For example: \-o lines=12
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-detach [=no]
+Detach from the controlling terminal, if any, running in an independent child process, the parent process exits immediately.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-detached\-log <DETACHED_LOG>
+Path to a log file to store STDOUT/STDERR when using \fB\-\-detach\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-instance\-group <INSTANCE_GROUP>
+The unique name of this quick access terminal Use a different name if you want multiple such terminals.
+Default: \fBquick\-access\fP
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug\-rendering [=no]
+For debugging interactions with the compositor/window manager.
+.UNINDENT
+.INDENT 0.0
+.TP
+.B \-\-debug\-input [=no]
+For debugging interactions with the compositor/window manager.
+.UNINDENT
+.SH Sample quick-access-terminal.conf
+.sp
+You can download a sample \fBquick\-access\-terminal.conf\fP file with all default settings and
+comments describing each setting by clicking: \fBsample quick\-access\-terminal.conf\fP\&.
+.SH Author
+
+Kovid Goyal
+.SH Copyright
+
+2025, Kovid Goyal
+.\" End of generated man page.

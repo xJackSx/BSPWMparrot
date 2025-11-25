@@ -124,66 +124,14 @@ started.
    remote-control
 
 
-.. _sessions:
-
-Startup Sessions
+Sessions
 ------------------
 
 You can control the :term:`tabs <tab>`, :term:`kitty window <window>` layout,
 working directory, startup programs, etc. by creating a *session* file and using
 the :option:`kitty --session` command line flag or the :opt:`startup_session`
-option in :file:`kitty.conf`. An example, showing all available commands:
-
-.. code-block:: session
-
-    # Set the layout for the current tab
-    layout tall
-    # Set the working directory for windows in the current tab
-    cd ~
-    # Create a window and run the specified command in it
-    launch zsh
-    # Create a window with some environment variables set and run vim in it
-    launch --env FOO=BAR vim
-    # Set the title for the next window
-    launch --title "Chat with x" irssi --profile x
-
-    # Create a new tab
-    # The part after new_tab is the optional tab title which will be displayed in
-    # the tab bar, if omitted, the title of the active window will be used instead.
-    new_tab my tab
-    cd ~/somewhere
-    # Set the layouts allowed in this tab
-    enabled_layouts tall,stack
-    # Set the current layout
-    layout stack
-    launch zsh
-
-    # Create a new OS window
-    # Any definitions specified before the first new_os_window will apply to first OS window.
-    new_os_window
-    # Set new window size to 80x24 cells
-    os_window_size 80c 24c
-    # Set the --class for the new OS window
-    os_window_class mywindow
-    # Change the OS window state to normal, fullscreen, maximized or minimized
-    os_window_state normal
-    launch sh
-    # Resize the current window (see the resize_window action for details)
-    resize_window wider 2
-    # Make the current window the active (focused) window in its tab
-    focus
-    # Make the current OS Window the globally active window (not supported on Wayland)
-    focus_os_window
-    launch emacs
-
-.. note::
-    The :doc:`launch <launch>` command when used in a session file cannot create
-    new OS windows, or tabs.
-
-.. note::
-   Environment variables of the for :code:`${NAME}` or :code:`$NAME` are
-   expanded in the session file, except in the *arguments* (not options) to the
-   launch command.
+option in :file:`kitty.conf`. You can also easily switch between sessions with
+a keypress. See :doc:`sessions` for details.
 
 
 Creating tabs/windows
@@ -224,9 +172,7 @@ All these actions can be customized in :file:`kitty.conf` as described
 
 You can also customize what happens when clicking on :term:`hyperlinks` in
 kitty, having it open files in your editor, download remote files, open things
-in your browser, etc.
-
-For details, see :doc:`here <open_actions>`.
+in your browser, etc. For details, see :doc:`here <open_actions>`.
 
 .. toctree::
    :hidden:
@@ -251,9 +197,10 @@ The scrollback buffer
 -----------------------
 
 |kitty| supports scrolling back to view history, just like most terminals. You
-can use either keyboard shortcuts or the mouse scroll wheel to do so. While
-you are browsing the scrollback a :opt:`small indicator <scrollback_indicator_opacity>`
-is displayed along the right edge of the window to show how far back you are.
+can use either keyboard shortcuts or the mouse scroll wheel to do so. |kitty|
+displays an interactive :opt:`scrollbar` along the right edge
+of the window that shows your current position in the scrollback. You can click
+and drag the scrollbar to quickly navigate through the history.
 
 However, |kitty| has an extra, neat feature. Sometimes you need to explore the scrollback
 buffer in more detail, maybe search for some text or refer to it side-by-side
@@ -272,7 +219,7 @@ arbitrary, command running in a new :term:`window`, :term:`tab` or
 Would open the scrollback buffer in a new :term:`window` when you press the
 :kbd:`F1` key. See :sc:`show_scrollback <show_scrollback>` for details.
 
-If you want to use it with an editor such as :program:`vim` to get more powerful
+If you want to use it with an editor such as :program:`nvim` to get more powerful
 features, see for example, `kitty-scrollback.nvim
 <https://github.com/mikesmithgh/kitty-scrollback.nvim>`__ or `kitty-grab <https://github.com/yurikhan/kitty_grab>`__
 or see more tips for using various editor programs, in :iss:`this thread <719>`.

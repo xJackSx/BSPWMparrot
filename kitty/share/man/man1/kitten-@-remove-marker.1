@@ -1,4 +1,4 @@
-.TH "kitten-@-remove-marker" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-@-remove-marker" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-@-remove-marker \- Remove the currently set marker, if any.
 .SH Usage
@@ -9,7 +9,7 @@ Remove the currently set marker, if any.
 .SH Options
 .TP
 .BI "--match, -m" 
-The window to match. Match specifications are of the form: field:query. Where field can be one of: id, title, pid, cwd, cmdline, num, env, var, state, neighbor, and recent. query is the expression to match. Expressions can be either a number or a regular expression, and can be combined using Boolean operators.
+The window to match. Match specifications are of the form: field:query. Where field can be one of: id, title, pid, cwd, cmdline, num, env, var, state, neighbor, session and recent. query is the expression to match. Expressions can be either a number or a regular expression, and can be combined using Boolean operators.
 
 The special value all matches all windows.
 
@@ -24,18 +24,20 @@ The field recent refers to recently active windows in the currently active tab, 
 
 The field neighbor refers to a neighbor of the active window in the specified direction, which can be: left, right, top or bottom.
 
+The field session matches windows that were created in the specified session. Use the expression \(ha$ to match windows that were not created in a session and . to match the currently active session and \(ti to match either the currently active sesison or the last active session when no session is active.
+
 When using the env field to match on environment variables, you can specify only the environment variable name or a name and value, for example, env:MY_ENV_VAR=2.
 
 Similarly, the var field matches on user variables set on the window. You can specify name or name and value as with the env field.
 
-The field state matches on the state of the window. Supported states are: active, focused, needs_attention, parent_active, parent_focused, self, overlay_parent.  Active windows are the windows that are active in their parent tab. There is only one focused window and it is the window to which keyboard events are delivered. If no window is focused, the last focused window is matched. The value self matches the window in which the remote control command is run. The value overlay_parent matches the window that is under the self window, when the self window is an overlay.
+The field state matches on the state of the window. Supported states are: active, focused, needs_attention, parent_active, parent_focused, focused_os_window, self, overlay_parent.  Active windows are the windows that are active in their parent tab. There is only one focused window and it is the window to which keyboard events are delivered. If no window is focused, the last focused window is matched. The value focused_os_window matches all windows in the currently focused OS window. The value self matches the window in which the remote control command is run. The value overlay_parent matches the window that is under the self window, when the self window is an overlay.
 
 Note that you can use the kitten @ ls command to get a list of windows.
 .TP
-.BI "--self" 
+.BI "--self" " [=no]"
 Apply marker to the window this command is run in, rather than the active window.
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command
 .SH Global options
 .TP
@@ -52,7 +54,7 @@ A password to use when contacting kitty. This will cause kitty to ask the user f
 .B \-\-use\-password as always.
 .TP
 .BI "--password-file" " [=rc\-pass]"
-A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Used if no 
+A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Use fd:num to read from the file descriptor num. Used if no 
 .B \-\-password is supplied. Defaults to checking for the 
 .I rc\-pass file in the kitty configuration directory.
 .TP

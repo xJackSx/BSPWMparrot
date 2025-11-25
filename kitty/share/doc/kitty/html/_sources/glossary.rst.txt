@@ -50,6 +50,18 @@ Glossary
       inside kitty windows and provide it with lots of powerful and flexible
       features such as viewing images, connecting conveniently to remote
       computers, transferring files, inputting unicode characters, etc.
+      They can also be written by users in Python and used to customize and
+      extend kitty functionality, see :doc:`kittens_intro` for details.
+
+   easing function
+      A function that controls how an animation progresses over time. kitty
+      support the `CSS syntax for easing functions
+      <https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function>`__.
+      Commonly used easing functions are :code:`linear` for a constant rate
+      animation and :code:`ease-in-out` for an animation that starts slow,
+      becomes fast in the middle and ends slowly. These are used to control
+      various animations in kitty, such as :opt:`cursor_blink_interval` and
+      :opt:`visual_bell_duration`.
 
 .. _env_vars:
 
@@ -85,6 +97,11 @@ Variables that influence kitty behavior
 .. envvar:: EDITOR
 
    Same as :envvar:`VISUAL`. Used if :envvar:`VISUAL` is not set.
+
+.. envvar:: SHELL
+
+   Specifies the default shell kitty will run when :opt:`shell` is set to
+   :code:`.`.
 
 .. envvar:: GLFW_IM_MODULE
 
@@ -206,6 +223,14 @@ Variables that kitty sets when running child programs
 
    Set when enabling :ref:`shell_integration`. It is automatically removed by
    the shell integration scripts.
+
+.. envvar:: KITTY_SI_RUN_COMMAND_AT_STARTUP
+
+   Set this to an expression that the kitty shell integration scripts will
+   ``eval`` after the shell is started. Note that this environment variable
+   is ignored when present in the environment in which kitty itself is launched
+   in. It is most useful with the ``--env`` flag for the :doc:`launch <launch>`
+   action.
 
 .. envvar:: ZDOTDIR
 

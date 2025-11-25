@@ -27,6 +27,8 @@ please do so by opening issues in the `GitHub bug tracker
    underlines
    graphics-protocol
    keyboard-protocol
+   text-sizing-protocol
+   multiple-cursors-protocol
    file-transfer-protocol
    desktop-notifications
    pointer-shapes
@@ -34,3 +36,4 @@ please do so by opening issues in the `GitHub bug tracker
    color-stack
    deccara
    clipboard
+   misc-protocol

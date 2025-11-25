@@ -1,4 +1,5 @@
-.\" Man page generated from reStructuredText.
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
 .
 .
 .nr rst2man-indent-level 0
@@ -27,7 +28,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "kitten-broadcast" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-broadcast" 1 "Nov 03, 2025" "0.44.0" "kitty"
 .SH Name
 kitten-broadcast \- Broadcast typed text to kitty windows
 .SH Overview
@@ -35,7 +36,7 @@ kitten-broadcast \- Broadcast typed text to kitty windows
 \fIType text in all kitty windows simultaneously\fP
 .sp
 The \fBbroadcast\fP kitten can be used to type text simultaneously in all
-\X'tty: link #term-window'\fI\%kitty windows\fP\X'tty: link' (or a subset as desired).
+kitty windows \%<#\:term-window> (or a subset as desired).
 .sp
 To use it, simply create a mapping in \fBkitty.conf\fP such as:
 .INDENT 0.0
@@ -63,7 +64,7 @@ map f1 launch \-\-allow\-remote\-control kitty +kitten broadcast \-\-match\-tab 
 .UNINDENT
 .SH Source code for broadcast
 .sp
-The source code for this kitten is \X'tty: link https://github.com/kovidgoyal/kitty/tree/master/kittens/broadcast'\fI\%available on GitHub\fP\X'tty: link'\&.
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:broadcast>\&.
 .SH Command line interface
 .INDENT 0.0
 .INDENT 3.5
@@ -91,32 +92,34 @@ Default: \fBCtrl+Esc\fP
 .INDENT 0.0
 .TP
 .B \-\-match <MATCH>, \-m <MATCH>
-The window to match. Match specifications are of the form: field:query\&. Where field can be one of: \fBid\fP, \fBtitle\fP, \fBpid\fP, \fBcwd\fP, \fBcmdline\fP, \fBnum\fP, \fBenv\fP, \fBvar\fP, \fBstate\fP, \fBneighbor\fP, and \fBrecent\fP\&. query is the expression to match. Expressions can be either a number or a regular expression, and can be \X'tty: link #search-syntax'\fI\%combined using Boolean operators\fP\X'tty: link'\&.
+The window to match. Match specifications are of the form: field:query\&. Where field can be one of: \fBid\fP, \fBtitle\fP, \fBpid\fP, \fBcwd\fP, \fBcmdline\fP, \fBnum\fP, \fBenv\fP, \fBvar\fP, \fBstate\fP, \fBneighbor\fP, \fBsession\fP and \fBrecent\fP\&. query is the expression to match. Expressions can be either a number or a regular expression, and can be combined using Boolean operators \%<#\:search-syntax>\&.
 .sp
 The special value \fBall\fP matches all windows.
 .sp
 For numeric fields: \fBid\fP, \fBpid\fP, \fBnum\fP and \fBrecent\fP, the expression is interpreted as a number, not a regular expression. Negative values for \fBid\fP match from the highest id number down, in particular, \-1 is the most recently created window.
 .sp
-The field \fBnum\fP refers to the window position in the current tab, starting from zero and counting clockwise (this is the same as the order in which the windows are reported by the \X'tty: link #at-ls'\fI\%kitten @ ls\fP\X'tty: link' command).
+The field \fBnum\fP refers to the window position in the current tab, starting from zero and counting clockwise (this is the same as the order in which the windows are reported by the kitten @ ls \%<#\:at-ls> command).
 .sp
-The window id of the current window is available as the \X'tty: link #envvar-KITTY_WINDOW_ID'\fI\%KITTY_WINDOW_ID\fP\X'tty: link' environment variable.
+The window id of the current window is available as the \fBKITTY_WINDOW_ID\fP \%<#\:envvar-KITTY_WINDOW_ID> environment variable.
 .sp
 The field \fBrecent\fP refers to recently active windows in the currently active tab, with zero being the currently active window, one being the previously active window and so on.
 .sp
 The field \fBneighbor\fP refers to a neighbor of the active window in the specified direction, which can be: \fBleft\fP, \fBright\fP, \fBtop\fP or \fBbottom\fP\&.
 .sp
+The field \fBsession\fP matches windows that were created in the specified session. Use the expression \fB^$\fP to match windows that were not created in a session and \fB\&.\fP to match the currently active session and \fB~\fP to match either the currently active sesison or the last active session when no session is active.
+.sp
 When using the \fBenv\fP field to match on environment variables, you can specify only the environment variable name or a name and value, for example, \fBenv:MY_ENV_VAR=2\fP\&.
 .sp
 Similarly, the \fBvar\fP field matches on user variables set on the window. You can specify name or name and value as with the \fBenv\fP field.
 .sp
-The field \fBstate\fP matches on the state of the window. Supported states are: \fBactive\fP, \fBfocused\fP, \fBneeds_attention\fP, \fBparent_active\fP, \fBparent_focused\fP, \fBself\fP, \fBoverlay_parent\fP\&.  Active windows are the windows that are active in their parent tab. There is only one focused window and it is the window to which keyboard events are delivered. If no window is focused, the last focused window is matched. The value \fBself\fP matches the window in which the remote control command is run. The value \fBoverlay_parent\fP matches the window that is under the \fBself\fP window, when the self window is an overlay.
+The field \fBstate\fP matches on the state of the window. Supported states are: \fBactive\fP, \fBfocused\fP, \fBneeds_attention\fP, \fBparent_active\fP, \fBparent_focused\fP, \fBfocused_os_window\fP, \fBself\fP, \fBoverlay_parent\fP\&.  Active windows are the windows that are active in their parent tab. There is only one focused window and it is the window to which keyboard events are delivered. If no window is focused, the last focused window is matched. The value \fBfocused_os_window\fP matches all windows in the currently focused OS window. The value \fBself\fP matches the window in which the remote control command is run. The value \fBoverlay_parent\fP matches the window that is under the \fBself\fP window, when the self window is an overlay.
 .sp
-Note that you can use the \X'tty: link #at-ls'\fI\%kitten @ ls\fP\X'tty: link' command to get a list of windows.
+Note that you can use the kitten @ ls \%<#\:at-ls> command to get a list of windows.
 .UNINDENT
 .INDENT 0.0
 .TP
 .B \-\-match\-tab <MATCH_TAB>, \-t <MATCH_TAB>
-The tab to match. Match specifications are of the form: field:query\&. Where field can be one of: \fBid\fP, \fBindex\fP, \fBtitle\fP, \fBwindow_id\fP, \fBwindow_title\fP, \fBpid\fP, \fBcwd\fP, \fBcmdline\fP \fBenv\fP, \fBvar\fP, \fBstate\fP and \fBrecent\fP\&. query is the expression to match. Expressions can be either a number or a regular expression, and can be \X'tty: link #search-syntax'\fI\%combined using Boolean operators\fP\X'tty: link'\&.
+The tab to match. Match specifications are of the form: field:query\&. Where field can be one of: \fBid\fP, \fBindex\fP, \fBtitle\fP, \fBwindow_id\fP, \fBwindow_title\fP, \fBpid\fP, \fBcwd\fP, \fBcmdline\fP \fBenv\fP, \fBvar\fP, \fBstate\fP, \fBsession\fP and \fBrecent\fP\&. query is the expression to match. Expressions can be either a number or a regular expression, and can be combined using Boolean operators \%<#\:search-syntax>\&.
 .sp
 The special value \fBall\fP matches all tabs.
 .sp
@@ -128,17 +131,18 @@ You can also use \fBwindow_id\fP and \fBwindow_title\fP to match the tab that co
 .sp
 The \fBindex\fP number is used to match the nth tab in the currently active OS window. The \fBrecent\fP number matches recently active tabs in the currently active OS window, with zero being the currently active tab, one the previously active tab and so on.
 .sp
+The field \fBsession\fP matches tabs that were created in the specified session. Use the expression \fB^$\fP to match windows that were not created in a session and \fB\&.\fP to match the currently active session and \fB~\fP to match either the currently active sesison or the last active session when no session is active.
+.sp
 When using the \fBenv\fP field to match on environment variables, you can specify only the environment variable name or a name and value, for example, \fBenv:MY_ENV_VAR=2\fP\&. Tabs containing any window with the specified environment variables are matched. Similarly, \fBvar\fP matches tabs containing any window with the specified user variable.
 .sp
-The field \fBstate\fP matches on the state of the tab. Supported states are: \fBactive\fP, \fBfocused\fP, \fBneeds_attention\fP, \fBparent_active\fP and \fBparent_focused\fP\&. Active tabs are the tabs that are active in their parent OS window. There is only one focused tab and it is the tab to which keyboard events are delivered. If no tab is focused, the last focused tab is matched.
+The field \fBstate\fP matches on the state of the tab. Supported states are: \fBactive\fP, \fBfocused\fP, \fBneeds_attention\fP, \fBparent_active\fP, \fBparent_focused\fP and \fBfocused_os_window\fP\&. Active tabs are the tabs that are active in their parent OS window. There is only one focused tab and it is the tab to which keyboard events are delivered. If no tab is focused, the last focused tab is matched. The value \fBfocused_os_window\fP matches all tabs in the currently focused OS window.
 .sp
-Note that you can use the \X'tty: link #at-ls'\fI\%kitten @ ls\fP\X'tty: link' command to get a list of tabs.
+Note that you can use the kitten @ ls \%<#\:at-ls> command to get a list of tabs.
 .UNINDENT
 .SH Author
 
 Kovid Goyal
 .SH Copyright
 
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+2025, Kovid Goyal
+.\" End of generated man page.

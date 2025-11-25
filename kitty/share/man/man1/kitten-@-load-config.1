@@ -1,4 +1,4 @@
-.TH "kitten-@-load-config" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-@-load-config" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-@-load-config \- (Re)load a config file
 .SH Usage
@@ -8,17 +8,17 @@ kitten-@-load-config \- (Re)load a config file
 (Re)load the specified kitty.conf config files(s). If no files are specified the previously specified config file is reloaded. Note that the specified paths must exist and be readable by the kitty process on the computer that process is running on. Relative paths are resolved with respect to the kitty config directory on the computer running kitty.
 .SH Options
 .TP
-.BI "--ignore-overrides" 
+.BI "--ignore-overrides" " [=no]"
 By default, any config overrides previously specified at the kitty invocation command line or a previous load\-config\-file command are respected. Use this option to have them ignored instead.
 .TP
 .BI "--override, -o" 
 Override individual configuration options, can be specified multiple times. Syntax: name=value. For example: 
 .B \-o font_size=20
 .TP
-.BI "--no-response" 
+.BI "--no-response" " [=no]"
 Don\[aq]t wait for a response indicating the success of the action. Note that using this option means that you will not be notified of failures.
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command
 .SH Global options
 .TP
@@ -35,7 +35,7 @@ A password to use when contacting kitty. This will cause kitty to ask the user f
 .B \-\-use\-password as always.
 .TP
 .BI "--password-file" " [=rc\-pass]"
-A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Used if no 
+A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Use fd:num to read from the file descriptor num. Used if no 
 .B \-\-password is supplied. Defaults to checking for the 
 .I rc\-pass file in the kitty configuration directory.
 .TP

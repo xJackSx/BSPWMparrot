@@ -19,10 +19,9 @@ Create a file in the kitty config directory, :file:`~/.config/kitty/mykitten.py`
 
 .. code-block:: python
 
-    from typing import List
     from kitty.boss import Boss
 
-    def main(args: List[str]) -> str:
+    def main(args: list[str]) -> str:
         # this is the main entry point of the kitten, it will be executed in
         # the overlay window when the kitten is launched
         answer = input('Enter some text: ')
@@ -30,7 +29,7 @@ Create a file in the kitty config directory, :file:`~/.config/kitty/mykitten.py`
         # handle_result() function
         return answer
 
-    def handle_result(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
+    def handle_result(args: list[str], answer: str, target_window_id: int, boss: Boss) -> None:
         # get the kitty window into which to paste answer
         w = boss.window_id_map.get(target_window_id)
         if w is not None:
@@ -60,7 +59,7 @@ would pass to ``kitten @``. For example:
 
 .. code-block:: python
 
-    def handle_result(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
+    def handle_result(args: list[str], answer: str, target_window_id: int, boss: Boss) -> None:
         # get the kitty window to which to send text
         w = boss.window_id_map.get(target_window_id)
         if w is not None:
@@ -72,6 +71,9 @@ would pass to ``kitten @``. For example:
    the appropriate option to select the target window, usually ``--match`` as
    shown above or ``--self``.
 
+
+Run, ``kitten @ --help`` in a kitty terminal, to see all the remote control
+commands available to you.
 
 Passing arguments to kittens
 ------------------------------
@@ -98,19 +100,18 @@ like. For example:
 
 .. code-block:: py
 
-    from typing import List
     from kitty.boss import Boss
 
     # in main, STDIN is for the kitten process and will contain
     # the contents of the screen
-    def main(args: List[str]) -> str:
+    def main(args: list[str]) -> str:
         return sys.stdin.read()
 
     # in handle_result, STDIN is for the kitty process itself, rather
     # than the kitten process and should not be read from.
     from kittens.tui.handler import result_handler
     @result_handler(type_of_input='text')
-    def handle_result(args: List[str], stdin_data: str, target_window_id: int, boss: Boss) -> None:
+    def handle_result(args: list[str], stdin_data: str, target_window_id: int, boss: Boss) -> None:
         pass
 
 
@@ -121,9 +122,9 @@ the table below:
 .. table:: Types of input to kittens
     :align: left
 
-    =========================== =======================================================================================================
+    =========================== ========================================================================================
     Keyword                     Type of :file:`STDIN` input
-    =========================== =======================================================================================================
+    =========================== ========================================================================================
     ``text``                    Plain text of active window
     ``ansi``                    Formatted text of active window
     ``screen``                  Plain text of active window with line wrap markers
@@ -140,7 +141,7 @@ the table below:
     ``output-screen-ansi``      Formatted text of the output from the last run command with wrap markers
 
     ``selection``               The text currently selected with the mouse
-    =========================== =======================================================================================================
+    =========================== ========================================================================================
 
 In addition to ``output``, that gets the output of the last run command,
 ``last_visited_output`` gives the output of the command last jumped to
@@ -168,15 +169,14 @@ Create a Python file in the :ref:`kitty config directory <confloc>`,
 
 .. code-block:: py
 
-    from typing import List
     from kitty.boss import Boss
 
-    def main(args: List[str]) -> str:
+    def main(args: list[str]) -> str:
         pass
 
     from kittens.tui.handler import result_handler
     @result_handler(no_ui=True)
-    def handle_result(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
+    def handle_result(args: list[str], answer: str, target_window_id: int, boss: Boss) -> None:
         tab = boss.active_tab
         if tab is not None:
             if tab.current_layout.name == 'stack':
@@ -228,6 +228,56 @@ The function will only send the event if the program is receiving events of
 that type, and will return ``True`` if it sent the event, and ``False`` if not.
 
 
+.. _kitten_main_rc:
+
+Using remote control inside the main() kitten function
+------------------------------------------------------------
+
+You can use kitty's remote control features inside the main() function of a
+kitten, even without enabling remote control. This is useful if you want to
+probe kitty for more information before presenting some UI to the user or if
+you want the user to be able to control kitty from within your kitten's UI
+rather than after it has finished running. To enable it, simply tell kitty your kitten
+requires remote control, as shown in the example below::
+
+    import json
+    import sys
+    from pprint import pprint
+
+    from kittens.tui.handler import kitten_ui
+
+    @kitten_ui(allow_remote_control=True)
+    def main(args: list[str]) -> str:
+        # get the result of running kitten @ ls
+        cp = main.remote_control(['ls'], capture_output=True)
+        if cp.returncode != 0:
+            sys.stderr.buffer.write(cp.stderr)
+            raise SystemExit(cp.returncode)
+        output = json.loads(cp.stdout)
+        pprint(output)
+        # open a new tab with a title specified by the user
+        title = input('Enter the name of tab: ')
+        window_id = main.remote_control(['launch', '--type=tab', '--tab-title', title], check=True, capture_output=True).stdout.decode()
+        return window_id
+
+:code:`allow_remote_control=True` tells kitty to run this kitten with remote
+control enabled, regardless of whether it is enabled globally or not.
+To run a remote control command use the :code:`main.remote_control()` function
+which is a thin wrapper around Python's :code:`subprocess.run` function. Note
+that by default, for security, child processes launched by your kitten cannot use remote
+control, thus it is necessary to use :code:`main.remote_control()`. If you wish
+to enable child processes to use remote control, call
+:code:`main.allow_indiscriminate_remote_control()`.
+
+Remote control access can be further secured by using
+:code:`kitten_ui(allow_remote_control=True, remote_control_password='ls set-colors')`.
+This will use a secure generated password to restrict remote control.
+You can specify a space separated list of remote control commands to allow, see
+:opt:`remote_control_password` for details. The password value is accessible
+as :code:`main.password` and is used by :code:`main.remote_control()`
+automatically.
+
+
 Debugging kittens
 --------------------
 
@@ -248,105 +298,12 @@ So if you run kitty from another kitty instance, the output will be visible
 in the first kitty instance.
 
 
-Adding options to kittens
-----------------------------
+Developing builtin kittens for inclusion with kitty
+----------------------------------------------------------
 
-If you would like to use kitty's config framework to make your kittens
-configurable, you will need some boilerplate. Put the following files in the
-directory of your kitten.
+There is documentation for :doc:`developing-builtin-kittens` which are written in the Go
+language.
 
-:file:`kitten_options_definition.py`
-
-.. code-block:: python
-
-    from kitty.conf.types import Action, Definition
-
-    definition = Definition(
-        '!kitten_options_utils',
-        Action(
-            'map', 'parse_map',
-            {'key_definitions': 'kitty.conf.utils.KittensKeyMap'},
-            ['kitty.types.ParsedShortcut', 'kitty.conf.utils.KeyAction']
-        ),
-    )
-
-    agr = definition.add_group
-    egr = definition.end_group
-    opt = definition.add_option
-    map = definition.add_map
-
-    # main options {{{
-    agr('main', 'Main')
-
-    opt('some_option', '33',
-        option_type='some_option_parser',
-        long_text='''
-    Help text for this option
-    '''
-        )
-    egr()  # }}}
-
-    # shortcuts {{{
-    agr('shortcuts', 'Keyboard shortcuts')
-
-    map('Quit', 'quit q quit')
-    egr()  # }}}
-
-
-:file:`kitten_options_utils.py`
-
-.. code-block:: python
-
-    from kitty.conf.utils import KittensKeyDefinition, key_func, parse_kittens_key
-
-    func_with_args, args_funcs = key_func()
-    FuncArgsType = Tuple[str, Sequence[Any]]
-
-    def some_option_parser(val: str) -> int:
-        return int(val) + 3000
-
-    def parse_map(val: str) -> Iterable[KittensKeyDefinition]:
-        x = parse_kittens_key(val, args_funcs)
-        if x is not None:
-            yield x
-
-Then run::
-
-    kitty +runpy 'from kitty.conf.generate import main; main()' /path/to/kitten_options_definition.py
-
-You can parse and read the options in your kitten using the following code:
-
-.. code-block:: python
-
-    from .kitten_options_types import Options, defaults
-    from kitty.conf.utils import load_config as _load_config, parse_config_base
-    from typing import Optional, Iterable, Dict, Any
-
-    def load_config(*paths: str, overrides: Optional[Iterable[str]] = None) -> Options:
-        from .kitten_options_parse import  (
-            create_result_dict, merge_result_dicts, parse_conf_item
-        )
-
-        def parse_config(lines: Iterable[str]) -> Dict[str, Any]:
-            ans: Dict[str, Any] = create_result_dict()
-            parse_config_base(
-                lines,
-                parse_conf_item,
-                ans,
-            )
-            return ans
-
-        overrides = tuple(overrides) if overrides is not None else ()
-        opts_dict, found_paths = _load_config(defaults, parse_config, merge_result_dicts, *paths, overrides=overrides)
-        opts = Options(opts_dict)
-        opts.config_paths = found_paths
-        opts.all_config_paths = paths
-        opts.config_overrides = overrides
-        return opts
-
-See `the code <https://github.com/kovidgoyal/kitty/tree/master/kittens/diff>`__
-for the builtin :doc:`diff kitten </kittens/diff>` for examples of creating more
-options and keyboard shortcuts.
 
 .. _external_kittens:
 
@@ -359,6 +316,12 @@ Kittens created by kitty users
 
 `smart-scroll <https://github.com/yurikhan/kitty-smart-scroll>`_
     Makes the kitty scroll bindings work in full screen applications
+
+`kitty-tab-switcher <https://github.com/OsiPog/kitty-tab-switcher>`__
+    Fuzzy finder for kitty tabs with previews
+
+`gattino <https://github.com/salvozappa/gattino>`__
+    Integrate kitty with an LLM to convert plain language prompts into shell commands.
 
 :iss:`insert password <1222>`
     Insert a password from a CLI password manager, taking care to only do it at

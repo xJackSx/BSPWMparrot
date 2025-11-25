@@ -1,126 +1,79 @@
-.\" Man page generated from reStructuredText.
-.
-.
-.nr rst2man-indent-level 0
-.
-.de1 rstReportMargin
-\\$1 \\n[an-margin]
-level \\n[rst2man-indent-level]
-level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
--
-\\n[rst2man-indent0]
-\\n[rst2man-indent1]
-\\n[rst2man-indent2]
-..
-.de1 INDENT
-.\" .rstReportMargin pre:
-. RS \\$1
-. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
-. nr rst2man-indent-level +1
-.\" .rstReportMargin post:
-..
-.de UNINDENT
-. RE
-.\" indent \\n[an-margin]
-.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
-.nr rst2man-indent-level -1
-.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
-.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
-..
-.TH "kitten-query-terminal" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-query-terminal" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-query-terminal \- Query the terminal for various capabilities
-.SH Overview
-.sp
-This kitten is used to query \fIkitty\fP from terminal programs about version, values
-of various runtime options controlling its features, etc.
-.sp
-The querying is done using the (\fIsemi\fP) standard XTGETTCAP escape sequence
-pioneered by xterm, so it works over SSH as well. The downside is that it is
-slow, since it requires a roundtrip to the terminal emulator and back.
-.sp
-If you want to do some of the same querying in your terminal program without
-depending on the kitten, you can do so, by processing the same escape codes.
-Search \X'tty: link https://invisible-island.net/xterm/ctlseqs/ctlseqs.html'\fI\%this page\fP\X'tty: link'
-for \fIXTGETTCAP\fP to see the syntax for the escape code and read the source of
-this kitten to find the values of the keys for the various queries.
-.SH Source code for query_terminal
-.sp
-The source code for this kitten is \X'tty: link https://github.com/kovidgoyal/kitty/tree/master/kittens/query_terminal'\fI\%available on GitHub\fP\X'tty: link'\&.
-.SH Command line interface
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.EX
-kitty +kitten query_terminal [options] [query1 query2 ...]
-.EE
-.UNINDENT
-.UNINDENT
-.sp
-Query the terminal this kitten is run in for various capabilities. This sends
-escape codes to the terminal and based on its response prints out data about
-supported capabilities. Note that this is a blocking operation, since it has to
-wait for a response from the terminal. You can control the maximum wait time via
-the \fB\-\-wait\-for\fP option.
-.sp
-The output is lines of the form:
-.INDENT 0.0
-.INDENT 3.5
-.sp
-.EX
-query: data
-.EE
-.UNINDENT
-.UNINDENT
-.sp
-If a particular query is unsupported by the running kitty version, the
-data will be blank.
-.sp
-Note that when calling this from another program, be very careful not to perform
-any I/O on the terminal device until this kitten exits.
-.sp
+.SH Usage
+.SY "kitten query-terminal [options] [query1 query2 ...]"
+.YS
+.SH Description
+Query the terminal this kitten is run in for various capabilities. This sends escape codes to the terminal and based on its response prints out data about supported capabilities. Note that this is a blocking operation, since it has to wait for a response from the terminal. You can control the maximum wait time via the \-\-wait\-for option.
+
+The output is lines of the form::
+
+
+    query: data
+
+If a particular query is unsupported by the running kitty version, the data will be blank.
+
+Note that when calling this from another program, be very careful not to perform any I/O on the terminal device until this kitten exits.
+
 Available queries are:
-.INDENT 0.0
+
+name:
+  Terminal name (e.g. xterm\-kitty)
+
+version:
+  Terminal version (e.g. 0.44.0)
+
+allow_hyperlinks:
+  The config option 
+.B allow_hyperlinks in 
+.I kitty.conf for allowing hyperlinks can be yes, no or ask
+
+font_family:
+  The current font\[aq]s PostScript name
+
+bold_font:
+  The current bold font\[aq]s PostScript name
+
+italic_font:
+  The current italic font\[aq]s PostScript name
+
+bold_italic_font:
+  The current bold\-italic font\[aq]s PostScript name
+
+font_size:
+  The current font size in pts
+
+dpi_x:
+  The current DPI on the x\-axis
+
+dpi_y:
+  The current DPI on the y\-axis
+
+foreground:
+  The current foreground color as a 24\-bit # color code
+
+background:
+  The current background color as a 24\-bit # color code
+
+background_opacity:
+  The current background opacity as a number between 0 and 1
+
+clipboard_control:
+  The config option 
+.B clipboard_control in 
+.I kitty.conf for allowing reads/writes to/from the clipboard
+
+os_name:
+  The name of the OS the terminal is running on. kitty returns values: bsd, linux, macos, unknown
+
+
+
+
+.SH Options
 .TP
-.B \fBname\fP:
-Terminal name (e.g. \fBxterm\-kitty\fP)
-.TP
-.B \fBversion\fP:
-Terminal version (e.g. \fB0.35.2\fP)
-.TP
-.B \fBallow_hyperlinks\fP:
-The config option \X'tty: link #opt-kitty.allow_hyperlinks'\fI\%allow_hyperlinks\fP\X'tty: link' in \fBkitty.conf\fP for allowing hyperlinks can be \fByes\fP, \fBno\fP or \fBask\fP
-.TP
-.B \fBfont_family\fP:
-The current font\(aqs PostScript name
-.TP
-.B \fBbold_font\fP:
-The current bold font\(aqs PostScript name
-.TP
-.B \fBitalic_font\fP:
-The current italic font\(aqs PostScript name
-.TP
-.B \fBbold_italic_font\fP:
-The current bold\-italic font\(aqs PostScript name
-.TP
-.B \fBfont_size\fP:
-The current overall font size (individual windows can have different per window font sizes)
-.TP
-.B \fBclipboard_control\fP:
-The config option \X'tty: link #opt-kitty.clipboard_control'\fI\%clipboard_control\fP\X'tty: link' in \fBkitty.conf\fP for allowing reads/writes to/from the clipboard
-.UNINDENT
-.SS Options
-.INDENT 0.0
-.TP
-.B \-\-wait\-for <WAIT_FOR>
+.BI "--wait-for" " [=10]"
 The amount of time (in seconds) to wait for a response from the terminal, after querying it.
-Default: \fB10\fP
-.UNINDENT
-.SH Author
-
-Kovid Goyal
-.SH Copyright
-
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+.TP
+.BI "--help, -h" " [=no]"
+Show help for this command

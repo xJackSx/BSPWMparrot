@@ -1,4 +1,6 @@
-.\" Man page generated from reStructuredText.
+'\" t
+.\" Man page generated from reStructuredText
+.\" by the Docutils 0.22.2 manpage writer.
 .
 .
 .nr rst2man-indent-level 0
@@ -27,7 +29,7 @@ level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
 .in \\n[rst2man-indent\\n[rst2man-indent-level]]u
 ..
-.TH "kitten-diff" 1 "Jun 22, 2024" "0.35.2" "kitty"
+.TH "kitten-diff" 1 "Nov 03, 2025" "0.44.0" "kitty"
 .SH Name
 kitten-diff \- Pretty, side-by-side diffing of files and images
 .sp
@@ -51,7 +53,7 @@ Screenshot, showing a sample diff (images not supported)
 .UNINDENT
 .SH Installation
 .sp
-Simply \X'tty: link #quickstart'\fI\%install kitty\fP\X'tty: link'\&.
+Simply install kitty \%<#\:quickstart>\&.
 .SH Usage
 .sp
 In the kitty terminal, run:
@@ -102,7 +104,7 @@ _
 T{
 Quit
 T}	T{
-\fBQ\fP, \fBEsc\fP
+\fBQ\fP
 T}
 _
 T{
@@ -144,13 +146,25 @@ _
 T{
 Scroll to next page
 T}	T{
-\fBSpace\fP, \fBPgDn\fP
+\fBSpace\fP, \fBPgDn\fP, \fBCtrl\fP+\fBF\fP
 T}
 _
 T{
 Scroll to previous page
 T}	T{
-\fBPgUp\fP
+\fBPgUp\fP, \fBCtrl\fP+\fBB\fP
+T}
+_
+T{
+Scroll down half page
+T}	T{
+\fBCtrl\fP+\fBD\fP
+T}
+_
+T{
+Scroll up half page
+T}	T{
+\fBCtrl\fP+\fBU\fP
 T}
 _
 T{
@@ -202,7 +216,7 @@ T}	T{
 T}
 _
 T{
-Clear search
+Clear search or exit
 T}	T{
 \fBEsc\fP
 T}
@@ -228,7 +242,7 @@ _
 T{
 Copy selection or exit
 T}	T{
-\fBCtrl+C\fP
+\fBCtrl\fP+\fBC\fP
 T}
 .TE
 .SH Integrating with git
@@ -265,7 +279,7 @@ git difftool \-\-no\-symlinks \-\-dir\-diff
 Once again, creating an alias for this command is useful.
 .SH Why does this work only in kitty?
 .sp
-The diff kitten makes use of various features that are \fI\%kitty only\fP, such as the \fI\%kitty graphics protocol\fP, the \fI\%extended keyboard protocol\fP, etc. It also leverages terminal program infrastructure
+The diff kitten makes use of various features that are kitty only \%<>, such as the kitty graphics protocol \%<>, the extended keyboard protocol \%<>, etc. It also leverages terminal program infrastructure
 I created for all of kitty\(aqs other kittens to reduce the amount of code needed
 (the entire implementation is under 3000 lines of code).
 .sp
@@ -275,7 +289,7 @@ highly unlikely to use any other terminals :)
 .sp
 You can configure the colors used, keyboard shortcuts, the diff implementation,
 the default lines of context, etc. by creating a \fBdiff.conf\fP file in your
-\X'tty: link #confloc'\fI\%kitty config folder\fP\X'tty: link'\&. See below for the supported configuration
+kitty config folder \%<#\:confloc>\&. See below for the supported configuration
 directives.
 .SH Diffing
 .INDENT 0.0
@@ -362,6 +376,23 @@ ignore_name *.pyc
 .SH Colors
 .INDENT 0.0
 .TP
+.B color_scheme
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+color_scheme auto
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+Whether to use the light or dark colors. The default of \fBauto\fP means
+to follow the parent terminal color scheme. Note that the actual colors used
+for dark schemes are set by the \fBdark_*\fP settings below and the non\-prefixed
+settings are used for light colors.
+.INDENT 0.0
+.TP
 .B pygments_style
 .UNINDENT
 .INDENT 0.0
@@ -373,19 +404,41 @@ pygments_style default
 .UNINDENT
 .UNINDENT
 .sp
-The pygments color scheme to use for syntax highlighting. See \X'tty: link https://pygments.org/styles/'\fI\%pygments builtin styles\fP\X'tty: link' for a list of schemes. Note that
+The pygments color scheme to use for syntax highlighting. See pygments builtin styles \%<https://\:pygments\:.org/\:styles/> for a list of schemes. Note that
 this \fBdoes not\fP change the colors used for diffing,
 only the colors used for syntax highlighting. To change the general colors use the settings below.
+This sets the colors used for light color schemes, use \fBdark_pygments_style\fP to change the
+colors for dark color schemes.
 .INDENT 0.0
 .TP
-.B foreground, background
+.B dark_pygments_style
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-foreground black
-background white
+dark_pygments_style github\-dark
+.EE
+.UNINDENT
+.UNINDENT
+.sp
+The pygments color scheme to use for syntax highlighting with dark colors. See pygments builtin styles \%<https://\:pygments\:.org/\:styles/> for a list of schemes. Note that
+this \fBdoes not\fP change the colors used for diffing,
+only the colors used for syntax highlighting. To change the general colors use the settings below.
+This sets the colors used for dark color schemes, use \fBpygments_style\fP to change the
+colors for light color schemes.
+.INDENT 0.0
+.TP
+.B foreground, dark_foreground, background, dark_background
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+foreground      black
+dark_foreground #f8f8f2
+background      white
+dark_background #212830
 .EE
 .UNINDENT
 .UNINDENT
@@ -393,14 +446,16 @@ background white
 Basic colors
 .INDENT 0.0
 .TP
-.B title_fg, title_bg
+.B title_fg, dark_title_fg, title_bg, dark_title_bg
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-title_fg black
-title_bg white
+title_fg      black
+dark_title_fg white
+title_bg      white
+dark_title_bg #212830
 .EE
 .UNINDENT
 .UNINDENT
@@ -408,14 +463,16 @@ title_bg white
 Title colors
 .INDENT 0.0
 .TP
-.B margin_bg, margin_fg
+.B margin_bg, dark_margin_bg, margin_fg, dark_margin_fg
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-margin_bg #fafbfc
-margin_fg #aaaaaa
+margin_bg      #fafbfc
+dark_margin_bg #212830
+margin_fg      #aaaaaa
+dark_margin_fg #aaaaaa
 .EE
 .UNINDENT
 .UNINDENT
@@ -423,15 +480,18 @@ margin_fg #aaaaaa
 Margin colors
 .INDENT 0.0
 .TP
-.B removed_bg, highlight_removed_bg, removed_margin_bg
+.B removed_bg, dark_removed_bg, highlight_removed_bg, dark_highlight_removed_bg, removed_margin_bg, dark_removed_margin_bg
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-removed_bg           #ffeef0
-highlight_removed_bg #fdb8c0
-removed_margin_bg    #ffdce0
+removed_bg                #ffeef0
+dark_removed_bg           #352c33
+highlight_removed_bg      #fdb8c0
+dark_highlight_removed_bg #5c3539
+removed_margin_bg         #ffdce0
+dark_removed_margin_bg    #5c3539
 .EE
 .UNINDENT
 .UNINDENT
@@ -439,15 +499,18 @@ removed_margin_bg    #ffdce0
 Removed text backgrounds
 .INDENT 0.0
 .TP
-.B added_bg, highlight_added_bg, added_margin_bg
+.B added_bg, dark_added_bg, highlight_added_bg, dark_highlight_added_bg, added_margin_bg, dark_added_margin_bg
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-added_bg           #e6ffed
-highlight_added_bg #acf2bd
-added_margin_bg    #cdffd8
+added_bg                #e6ffed
+dark_added_bg           #263834
+highlight_added_bg      #acf2bd
+dark_highlight_added_bg #31503d
+added_margin_bg         #cdffd8
+dark_added_margin_bg    #31503d
 .EE
 .UNINDENT
 .UNINDENT
@@ -455,13 +518,14 @@ added_margin_bg    #cdffd8
 Added text backgrounds
 .INDENT 0.0
 .TP
-.B filler_bg
+.B filler_bg, dark_filler_bg
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-filler_bg #fafbfc
+filler_bg      #fafbfc
+dark_filler_bg #262c36
 .EE
 .UNINDENT
 .UNINDENT
@@ -469,13 +533,14 @@ filler_bg #fafbfc
 Filler (empty) line background
 .INDENT 0.0
 .TP
-.B margin_filler_bg
+.B margin_filler_bg, dark_margin_filler_bg
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-margin_filler_bg none
+margin_filler_bg      none
+dark_margin_filler_bg none
 .EE
 .UNINDENT
 .UNINDENT
@@ -483,14 +548,16 @@ margin_filler_bg none
 Filler (empty) line background in margins, defaults to the filler background
 .INDENT 0.0
 .TP
-.B hunk_margin_bg, hunk_bg
+.B hunk_margin_bg, dark_hunk_margin_bg, hunk_bg, dark_hunk_bg
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-hunk_margin_bg #dbedff
-hunk_bg        #f1f8ff
+hunk_margin_bg      #dbedff
+dark_hunk_margin_bg #0c2d6b
+hunk_bg             #f1f8ff
+dark_hunk_bg        #253142
 .EE
 .UNINDENT
 .UNINDENT
@@ -498,16 +565,20 @@ hunk_bg        #f1f8ff
 Hunk header colors
 .INDENT 0.0
 .TP
-.B search_bg, search_fg, select_bg, select_fg
+.B search_bg, dark_search_bg, search_fg, dark_search_fg, select_bg, dark_select_bg, select_fg, dark_select_fg
 .UNINDENT
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-search_bg #444
-search_fg white
-select_bg #b4d5fe
-select_fg black
+search_bg      #444
+dark_search_bg #2c599c
+search_fg      white
+dark_search_fg white
+select_bg      #b4d5fe
+dark_select_bg #2c599c
+select_fg      black
+dark_select_fg white
 .EE
 .UNINDENT
 .UNINDENT
@@ -587,6 +658,7 @@ map end scroll_to end
 .EX
 map page_down scroll_to next\-page
 map space scroll_to next\-page
+map ctrl+f scroll_to next\-page
 .EE
 .UNINDENT
 .UNINDENT
@@ -599,6 +671,31 @@ map space scroll_to next\-page
 .sp
 .EX
 map page_up scroll_to prev\-page
+map ctrl+b scroll_to prev\-page
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Scroll down half page
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map ctrl+d scroll_to next\-half\-page
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Scroll up half page
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map ctrl+u scroll_to prev\-half\-page
 .EE
 .UNINDENT
 .UNINDENT
@@ -623,6 +720,30 @@ map n scroll_to next\-change
 .sp
 .EX
 map p scroll_to prev\-change
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Scroll to next file
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map shift+j scroll_to next\-file
+.EE
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.TP
+.B Scroll to previous file
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.EX
+map shift+k scroll_to prev\-file
 .EE
 .UNINDENT
 .UNINDENT
@@ -774,13 +895,13 @@ map ctrl+c copy_to_clipboard_or_exit
 .UNINDENT
 .SH Source code for diff
 .sp
-The source code for this kitten is \X'tty: link https://github.com/kovidgoyal/kitty/tree/master/kittens/diff'\fI\%available on GitHub\fP\X'tty: link'\&.
+The source code for this kitten is available on GitHub \%<https://\:github\:.com/\:kovidgoyal/\:kitty/\:tree/\:master/\:kittens/\:diff>\&.
 .SH Command line interface
 .INDENT 0.0
 .INDENT 3.5
 .sp
 .EX
-kitty +kitten diff [options] file_or_directory_left file_or_directory_right
+kitten diff [options] file_or_directory_left file_or_directory_right
 .EE
 .UNINDENT
 .UNINDENT
@@ -800,7 +921,7 @@ Specify a path to the configuration file(s) to use. All configuration files are 
 .sp
 If this option is not specified, config files are searched for in the order: \fB$XDG_CONFIG_HOME/kitty/diff.conf\fP, \fB~/.config/kitty/diff.conf\fP, \fB$XDG_CONFIG_DIRS/kitty/diff.conf\fP\&. The first one that exists is used as the config file.
 .sp
-If the environment variable \X'tty: link #envvar-KITTY_CONFIG_DIRECTORY'\fI\%KITTY_CONFIG_DIRECTORY\fP\X'tty: link' is specified, that directory is always used and the above searching does not happen.
+If the environment variable \fBKITTY_CONFIG_DIRECTORY\fP \%<#\:envvar-KITTY_CONFIG_DIRECTORY> is specified, that directory is always used and the above searching does not happen.
 .sp
 If \fB/etc/xdg/kitty/diff.conf\fP exists, it is merged before (i.e. with lower priority) than any user config files. It can be used to specify system\-wide defaults for all users. You can use either \fB\-\fP or \fB/dev/stdin\fP to read the config from STDIN.
 .UNINDENT
@@ -818,6 +939,5 @@ comments describing each setting by clicking: \fBsample diff.conf\fP\&.
 Kovid Goyal
 .SH Copyright
 
-2024, Kovid Goyal
-.\" Generated by docutils manpage writer.
-.
+2025, Kovid Goyal
+.\" End of generated man page.

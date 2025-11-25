@@ -1,4 +1,4 @@
-.TH "kitten-run-shell" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-run-shell" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-run-shell \- Run the user\[aq]s shell with shell integration enabled
 .SH Usage
@@ -24,5 +24,10 @@ Specify an env var to set before running the shell. Of the form KEY=VAL. Can be 
 .BI "--cwd" 
 The working directory to use when executing the shell.
 .TP
-.BI "--help, -h" 
+.BI "--inject-self-onto-path" " [=always]"
+Add the directory containing this kitten binary to PATH. Directory is added only if not already present.
+
+Choices: always, never, unless-root
+.TP
+.BI "--help, -h" " [=no]"
 Show help for this command

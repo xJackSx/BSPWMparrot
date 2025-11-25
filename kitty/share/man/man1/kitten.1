@@ -1,4 +1,4 @@
-.TH "kitten" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten \- Fast, statically compiled implementations of various kittens (command line tools for use with kitty)
 .SH Usage
@@ -16,9 +16,21 @@ ask
 Ask the user for input. See: 
 .MR kitten-ask 1
 .TP 2
+choose-files
+Choose files, fast. See: 
+.MR kitten-choose-files 1
+.TP 2
+choose-fonts
+Choose the fonts used in kitty. See: 
+.MR kitten-choose-fonts 1
+.TP 2
 clipboard
 Copy/paste with the system clipboard, even over SSH. See: 
 .MR kitten-clipboard 1
+.TP 2
+desktop-ui
+Implement various desktop components for use with lightweight compositors/window managers on Linux. See: 
+.MR kitten-desktop-ui 1
 .TP 2
 diff
 Pretty, side\-by\-side diffing of files and images. See: 
@@ -43,6 +55,22 @@ Display images in the terminal. See:
 mouse-demo
 Demo the mouse handling kitty implements for terminal programs. See: 
 .MR kitten-mouse-demo 1
+.TP 2
+notify
+Send notifications to the user. See: 
+.MR kitten-notify 1
+.TP 2
+panel
+Use a command line program to draw a GPU accelerated panel on your desktop. See: 
+.MR kitten-panel 1
+.TP 2
+query-terminal
+Query the terminal for various capabilities. See: 
+.MR kitten-query-terminal 1
+.TP 2
+quick-access-terminal
+A quick access terminal window that you can bring up instantly with a keypress or a command.. See: 
+.MR kitten-quick-access-terminal 1
 .TP 2
 run-shell
 Run the user\[aq]s shell with shell integration enabled. See: 
@@ -78,8 +106,8 @@ command -h
 .YS
 .SH Options
 .TP
-.BI "--version" 
+.BI "--version" " [=no]"
 The current kitten version.
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command

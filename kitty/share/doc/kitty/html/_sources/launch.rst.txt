@@ -114,49 +114,94 @@ Watching launched windows
 
 The :option:`launch --watcher` option allows you to specify Python functions
 that will be called at specific events, such as when the window is resized or
-closed. Simply specify the path to a Python module that specifies callback
-functions for the events you are interested in, for example:
+closed. Note that you can also specify watchers that are loaded for all windows,
+via :opt:`watcher`. To create a watcher, specify the path to a Python module
+that specifies callback functions for the events you are interested in, for
+create :file:`~/.config/kitty/mywatcher.py` and use :option:`launch --watcher` = :file:`mywatcher.py`:
 
 .. code-block:: python
 
-    from typing import Any, Dict
+    # ~/.config/kitty/mywatcher.py
+    from typing import Any
 
     from kitty.boss import Boss
     from kitty.window import Window
 
 
-    def on_resize(boss: Boss, window: Window, data: Dict[str, Any]) -> None:
+    def on_load(boss: Boss, data: dict[str, Any]) -> None:
+        # This is a special function that is called just once when this watcher
+        # module is first loaded, can be used to perform any initializztion/one
+        # time setup. Any exceptions in this function are printed to kitty's
+        # STDERR but otherwise ignored.
+        ...
+
+    def on_resize(boss: Boss, window: Window, data: dict[str, Any]) -> None:
         # Here data will contain old_geometry and new_geometry
+        # Note that resize is also called the first time a window is created
+        # which can be detected as old_geometry will have all zero values, in
+        # particular, old_geometry.xnum and old_geometry.ynum will be zero.
+        ...
 
-    def on_focus_change(boss: Boss, window: Window, data: Dict[str, Any])-> None:
+    def on_focus_change(boss: Boss, window: Window, data: dict[str, Any])-> None:
         # Here data will contain focused
+        ...
 
-    def on_close(boss: Boss, window: Window, data: Dict[str, Any])-> None:
+    def on_close(boss: Boss, window: Window, data: dict[str, Any])-> None:
         # called when window is closed, typically when the program running in
         # it exits
+        ...
 
-    def on_set_user_var(boss: Boss, window: Window, data: Dict[str, Any]) -> None:
+    def on_set_user_var(boss: Boss, window: Window, data: dict[str, Any]) -> None:
         # called when a "user variable" is set or deleted on a window. Here
         # data will contain key and value
+        ...
 
-    def on_title_change(boss: Boss, window: Window, data: Dict[str, Any]) -> None:
+    def on_title_change(boss: Boss, window: Window, data: dict[str, Any]) -> None:
         # called when the window title is changed on a window. Here
         # data will contain title and from_child. from_child will be True
         # when a title change was requested via escape code from the program
         # running in the terminal
+        ...
 
-    def on_cmd_startstop(boss: Boss, window: Window, data: Dict[str, Any]) -> None:
+    def on_cmd_startstop(boss: Boss, window: Window, data: dict[str, Any]) -> None:
         # called when the shell starts/stops executing a command. Here
         # data will contain is_start, cmdline and time.
+        ...
+
+    def on_color_scheme_preference_change(boss: Boss, window: Window, data: dict[str, Any]) -> None:
+        # called when the color scheme preference of this window changes from
+        # light to dark or vice versa. data contains is_dark and via_escape_code
+        # the latter will be true if the color scheme was changed via escape
+        # code received from the program running in the window
+        ...
+
+    def on_tab_bar_dirty(boss: Boss, window: Window, data: dict[str, Any]) -> None:
+        # called when any changes happen to the tab bar, such a new tabs being
+        # created, tab titles changing, tabs moving, etc. Useful to display the
+        # tab bar externally to kitty. This is called even if the tab bar is
+        # hidden. Note that this is called only in *global watchers*, that is
+        # watchers defined in kitty.conf or using the --watcher command line
+        # flag. data contains tab_manager which is the object responsible for
+        # managing all tabs in a single OS Window.
+        ...
+
 
 Every callback is passed a reference to the global ``Boss`` object as well as
 the ``Window`` object the action is occurring on. The ``data`` object is a dict
-that contains event dependent data. Some useful methods and attributes for the
-``Window`` object are: ``as_text(as_ans=False, add_history=False,
-add_wrap_markers=False, alternate_screen=False)`` with which you can get the
-contents of the window and its scrollback buffer. Similarly,
-``window.child.pid`` is the PID of the processes that was launched
-in the window and ``window.id`` is the internal kitty ``id`` of the window.
+that contains event dependent data. You have full access to kitty internals in
+the watcher scripts, however kitty internals are not documented/stable so for
+most things you are better off using the kitty :doc:`Remote control API </remote-control>`.
+Simply call :code:`boss.call_remote_control()`, with the same arguments you
+would pass to ``kitten @``. For example:
+
+.. code-block:: python
+
+    def on_resize(boss: Boss, window: Window, data: dict[str, Any]) -> None:
+        # send some text to the resized window
+        boss.call_remote_control(window, ('send-text', f'--match=id:{window.id}', 'hello world'))
+
+Run, ``kitten @ --help`` in a kitty terminal, to see all the remote control
+commands available to you.
 
 
 Finding executables

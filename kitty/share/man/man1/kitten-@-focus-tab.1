@@ -1,4 +1,4 @@
-.TH "kitten-@-focus-tab" "1" "Jun 22, 2024" "0.35.2" "kitten Manual"
+.TH "kitten-@-focus-tab" "1" "Nov 03, 2025" "0.44.0" "kitten Manual"
 .SH Name
 kitten-@-focus-tab \- Focus the specified tab
 .SH Usage
@@ -9,7 +9,7 @@ The active window in the specified tab will be focused.
 .SH Options
 .TP
 .BI "--match, -m" 
-The tab to match. Match specifications are of the form: field:query. Where field can be one of: id, index, title, window_id, window_title, pid, cwd, cmdline env, var, state and recent. query is the expression to match. Expressions can be either a number or a regular expression, and can be combined using Boolean operators.
+The tab to match. Match specifications are of the form: field:query. Where field can be one of: id, index, title, window_id, window_title, pid, cwd, cmdline env, var, state, session and recent. query is the expression to match. Expressions can be either a number or a regular expression, and can be combined using Boolean operators.
 
 The special value all matches all tabs.
 
@@ -21,16 +21,18 @@ You can also use window_id and window_title to match the tab that contains the w
 
 The index number is used to match the nth tab in the currently active OS window. The recent number matches recently active tabs in the currently active OS window, with zero being the currently active tab, one the previously active tab and so on.
 
+The field session matches tabs that were created in the specified session. Use the expression \(ha$ to match windows that were not created in a session and . to match the currently active session and \(ti to match either the currently active sesison or the last active session when no session is active.
+
 When using the env field to match on environment variables, you can specify only the environment variable name or a name and value, for example, env:MY_ENV_VAR=2. Tabs containing any window with the specified environment variables are matched. Similarly, var matches tabs containing any window with the specified user variable.
 
-The field state matches on the state of the tab. Supported states are: active, focused, needs_attention, parent_active and parent_focused. Active tabs are the tabs that are active in their parent OS window. There is only one focused tab and it is the tab to which keyboard events are delivered. If no tab is focused, the last focused tab is matched.
+The field state matches on the state of the tab. Supported states are: active, focused, needs_attention, parent_active, parent_focused and focused_os_window. Active tabs are the tabs that are active in their parent OS window. There is only one focused tab and it is the tab to which keyboard events are delivered. If no tab is focused, the last focused tab is matched. The value focused_os_window matches all tabs in the currently focused OS window.
 
 Note that you can use the kitten @ ls command to get a list of tabs.
 .TP
-.BI "--no-response" 
+.BI "--no-response" " [=no]"
 Don\[aq]t wait for a response indicating the success of the action. Note that using this option means that you will not be notified of failures.
 .TP
-.BI "--help, -h" 
+.BI "--help, -h" " [=no]"
 Show help for this command
 .SH Global options
 .TP
@@ -47,7 +49,7 @@ A password to use when contacting kitty. This will cause kitty to ask the user f
 .B \-\-use\-password as always.
 .TP
 .BI "--password-file" " [=rc\-pass]"
-A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Used if no 
+A file from which to read the password. Trailing whitespace is ignored. Relative paths are resolved from the kitty configuration directory. Use \- to read from STDIN. Use fd:num to read from the file descriptor num. Used if no 
 .B \-\-password is supplied. Defaults to checking for the 
 .I rc\-pass file in the kitty configuration directory.
 .TP
