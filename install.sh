@@ -68,6 +68,7 @@ sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/.pow
 
 mkdir -p ~/.config/rofi/themes
 cp $ruta/rofi/* ~/.config/rofi/themes/
+cp $ruta/rofi/template ~/.config/rofi/themes/.
 
 # Instando lsd
 
