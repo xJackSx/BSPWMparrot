@@ -108,7 +108,6 @@ sudo cp -v $ruta/.p10k.zsh-root /root/.p10k.zsh
 # Script
 
 sudo cp -v $ruta/scripts/whichSystem.py /usr/local/bin/
-sudo cp -v $ruta/scripts/screenshot /usr/local/bin/
 
 # Plugins ZSH
 
